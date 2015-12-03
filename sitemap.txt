@@ -1,33 +1,59 @@
 											// E - Planner //
 
-//[1] New Assignment //		//[2] Late Assignments //			//[3] Assignment Calendar //		//[5] New Subject //		//[5] Settings //
+//Instructor View
+
+//Nav bar:
+//[1] Assignment Manager//		//[2] Student Assignments //			//[3] Assignment Calendar //		//[4] Subject Manager //		//[5] Student Manager //
 
 [1]
+
+assignment{
 Title:
 Due Date:
 Subject: [English 8] (pre-hardcoded options, pickable)
 Expiration Date: (optional, hidden from the student)
+}
+
+StudentAssignment{
+assignment:objectID -> assignment
+Completed: t/f
+TimesSubmitted: int
+}
 
 [2]
 Views:
 	By All Students [default]
-	By Subject
 	By Student (option to display Expired Assignments with Expiration Date)
+	All Subjects
+	By Subject
 	
 [3]
 	Current Assignments by Week or Month
 	
+[4]
+	subject{
+		Name:asdf
+	}
+
 [5]
+	Student{
+		name:
+		password:
+		subjects: []
+	}
+
+	Instructor{
+		name:
+		password:
+		students: []
+	}
+
 Notes: 
 	Admin can mark items are Not Accepted
 	Admin can mark items Expired
 	
 	
-Student view
-	Current Assignments List
-	Completed Assignments List
-	Expired Assignments List
-
+//Student view
+//Nav bar
+//[1] Current Assignments List [2] Completed Assignments List
 	
-
-
