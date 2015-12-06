@@ -1,25 +1,38 @@
 webpackJsonp([1],{
 
 /***/ 0:
+/*!****************************!*\
+  !*** ./components/main.js ***!
+  \****************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(158);
-	var ReactRouter = __webpack_require__(159);
-
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactDOM = __webpack_require__(/*! react-dom */ 158);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
 	var Router = ReactRouter.Router;
 	var Route = ReactRouter.Route;
 	var IndexRoute = ReactRouter.IndexRoute;
-
-	var App = __webpack_require__(210);
-	var Home = __webpack_require__(213);
-	var List = __webpack_require__(214);
-	var Login = __webpack_require__(220);
-	var Register = __webpack_require__(221);
-
-	__webpack_require__(222);
-	__webpack_require__(231);
-
+	
+	var App = __webpack_require__(/*! ./app.js */ 210);
+	var Home = __webpack_require__(/*! ./home.js */ 213);
+	var List = __webpack_require__(/*! ./list.js */ 214);
+	var Login = __webpack_require__(/*! ./login.js */ 220);
+	var Register = __webpack_require__(/*! ./register.js */ 221);
+	
+	var ViewStudents = __webpack_require__(/*! ./view-students.js */ 222);
+	var AddStudent = __webpack_require__(/*! ./add-student.js */ 224);
+	var ViewSubjects = __webpack_require__(/*! ./view-subjects.js */ 225);
+	var AddSubject = __webpack_require__(/*! ./add-subject.js */ 226);
+	var ViewAssignments = __webpack_require__(/*! ./view-assignments.js */ 227);
+	var AddAssignment = __webpack_require__(/*! ./add-assignment.js */ 228);
+	var CurrentAssignments = __webpack_require__(/*! ./current-assignments.js */ 229);
+	var LateAssignments = __webpack_require__(/*! ./late-assignments.js */ 230);
+	var ExpiredAssignments = __webpack_require__(/*! ./expired-assignments.js */ 231);
+	
+	__webpack_require__(/*! ../../~/bootstrap/dist/css/bootstrap.min.css */ 232);
+	__webpack_require__(/*! ../css/app.css */ 241);
+	
 	var routes = React.createElement(
 	  Router,
 	  null,
@@ -27,44 +40,58 @@ webpackJsonp([1],{
 	    Route,
 	    { name: "app", path: "/", component: App },
 	    React.createElement(IndexRoute, { component: Home }),
-	    React.createElement(Route, { name: "list", path: "/list", component: List }),
-	    React.createElement(Route, { name: "active", path: "/list/active", component: List }),
-	    React.createElement(Route, { name: "completed", path: "/list/completed", component: List }),
-	    React.createElement(Route, { name: "login", path: "/login", component: Login }),
-	    React.createElement(Route, { name: "register", path: "/register", component: Register })
+	    React.createElement(Route, { path: "/list", component: List }),
+	    React.createElement(Route, { path: "/login", component: Login }),
+	    React.createElement(Route, { path: "/register", component: Register }),
+	    "// Our code below",
+	    React.createElement(Route, { path: "/studentmanager/viewall", component: ViewStudents }),
+	    React.createElement(Route, { path: "/studentmanager/add", component: AddStudent }),
+	    React.createElement(Route, { path: "/subjectmanager/viewall", component: ViewSubjects }),
+	    React.createElement(Route, { path: "/subjectmanager/add", component: AddSubject }),
+	    React.createElement(Route, { path: "/assignmentmanager/viewall", component: ViewAssignments }),
+	    React.createElement(Route, { path: "/assignmentmanager/add", component: AddAssignment }),
+	    React.createElement(Route, { path: "/studentassignments/current", component: CurrentAssignments }),
+	    React.createElement(Route, { path: "/studentassignments/late", component: LateAssignments }),
+	    React.createElement(Route, { path: "/studentassignments/expired", component: ExpiredAssignments })
 	  )
 	);
-
+	
 	ReactDOM.render(routes, document.getElementById('content'));
 
 /***/ },
 
 /***/ 158:
+/*!*******************************!*\
+  !*** ../~/react-dom/index.js ***!
+  \*******************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
-	module.exports = __webpack_require__(3);
+	
+	module.exports = __webpack_require__(/*! react/lib/ReactDOM */ 3);
 
 
 /***/ },
 
 /***/ 210:
+/*!***************************!*\
+  !*** ./components/app.js ***!
+  \***************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-	var ReactRouter = __webpack_require__(159);
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	var History = ReactRouter.History;
-
-	var auth = __webpack_require__(211);
-
+	
+	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	
 	// Top-level component for the app
 	var App = React.createClass({
 	  displayName: "App",
-
+	
 	  // mixin for navigation
 	  mixins: [History],
-
+	
 	  // initial state
 	  getInitialState: function () {
 	    return {
@@ -72,23 +99,23 @@ webpackJsonp([1],{
 	      loggedIn: auth.loggedIn()
 	    };
 	  },
-
+	
 	  // callback when user is logged in
 	  setStateOnAuth: function (loggedIn) {
 	    this.setState({ loggedIn: loggedIn });
 	  },
-
+	
 	  // when the component loads, setup the callback
 	  componentWillMount: function () {
 	    auth.onChange = this.setStateOnAuth;
 	  },
-
+	
 	  // logout the user and redirect to home page
 	  logout: function (event) {
 	    auth.logout();
 	    this.history.pushState(null, '/');
 	  },
-
+	
 	  // show the navigation bar
 	  // the route handler replaces the RouteHandler element with the current page
 	  render: function () {
@@ -133,8 +160,8 @@ webpackJsonp([1],{
 	                null,
 	                React.createElement(
 	                  "a",
-	                  { href: "#/list" },
-	                  "All"
+	                  { href: "#/subjectmanager/viewall" },
+	                  "Subject Manager"
 	                )
 	              ),
 	              React.createElement(
@@ -142,8 +169,8 @@ webpackJsonp([1],{
 	                null,
 	                React.createElement(
 	                  "a",
-	                  { href: "#/list/active" },
-	                  "Active"
+	                  { href: "#/assignmentmanager/viewall" },
+	                  "Assignment Manager"
 	                )
 	              ),
 	              React.createElement(
@@ -151,8 +178,17 @@ webpackJsonp([1],{
 	                null,
 	                React.createElement(
 	                  "a",
-	                  { href: "#/list/completed" },
-	                  "Completed"
+	                  { href: "#/studentmanager/viewall" },
+	                  "Student Manager"
+	                )
+	              ),
+	              React.createElement(
+	                "li",
+	                null,
+	                React.createElement(
+	                  "a",
+	                  { href: "#/studentassignments/late" },
+	                  "Student Assignments"
 	                )
 	              ),
 	              React.createElement(
@@ -176,16 +212,19 @@ webpackJsonp([1],{
 	    );
 	  }
 	});
-
+	
 	module.exports = App;
 
 /***/ },
 
 /***/ 211:
+/*!****************************!*\
+  !*** ./components/auth.js ***!
+  \****************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var $ = __webpack_require__(212);
-
+	var $ = __webpack_require__(/*! jquery */ 212);
+	
 	// authentication object
 	var auth = {
 	  register: function (name, username, password, cb) {
@@ -225,7 +264,7 @@ webpackJsonp([1],{
 	      if (cb) cb(true);
 	      return;
 	    }
-
+	
 	    // submit request to server
 	    var url = "/api/users/login";
 	    $.ajax({
@@ -272,23 +311,26 @@ webpackJsonp([1],{
 	  // default onChange function
 	  onChange: function () {}
 	};
-
+	
 	module.exports = auth;
 
 /***/ },
 
 /***/ 213:
+/*!****************************!*\
+  !*** ./components/home.js ***!
+  \****************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-	var ReactRouter = __webpack_require__(159);
-
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
 	var Link = ReactRouter.Link;
-
+	
 	// Home page, which shows Login and Register buttons
 	var Home = React.createClass({
 	  displayName: "Home",
-
+	
 	  render: function () {
 	    return React.createElement(
 	      "p",
@@ -307,33 +349,36 @@ webpackJsonp([1],{
 	    );
 	  }
 	});
-
+	
 	module.exports = Home;
 
 /***/ },
 
 /***/ 214:
+/*!****************************!*\
+  !*** ./components/list.js ***!
+  \****************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-	var ReactRouter = __webpack_require__(159);
-
-	var ListHeader = __webpack_require__(215);
-	var ListEntry = __webpack_require__(217);
-	var ListItems = __webpack_require__(218);
-
-	var api = __webpack_require__(216);
-	var auth = __webpack_require__(211);
-
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var ListHeader = __webpack_require__(/*! ./listheader.js */ 215);
+	var ListEntry = __webpack_require__(/*! ./listentry.js */ 217);
+	var ListItems = __webpack_require__(/*! ./listitems.js */ 218);
+	
+	var api = __webpack_require__(/*! ./api.js */ 216);
+	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	
 	// List page, shows the todo list of items
 	var List = React.createClass({
 	  displayName: "List",
-
+	
 	  // context so the component can access the router
 	  contextTypes: {
 	    location: React.PropTypes.object
 	  },
-
+	
 	  // initial state
 	  getInitialState: function () {
 	    return {
@@ -341,17 +386,17 @@ webpackJsonp([1],{
 	      items: []
 	    };
 	  },
-
+	
 	  // when the component loads, get the list items
 	  componentDidMount: function () {
 	    api.getItems(this.listSet);
 	  },
-
+	
 	  // reload the list of items
 	  reload: function () {
 	    api.getItems(this.listSet);
 	  },
-
+	
 	  // callback for getting the list of items, sets the list state
 	  listSet: function (status, data) {
 	    if (status) {
@@ -364,7 +409,7 @@ webpackJsonp([1],{
 	      this.context.router.transitionTo('/login');
 	    }
 	  },
-
+	
 	  // Show the list of items. This component has the following children: ListHeader, ListEntry and ListItems
 	  render: function () {
 	    var name = auth.getName();
@@ -381,22 +426,25 @@ webpackJsonp([1],{
 	    );
 	  }
 	});
-
+	
 	module.exports = List;
 
 /***/ },
 
 /***/ 215:
+/*!**********************************!*\
+  !*** ./components/listheader.js ***!
+  \**********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-
-	var api = __webpack_require__(216);
-
+	var React = __webpack_require__(/*! react */ 1);
+	
+	var api = __webpack_require__(/*! ./api.js */ 216);
+	
 	// List header, which shows who the list is for, the number of items in the list, and a button to clear completed items
 	var ListHeader = React.createClass({
 	  displayName: "ListHeader",
-
+	
 	  // handle the clear completed button submit   
 	  clearCompleted: function (event) {
 	    // loop through the items, and delete any that are complete
@@ -409,7 +457,7 @@ webpackJsonp([1],{
 	    // reload the list
 	    this.props.reload();
 	  },
-
+	
 	  // render the list header
 	  render: function () {
 	    // true if there are any completed items
@@ -474,16 +522,19 @@ webpackJsonp([1],{
 	    );
 	  }
 	});
-
+	
 	module.exports = ListHeader;
 
 /***/ },
 
 /***/ 216:
+/*!***************************!*\
+  !*** ./components/api.js ***!
+  \***************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var $ = __webpack_require__(212);
-
+	var $ = __webpack_require__(/*! jquery */ 212);
+	
 	// API object
 	var api = {
 	  // get the list of items, call the callback when complete
@@ -568,24 +619,27 @@ webpackJsonp([1],{
 	      }
 	    });
 	  }
-
+	
 	};
-
+	
 	module.exports = api;
 
 /***/ },
 
 /***/ 217:
+/*!*********************************!*\
+  !*** ./components/listentry.js ***!
+  \*********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-
-	var api = __webpack_require__(216);
-
+	var React = __webpack_require__(/*! react */ 1);
+	
+	var api = __webpack_require__(/*! ./api.js */ 216);
+	
 	// List entry component, handles adding new items to the list
 	var ListEntry = React.createClass({
 	  displayName: "ListEntry",
-
+	
 	  // handles submit event for adding a new item
 	  addItem: function (event) {
 	    // prevent default browser submit
@@ -599,7 +653,7 @@ webpackJsonp([1],{
 	    api.addItem(title, this.props.reload);
 	    this.refs.title.value = '';
 	  },
-
+	
 	  // render the item entry area
 	  render: function () {
 	    return React.createElement(
@@ -613,23 +667,26 @@ webpackJsonp([1],{
 	    );
 	  }
 	});
-
+	
 	module.exports = ListEntry;
 
 /***/ },
 
 /***/ 218:
+/*!*********************************!*\
+  !*** ./components/listitems.js ***!
+  \*********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-	var ReactRouter = __webpack_require__(159);
-
-	var Item = __webpack_require__(219);
-
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var Item = __webpack_require__(/*! ./item.js */ 219);
+	
 	// List items component, shows the list of items
 	var ListItems = React.createClass({
 	  displayName: "ListItems",
-
+	
 	  // context so the component can access the router
 	  contextTypes: {
 	    location: React.PropTypes.object
@@ -647,12 +704,12 @@ webpackJsonp([1],{
 	          return true;
 	      }
 	    }, this);
-
+	
 	    // using the list of items, generate an Item element for each one
 	    var list = shown.map((function (item) {
 	      return React.createElement(Item, { key: item.id, item: item, reload: this.props.reload });
 	    }).bind(this));
-
+	
 	    // render the list
 	    return React.createElement(
 	      "ul",
@@ -661,22 +718,25 @@ webpackJsonp([1],{
 	    );
 	  }
 	});
-
+	
 	module.exports = ListItems;
 
 /***/ },
 
 /***/ 219:
+/*!****************************!*\
+  !*** ./components/item.js ***!
+  \****************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-
-	var api = __webpack_require__(216);
-
+	var React = __webpack_require__(/*! react */ 1);
+	
+	var api = __webpack_require__(/*! ./api.js */ 216);
+	
 	// Item shown in the todo list
 	var Item = React.createClass({
 	  displayName: "Item",
-
+	
 	  // initial state
 	  getInitialState: function () {
 	    return {
@@ -768,27 +828,30 @@ webpackJsonp([1],{
 	    );
 	  }
 	});
-
+	
 	module.exports = Item;
 
 /***/ },
 
 /***/ 220:
+/*!*****************************!*\
+  !*** ./components/login.js ***!
+  \*****************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-	var ReactRouter = __webpack_require__(159);
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	var History = ReactRouter.History;
-
-	var auth = __webpack_require__(211);
-
+	
+	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	
 	// Login page, shows the login form and redirects to the list if login is successful
 	var Login = React.createClass({
 	  displayName: "Login",
-
+	
 	  // mixin for navigation
 	  mixins: [History],
-
+	
 	  // initial state
 	  getInitialState: function () {
 	    return {
@@ -796,7 +859,7 @@ webpackJsonp([1],{
 	      error: false
 	    };
 	  },
-
+	
 	  // handle login button submit
 	  login: function (event) {
 	    // prevent default browser submit
@@ -816,7 +879,7 @@ webpackJsonp([1],{
 	      this.history.pushState(null, '/list');
 	    }).bind(this));
 	  },
-
+	
 	  // show the login form
 	  render: function () {
 	    return React.createElement(
@@ -842,27 +905,30 @@ webpackJsonp([1],{
 	    );
 	  }
 	});
-
+	
 	module.exports = Login;
 
 /***/ },
 
 /***/ 221:
+/*!********************************!*\
+  !*** ./components/register.js ***!
+  \********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-	var ReactRouter = __webpack_require__(159);
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	var History = ReactRouter.History;
-
-	var auth = __webpack_require__(211);
-
+	
+	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	
 	// Register page, shows the registration form and redirects to the list if login is successful
 	var Register = React.createClass({
 	  displayName: "Register",
-
+	
 	  // mixin for navigation
 	  mixins: [History],
-
+	
 	  // initial state
 	  getInitialState: function () {
 	    return {
@@ -870,7 +936,7 @@ webpackJsonp([1],{
 	      error: false
 	    };
 	  },
-
+	
 	  // handle regiser button submit
 	  register: function (event) {
 	    // prevent default browser submit
@@ -891,7 +957,7 @@ webpackJsonp([1],{
 	      this.history.pushState(null, '/list');
 	    }).bind(this));
 	  },
-
+	
 	  // show the registration form
 	  render: function () {
 	    return React.createElement(
@@ -918,19 +984,394 @@ webpackJsonp([1],{
 	    );
 	  }
 	});
-
+	
 	module.exports = Register;
 
 /***/ },
 
 /***/ 222:
+/*!*************************************!*\
+  !*** ./components/view-students.js ***!
+  \*************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 216);
+	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
+	
+	var ViewStudents = React.createClass({
+		displayName: "ViewStudents",
+	
+		render: function () {
+	
+			var myData = {
+				tabData: [{ tabName: "View Students", tabLink: "#/studentmanager/viewall", active: true }, { tabName: "Add Students", tabLink: "#/studentmanager/add", active: false }]
+			};
+	
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(TabBar, { data: myData }),
+				"View Students!!!!!!!!!!!!!!!!!!!!!!!!"
+			);
+		}
+	});
+	
+	module.exports = ViewStudents;
+
+/***/ },
+
+/***/ 223:
+/*!*******************************!*\
+  !*** ./components/tab-bar.js ***!
+  \*******************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 216);
+	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	
+	var TabBar = React.createClass({
+		displayName: "TabBar",
+	
+		render: function () {
+	
+			var tabs = this.props.data.tabData.map(function (tab) {
+				return React.createElement(
+					"li",
+					{ role: "presentation", key: tab.tabName, className: tab.active ? "active" : "" },
+					React.createElement(
+						"a",
+						{ href: tab.tabLink },
+						tab.tabName
+					)
+				);
+			});
+	
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(
+					"ul",
+					{ className: "nav nav-tabs" },
+					tabs
+				)
+			);
+		}
+	});
+	
+	module.exports = TabBar;
+
+/***/ },
+
+/***/ 224:
+/*!***********************************!*\
+  !*** ./components/add-student.js ***!
+  \***********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 216);
+	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
+	
+	var AddStudent = React.createClass({
+		displayName: "AddStudent",
+	
+		render: function () {
+	
+			var myData = {
+				tabData: [{ tabName: "View Students", tabLink: "#/studentmanager/viewall", active: false }, { tabName: "Add Students", tabLink: "#/studentmanager/add", active: true }]
+			};
+	
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(TabBar, { data: myData }),
+				"Add Student!!!!!!!!!!!!!!!!!!!!!"
+			);
+		}
+	});
+	
+	module.exports = AddStudent;
+
+/***/ },
+
+/***/ 225:
+/*!*************************************!*\
+  !*** ./components/view-subjects.js ***!
+  \*************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 216);
+	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar.js */ 223);
+	
+	var ViewSubjects = React.createClass({
+		displayName: "ViewSubjects",
+	
+		render: function () {
+	
+			var myData = {
+				tabData: [{ tabName: "View Subjects", tabLink: "#/subjectmanager/viewall", active: true }, { tabName: "Add Subject", tabLink: "#/subjectmanager/add", active: false }]
+			};
+	
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(TabBar, { data: myData }),
+				"View Subjects!!!!!!!!!!!!!!!!!!!!!!!!"
+			);
+		}
+	});
+	
+	module.exports = ViewSubjects;
+
+/***/ },
+
+/***/ 226:
+/*!***********************************!*\
+  !*** ./components/add-subject.js ***!
+  \***********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 216);
+	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
+	
+	var AddSubject = React.createClass({
+		displayName: "AddSubject",
+	
+		render: function () {
+	
+			var myData = {
+				tabData: [{ tabName: "View Subjects", tabLink: "#/subjectmanager/viewall", active: false }, { tabName: "Add Subject", tabLink: "#/subjectmanager/add", active: true }]
+			};
+	
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(TabBar, { data: myData }),
+				"Add Subject!!!!!!!!!!!!!!!!!!!!!"
+			);
+		}
+	});
+	
+	module.exports = AddSubject;
+
+/***/ },
+
+/***/ 227:
+/*!****************************************!*\
+  !*** ./components/view-assignments.js ***!
+  \****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 216);
+	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
+	
+	var ViewAssignments = React.createClass({
+		displayName: "ViewAssignments",
+	
+		render: function () {
+	
+			var myData = {
+				tabData: [{ tabName: "View Assignments", tabLink: "#/assignmentmanager/viewall", active: true }, { tabName: "Add Assignment", tabLink: "#/assignmentmanager/add", active: false }]
+			};
+	
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(TabBar, { data: myData }),
+				"View Assignments!!!!!!!!!!!!!!!!!!!!!!!!"
+			);
+		}
+	});
+	
+	module.exports = ViewAssignments;
+
+/***/ },
+
+/***/ 228:
+/*!**************************************!*\
+  !*** ./components/add-assignment.js ***!
+  \**************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 216);
+	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
+	
+	var AddAssignment = React.createClass({
+		displayName: "AddAssignment",
+	
+		render: function () {
+	
+			var myData = {
+				tabData: [{ tabName: "View Assignments", tabLink: "#/assignmentmanager/viewall", active: false }, { tabName: "Add Assignment", tabLink: "#/assignmentmanager/add", active: true }]
+			};
+	
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(TabBar, { data: myData }),
+				"Add Assignment!!!!!!!!!!!!!!!!!!!!!"
+			);
+		}
+	});
+	
+	module.exports = AddAssignment;
+
+/***/ },
+
+/***/ 229:
+/*!*******************************************!*\
+  !*** ./components/current-assignments.js ***!
+  \*******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 216);
+	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
+	
+	var CurrentAssignments = React.createClass({
+		displayName: "CurrentAssignments",
+	
+		render: function () {
+	
+			var myData = {
+				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: true }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: false }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false }]
+			};
+	
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(TabBar, { data: myData }),
+				"Current Assignments!!!!!!!!!!!!!!!!!!!!!"
+			);
+		}
+	});
+	
+	module.exports = CurrentAssignments;
+
+/***/ },
+
+/***/ 230:
+/*!****************************************!*\
+  !*** ./components/late-assignments.js ***!
+  \****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 216);
+	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
+	
+	var LateAssignments = React.createClass({
+		displayName: "LateAssignments",
+	
+		render: function () {
+	
+			var myData = {
+				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: true }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false }]
+			};
+	
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(TabBar, { data: myData }),
+				"Late Assignments!!!!!!!!!!!!!!!!!!!!!"
+			);
+		}
+	});
+	
+	module.exports = LateAssignments;
+
+/***/ },
+
+/***/ 231:
+/*!*******************************************!*\
+  !*** ./components/expired-assignments.js ***!
+  \*******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 216);
+	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
+	
+	var ExpiredAssignments = React.createClass({
+		displayName: "ExpiredAssignments",
+	
+		render: function () {
+	
+			var myData = {
+				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: false }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: true }]
+			};
+	
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(TabBar, { data: myData }),
+				"Expired Assignments!!!!!!!!!!!!!!!!!!!!!"
+			);
+		}
+	});
+	
+	module.exports = ExpiredAssignments;
+
+/***/ },
+
+/***/ 232:
+/*!*************************************************!*\
+  !*** ../~/bootstrap/dist/css/bootstrap.min.css ***!
+  \*************************************************/
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 231:
+/***/ 241:
+/*!*********************!*\
+  !*** ./css/app.css ***!
+  \*********************/
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
@@ -938,3 +1379,5 @@ webpackJsonp([1],{
 /***/ }
 
 });
+//# sourceMappingURL=app.js.map
+//# sourceMappingURL=app.js.map

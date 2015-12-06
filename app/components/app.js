@@ -52,9 +52,10 @@ var App = React.createClass({
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               {this.state.loggedIn ? (
                  <ul className="nav navbar-nav">
-                   <li><a href="#/list">All</a></li>
-                   <li><a href="#/list/active">Active</a></li>
-                   <li><a href="#/list/completed">Completed</a></li>
+                   <li><a href="#/subjectmanager/viewall">Subject Manager</a></li>
+                   <li><a href="#/assignmentmanager/viewall">Assignment Manager</a></li>
+                   <li><a href="#/studentmanager/viewall">Student Manager</a></li>
+                   <li><a href="#/studentassignments/late">Student Assignments</a></li>
                    <li><a href="#" onClick={this.logout}>Logout</a></li>
                  </ul>
                ) : (<div></div>)}
