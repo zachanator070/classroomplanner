@@ -1,0 +1,59 @@
+											// E - Planner //
+
+// ADMIN VIEW
+//[1] Assignment Manager//		//[2] Student Assignments	//[3] Subject Manager //		//[5] Student Manager //
+
+Student Assignment Views:
+
+	By All Students [default]
+	By Student (option to display Expired Assignments with Expiration Date)
+	All Subjects
+	By Subject
+
+// STUDENT VIEW
+//Nav bar
+	//[1] Current Assignments List [2] Completed Assignments List
+
+==============
+|| DATABASE DESIGN ||
+==============
+
+users{
+	Student {
+		name:
+		password:
+		subjects: [ "English 7", "Math 8"]
+	}
+
+	Instructor {
+		name:
+		password:
+		students: [list of names]
+	}
+}
+
+subjects{
+	subject{
+		name: name
+		instructor: name
+	}
+}
+
+assignments{
+	Assignment {
+		Title:
+		Due Date:
+		Expiration Date: (optional, hidden from the student)
+	}
+
+	StudentAssignment {
+		assignment: assignmentName
+		Completed: t/f
+		TimesSubmitted: int
+		student: name
+	}
+}
+
+Notes:
+	Admin can mark items are Not Accepted
+	Admin can mark items Expired
