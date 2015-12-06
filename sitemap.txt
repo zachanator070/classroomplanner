@@ -3,7 +3,7 @@
 //Instructor View
 
 //Nav bar:
-//[1] Assignment Manager//		//[2] Student Assignments //			//[3] Assignment Calendar //		//[4] Subject Manager //		//[5] Student Manager //
+//[1] Assignment Manager//		//[2] Student Assignments	//[3] Subject Manager //		//[5] Student Manager //
 
 [1]
 
@@ -26,16 +26,13 @@ Views:
 	By Student (option to display Expired Assignments with Expiration Date)
 	All Subjects
 	By Subject
-	
+
 [3]
-	Current Assignments by Week or Month
-	
-[4]
 	subject{
 		Name:asdf
 	}
 
-[5]
+[4]
 	Student{
 		name:
 		password:
