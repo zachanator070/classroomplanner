@@ -1002,6 +1002,7 @@ webpackJsonp([1],{
 	var auth = __webpack_require__(/*! ./auth.js */ 211);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
+	var Table = __webpack_require__(/*! ./table.js */ 243);
 	
 	var ViewStudents = React.createClass({
 		displayName: "ViewStudents",
@@ -1012,11 +1013,13 @@ webpackJsonp([1],{
 				tabData: [{ tabName: "View Students", tabLink: "#/studentmanager/viewall", active: true }, { tabName: "Add Students", tabLink: "#/studentmanager/add", active: false }]
 			};
 	
+			var tableData = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [13, 14, 15], [16, 17, 18]];
+	
 			return React.createElement(
 				"div",
 				null,
 				React.createElement(TabBar, { data: myData }),
-				"View Students!!!!!!!!!!!!!!!!!!!!!!!!"
+				React.createElement(Table, { data: tableData })
 			);
 		}
 	});
@@ -1119,6 +1122,7 @@ webpackJsonp([1],{
 	var auth = __webpack_require__(/*! ./auth.js */ 211);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar.js */ 223);
+	var Table = __webpack_require__(/*! ./table.js */ 243);
 	
 	var ViewSubjects = React.createClass({
 		displayName: "ViewSubjects",
@@ -1129,11 +1133,13 @@ webpackJsonp([1],{
 				tabData: [{ tabName: "View Subjects", tabLink: "#/subjectmanager/viewall", active: true }, { tabName: "Add Subject", tabLink: "#/subjectmanager/add", active: false }]
 			};
 	
+			var tableData = [[1, 2, 3], [7, 8, 9], [10, 11, 12], [13, 14, 15], [16, 17, 18]];
+	
 			return React.createElement(
 				"div",
 				null,
 				React.createElement(TabBar, { data: myData }),
-				"View Subjects!!!!!!!!!!!!!!!!!!!!!!!!"
+				React.createElement(Table, { data: tableData })
 			);
 		}
 	});
@@ -1191,6 +1197,7 @@ webpackJsonp([1],{
 	var auth = __webpack_require__(/*! ./auth.js */ 211);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
+	var Table = __webpack_require__(/*! ./table.js */ 243);
 	
 	var ViewAssignments = React.createClass({
 		displayName: "ViewAssignments",
@@ -1201,11 +1208,13 @@ webpackJsonp([1],{
 				tabData: [{ tabName: "View Assignments", tabLink: "#/assignmentmanager/viewall", active: true }, { tabName: "Add Assignment", tabLink: "#/assignmentmanager/add", active: false }]
 			};
 	
+			var tableData = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12], [16, 17, 18]];
+	
 			return React.createElement(
 				"div",
 				null,
 				React.createElement(TabBar, { data: myData }),
-				"View Assignments!!!!!!!!!!!!!!!!!!!!!!!!"
+				React.createElement(Table, { data: tableData })
 			);
 		}
 	});
@@ -1263,6 +1272,7 @@ webpackJsonp([1],{
 	var auth = __webpack_require__(/*! ./auth.js */ 211);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
+	var Table = __webpack_require__(/*! ./table.js */ 243);
 	
 	var CurrentAssignments = React.createClass({
 		displayName: "CurrentAssignments",
@@ -1273,11 +1283,13 @@ webpackJsonp([1],{
 				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: true }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: false }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false }]
 			};
 	
+			var tableData = [[1, 2, 3], [7, 8, 9], [13, 14, 15], [16, 17, 18]];
+	
 			return React.createElement(
 				"div",
 				null,
 				React.createElement(TabBar, { data: myData }),
-				"Current Assignments!!!!!!!!!!!!!!!!!!!!!"
+				React.createElement(Table, { data: tableData })
 			);
 		}
 	});
@@ -1299,6 +1311,7 @@ webpackJsonp([1],{
 	var auth = __webpack_require__(/*! ./auth.js */ 211);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
+	var Table = __webpack_require__(/*! ./table.js */ 243);
 	
 	var LateAssignments = React.createClass({
 		displayName: "LateAssignments",
@@ -1309,11 +1322,13 @@ webpackJsonp([1],{
 				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: true }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false }]
 			};
 	
+			var tableData = [[1, 2, 3], [7, 8, 9], [10, 11, 12], [13, 14, 15]];
+	
 			return React.createElement(
 				"div",
 				null,
 				React.createElement(TabBar, { data: myData }),
-				"Late Assignments!!!!!!!!!!!!!!!!!!!!!"
+				React.createElement(Table, { data: tableData })
 			);
 		}
 	});
@@ -1335,6 +1350,7 @@ webpackJsonp([1],{
 	var auth = __webpack_require__(/*! ./auth.js */ 211);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
+	var Table = __webpack_require__(/*! ./table.js */ 243);
 	
 	var ExpiredAssignments = React.createClass({
 		displayName: "ExpiredAssignments",
@@ -1345,11 +1361,13 @@ webpackJsonp([1],{
 				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: false }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: true }]
 			};
 	
+			var tableData = [[7, 8, 9], [10, 11, 12], [13, 14, 15], [16, 17, 18]];
+	
 			return React.createElement(
 				"div",
 				null,
 				React.createElement(TabBar, { data: myData }),
-				"Expired Assignments!!!!!!!!!!!!!!!!!!!!!"
+				React.createElement(Table, { data: tableData })
 			);
 		}
 	});
@@ -1375,6 +1393,112 @@ webpackJsonp([1],{
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 243:
+/*!*****************************!*\
+  !*** ./components/table.js ***!
+  \*****************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var TableHeader = __webpack_require__(/*! ./table-header.js */ 244);
+	
+	var Table = React.createClass({
+		displayName: 'Table',
+	
+		getInitialState: function () {
+			return { data: this.props.data };
+		},
+	
+		render: function () {
+	
+			var header = React.createElement(
+				'thead',
+				null,
+				React.createElement(
+					'tr',
+					null,
+					this.state.data[0].map(function (cell, j) {
+						return React.createElement(
+							'th',
+							{ key: j },
+							cell
+						);
+					})
+				)
+			);
+	
+			var body = React.createElement(
+				'tbody',
+				null,
+				this.state.data.map(function (row, i) {
+					return React.createElement(
+						'tr',
+						{ key: i },
+						row.map(function (cell, j) {
+							var result;
+							if (i !== 0) {
+								result = React.createElement(
+									'td',
+									{ key: j },
+									cell
+								);
+							}
+							return result;
+						})
+					);
+				})
+			);
+	
+			return React.createElement(
+				'table',
+				{ className: 'table table-striped table-bordered' },
+				header,
+				body
+			);
+		}
+	});
+	
+	module.exports = Table;
+
+/***/ },
+
+/***/ 244:
+/*!************************************!*\
+  !*** ./components/table-header.js ***!
+  \************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	
+	var TableHeader = React.createClass({
+		displayName: 'TableHeader',
+	
+		render: function () {
+	
+			return React.createElement(
+				'thead',
+				null,
+				this.props.tableData.map(function (row) {
+					return React.createElement(
+						'tr',
+						null,
+						row.rowData.map(function (cell) {
+							return React.createElement(
+								'th',
+								null,
+								cell
+							);
+						})
+					);
+				})
+			);
+		}
+	});
+	
+	module.exports = TableHeader;
 
 /***/ }
 
