@@ -35,7 +35,7 @@ var SortableTableRow = React.createClass({
             if (index === this.props.columns.length-1 && this.props.removeRow) {
                 return (
                     <td className="invisibleCell" key={index} >
-                        <button key={index} onClick={this.removeRow.bind(this, this.props.rowIndex)}>X</button>
+                        <button key={index} onClick={this.removeRow.bind(this, this.props.data)}>X</button>
                     </td>
                 );
             }

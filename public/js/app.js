@@ -1236,9 +1236,9 @@ webpackJsonp([1],{
 			};
 		},
 	
-		removeStudent: function (index) {
+		removeStudent: function (item) {
 			// < -- insert api call here!!
-			console.log("Removing student: " + this.state.data[index].name); //TEMP
+			console.log("Removing student: " + item.name); //TEMP
 		},
 	
 		render: function () {
@@ -1646,7 +1646,7 @@ webpackJsonp([1],{
 	                    { className: "invisibleCell", key: index },
 	                    React.createElement(
 	                        "button",
-	                        { key: index, onClick: this.removeRow.bind(this, this.props.rowIndex) },
+	                        { key: index, onClick: this.removeRow.bind(this, this.props.data) },
 	                        "X"
 	                    )
 	                );
@@ -1778,9 +1778,9 @@ webpackJsonp([1],{
 			};
 		},
 	
-		removeSubject: function (index) {
+		removeSubject: function (item) {
 			// < -- insert api call here!!
-			console.log("Removing subject: " + this.state.data[index].subject); //TEMP
+			console.log("Removing subject: " + item.subject); //TEMP
 		},
 	
 		render: function () {
@@ -1914,9 +1914,9 @@ webpackJsonp([1],{
 	            data: assignments
 	        };
 	    },
-	    removeAssignment: function (index) {
+	    removeAssignment: function (item) {
 	        // < -- insert api call here!!
-	        console.log("Removing assignment: " + this.state.data[index].name); //TEMP
+	        console.log("Removing assignment: " + item.name); //TEMP
 	    },
 	
 	    render: function () {

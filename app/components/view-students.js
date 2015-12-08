@@ -17,9 +17,9 @@ var ViewStudents = React.createClass({
 		};
 	},
 
-	removeStudent: function(index) {
+	removeStudent: function(item) {
 		// < -- insert api call here!!
-		console.log("Removing student: " + this.state.data[index].name); //TEMP
+		console.log("Removing student: " + item.name); //TEMP
 	},
 
 	render: function() {
