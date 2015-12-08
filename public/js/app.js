@@ -21,17 +21,17 @@ webpackJsonp([1],{
 	var Register = __webpack_require__(/*! ./register.js */ 221);
 	
 	var ViewStudents = __webpack_require__(/*! ./view-students.js */ 222);
-	var AddStudent = __webpack_require__(/*! ./add-student.js */ 224);
-	var ViewSubjects = __webpack_require__(/*! ./view-subjects.js */ 225);
-	var AddSubject = __webpack_require__(/*! ./add-subject.js */ 226);
-	var ViewAssignments = __webpack_require__(/*! ./view-assignments.js */ 227);
-	var AddAssignment = __webpack_require__(/*! ./add-assignment.js */ 228);
-	var CurrentAssignments = __webpack_require__(/*! ./current-assignments.js */ 229);
-	var LateAssignments = __webpack_require__(/*! ./late-assignments.js */ 230);
-	var ExpiredAssignments = __webpack_require__(/*! ./expired-assignments.js */ 231);
+	var AddStudent = __webpack_require__(/*! ./add-student.js */ 226);
+	var ViewSubjects = __webpack_require__(/*! ./view-subjects.js */ 227);
+	var AddSubject = __webpack_require__(/*! ./add-subject.js */ 228);
+	var ViewAssignments = __webpack_require__(/*! ./view-assignments.js */ 229);
+	var AddAssignment = __webpack_require__(/*! ./add-assignment.js */ 230);
+	var CurrentAssignments = __webpack_require__(/*! ./current-assignments.js */ 231);
+	var LateAssignments = __webpack_require__(/*! ./late-assignments.js */ 232);
+	var ExpiredAssignments = __webpack_require__(/*! ./expired-assignments.js */ 233);
 	
-	__webpack_require__(/*! ../../~/bootstrap/dist/css/bootstrap.min.css */ 232);
-	__webpack_require__(/*! ../css/app.css */ 241);
+	__webpack_require__(/*! ../../~/bootstrap/dist/css/bootstrap.min.css */ 234);
+	__webpack_require__(/*! ../css/app.css */ 243);
 	
 	var routes = React.createElement(
 	  Router,
@@ -1002,7 +1002,7 @@ webpackJsonp([1],{
 	var auth = __webpack_require__(/*! ./auth.js */ 211);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
-	var Table = __webpack_require__(/*! ./table.js */ 243);
+	var Table = __webpack_require__(/*! ./table.js */ 224);
 	
 	var ViewStudents = React.createClass({
 		displayName: "ViewStudents",
@@ -1074,6 +1074,112 @@ webpackJsonp([1],{
 /***/ },
 
 /***/ 224:
+/*!*****************************!*\
+  !*** ./components/table.js ***!
+  \*****************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var TableHeader = __webpack_require__(/*! ./table-header.js */ 225);
+	
+	var Table = React.createClass({
+		displayName: 'Table',
+	
+		getInitialState: function () {
+			return { data: this.props.data };
+		},
+	
+		render: function () {
+	
+			var header = React.createElement(
+				'thead',
+				null,
+				React.createElement(
+					'tr',
+					null,
+					this.props.data[0].map(function (cell, j) {
+						return React.createElement(
+							'th',
+							{ key: j },
+							cell
+						);
+					})
+				)
+			);
+	
+			var body = React.createElement(
+				'tbody',
+				null,
+				this.props.data.map(function (row, i) {
+					return React.createElement(
+						'tr',
+						{ key: i },
+						row.map(function (cell, j) {
+							var result;
+							if (i !== 0) {
+								result = React.createElement(
+									'td',
+									{ key: j },
+									cell
+								);
+							}
+							return result;
+						})
+					);
+				})
+			);
+	
+			return React.createElement(
+				'table',
+				{ className: 'table table-striped table-bordered sortable' },
+				header,
+				body
+			);
+		}
+	});
+	
+	module.exports = Table;
+
+/***/ },
+
+/***/ 225:
+/*!************************************!*\
+  !*** ./components/table-header.js ***!
+  \************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	
+	var TableHeader = React.createClass({
+		displayName: 'TableHeader',
+	
+		render: function () {
+	
+			return React.createElement(
+				'thead',
+				null,
+				this.props.tableData.map(function (row) {
+					return React.createElement(
+						'tr',
+						null,
+						row.rowData.map(function (cell) {
+							return React.createElement(
+								'th',
+								null,
+								cell
+							);
+						})
+					);
+				})
+			);
+		}
+	});
+	
+	module.exports = TableHeader;
+
+/***/ },
+
+/***/ 226:
 /*!***********************************!*\
   !*** ./components/add-student.js ***!
   \***********************************/
@@ -1109,7 +1215,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 225:
+/***/ 227:
 /*!*************************************!*\
   !*** ./components/view-subjects.js ***!
   \*************************************/
@@ -1122,7 +1228,7 @@ webpackJsonp([1],{
 	var auth = __webpack_require__(/*! ./auth.js */ 211);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar.js */ 223);
-	var Table = __webpack_require__(/*! ./table.js */ 243);
+	var Table = __webpack_require__(/*! ./table.js */ 224);
 	
 	var ViewSubjects = React.createClass({
 		displayName: "ViewSubjects",
@@ -1148,7 +1254,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 226:
+/***/ 228:
 /*!***********************************!*\
   !*** ./components/add-subject.js ***!
   \***********************************/
@@ -1184,7 +1290,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 227:
+/***/ 229:
 /*!****************************************!*\
   !*** ./components/view-assignments.js ***!
   \****************************************/
@@ -1193,37 +1299,107 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var api = __webpack_require__(/*! ./api.js */ 216);
-	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	var TabBar = __webpack_require__(/*! ./tab-bar.js */ 223);
+	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 249);
+	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 245);
 	
-	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
-	var Table = __webpack_require__(/*! ./table.js */ 243);
+	// SORTING FUNCTIONS CAN BE PLACED HERE - SEE CODE BELOW COMPONENT
 	
 	var ViewAssignments = React.createClass({
-		displayName: "ViewAssignments",
+	    displayName: "ViewAssignments",
 	
-		render: function () {
+	    getInitialState: function () {
+	        return {
+	            data: [{ id: 3, name: "Satoshi Yamamoto", class: "B" }, { id: 1, name: "Taro Tanak", class: "A" }, { id: 2, name: "Ken Asada", class: "A" }, { id: 4, name: "Masaru Tokunaga", class: "C" }]
+	        };
+	    },
 	
-			var myData = {
-				tabData: [{ tabName: "View Assignments", tabLink: "#/assignmentmanager/viewall", active: true }, { tabName: "Add Assignment", tabLink: "#/assignmentmanager/add", active: false }]
-			};
+	    render: function () {
 	
-			var tableData = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12], [16, 17, 18]];
+	        // OPTIONS CAN BE PLACED HERE - SEE EXAMPLE CODE BELOW COMPONENT
 	
-			return React.createElement(
-				"div",
-				null,
-				React.createElement(TabBar, { data: myData }),
-				React.createElement(Table, { data: tableData })
-			);
-		}
+	        var tabs = {
+	            tabData: [{ tabName: "View Assignments", tabLink: "#/assignmentmanager/viewall", active: true }, { tabName: "Add Assignment", tabLink: "#/assignmentmanager/add", active: false }]
+	        };
+	
+	        var columns = [{ header: "ID", key: "id" }, { header: "NAME", key: "name" }, { header: "CLASS", key: "class" }];
+	
+	        var options = {
+	            title: 'Choose subject', //What should show up on the button to open/close the dropdown
+	            items: [// List of items to show in the dropdown
+	            'Math 7', 'English 8', 'Spanish 7']
+	        };
+	
+	        return React.createElement(
+	            "div",
+	            null,
+	            React.createElement(TabBar, { data: tabs }),
+	            React.createElement(Dropdown, { title: options.title, items: options.items }),
+	            React.createElement(SortableTable, { data: this.state.data, columns: columns })
+	        );
+	    }
 	});
 	
 	module.exports = ViewAssignments;
+	
+	// RENDER OPTIONS
+	// var columns = [
+	//     { header: "ID", key: "id", defaultSorting: "ASC", headerStyle: {fontSize: "15px", backgroundColor: "#FFDAB9", width: "100px" }, dataStyle: {fontSize: "15px", backgroundColor: "#FFDAB9"} },
+	//     { header: "NAME", key: "name", headerStyle: {fontSize: "15px"}, descSortFunction: FamilyNameSorter.desc, ascSortFunction: FamilyNameSorter.asc },
+	//     { header: "CLASS", key: "class", headerStyle: {fontSize: "15px"}, sortable: false }
+	// ];
+	// var style = {
+	//     backgroundColor: "#eee"
+	// };
+	
+	// var iconStyle = {
+	//     color: "#aaa",
+	//     paddingLeft: "5px",
+	//     paddingRight: "5px"
+	// };
+	// return (
+	//     <div>
+	//         <TabBar  data={tabs} />
+	//         <SortableTable data={this.state.data} columns={columns} style={style} iconStyle={iconStyle} />
+	//     </div>
+	// );
+	
+	// SORTING FUNCTIONS
+	
+	// var getFamilyName = function (name) {
+	//     return name.split(" ").slice(-1)[0]
+	// };
+	
+	// var FamilyNameSorter = {
+	//     desc: function (data, key) {
+	//         var result = data.sort(function (_a, _b) {
+	//             var a = getFamilyName(_a[key]);
+	//             var b = getFamilyName(_b[key]);
+	//             if ( a <= b ) {
+	//                 return 1;
+	//             } else if ( a > b) {
+	//                 return -1;
+	//             }
+	//         });
+	//             return result;
+	//     },
+	
+	//     asc: function (data, key) {
+	//         return data.sort(function (_a, _b) {
+	//             var a = getFamilyName(_a[key]);
+	//             var b = getFamilyName(_b[key]);
+	//             if ( a >= b ) {
+	//                 return 1;
+	//             } else if ( a < b) {
+	//                 return -1;
+	//             }
+	//         })
+	//     }
+	// };
 
 /***/ },
 
-/***/ 228:
+/***/ 230:
 /*!**************************************!*\
   !*** ./components/add-assignment.js ***!
   \**************************************/
@@ -1259,7 +1435,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 229:
+/***/ 231:
 /*!*******************************************!*\
   !*** ./components/current-assignments.js ***!
   \*******************************************/
@@ -1272,7 +1448,7 @@ webpackJsonp([1],{
 	var auth = __webpack_require__(/*! ./auth.js */ 211);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
-	var Table = __webpack_require__(/*! ./table.js */ 243);
+	var Table = __webpack_require__(/*! ./table.js */ 224);
 	
 	var CurrentAssignments = React.createClass({
 		displayName: "CurrentAssignments",
@@ -1298,7 +1474,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 230:
+/***/ 232:
 /*!****************************************!*\
   !*** ./components/late-assignments.js ***!
   \****************************************/
@@ -1311,7 +1487,7 @@ webpackJsonp([1],{
 	var auth = __webpack_require__(/*! ./auth.js */ 211);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
-	var Table = __webpack_require__(/*! ./table.js */ 243);
+	var Table = __webpack_require__(/*! ./table.js */ 224);
 	
 	var LateAssignments = React.createClass({
 		displayName: "LateAssignments",
@@ -1337,7 +1513,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 231:
+/***/ 233:
 /*!*******************************************!*\
   !*** ./components/expired-assignments.js ***!
   \*******************************************/
@@ -1350,7 +1526,7 @@ webpackJsonp([1],{
 	var auth = __webpack_require__(/*! ./auth.js */ 211);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
-	var Table = __webpack_require__(/*! ./table.js */ 243);
+	var Table = __webpack_require__(/*! ./table.js */ 224);
 	
 	var ExpiredAssignments = React.createClass({
 		displayName: "ExpiredAssignments",
@@ -1376,7 +1552,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 232:
+/***/ 234:
 /*!*************************************************!*\
   !*** ../~/bootstrap/dist/css/bootstrap.min.css ***!
   \*************************************************/
@@ -1386,7 +1562,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 241:
+/***/ 243:
 /*!*********************!*\
   !*** ./css/app.css ***!
   \*********************/
@@ -1396,109 +1572,434 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 243:
+/***/ 245:
+/*!**************************************!*\
+  !*** ./components/sortable-table.js ***!
+  \**************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	
+	var SortableTableHeader = __webpack_require__(/*! ./sortable-table-header.js */ 246);
+	var SortableTableBody = __webpack_require__(/*! ./sortable-table-body.js */ 247);
+	
+	var SortableTable = React.createClass({
+	    displayName: "SortableTable",
+	
+	    propTypes: {
+	        data: React.PropTypes.array.isRequired,
+	        columns: React.PropTypes.array.isRequired,
+	        style: React.PropTypes.object,
+	        iconStyle: React.PropTypes.object
+	    },
+	
+	    getInitialState: function () {
+	        var sortings = this.getDefaultSortings();
+	
+	        return {
+	            sortings: sortings
+	        };
+	    },
+	
+	    getDefaultSortings: function () {
+	        return this.props.columns.map(function (column) {
+	            var sorting = "both";
+	            if (column.defaultSorting) {
+	                var defaultSorting = column.defaultSorting.toLowerCase();
+	
+	                if (defaultSorting == "desc") {
+	                    sorting = "desc";
+	                } else if (defaultSorting == "asc") {
+	                    sorting = "asc";
+	                }
+	            }
+	            return sorting;
+	        });
+	    },
+	
+	    sortData: function (data, sortings) {
+	        var sortedData = this.props.data;
+	        for (var i in sortings) {
+	            var sorting = sortings[i];
+	            var column = this.props.columns[i];
+	            var key = this.props.columns[i].key;
+	            switch (sorting) {
+	                case "desc":
+	                    if (column.descSortFunction && typeof column.descSortFunction == "function") {
+	                        sortedData = column.descSortFunction(sortedData, key);
+	                    } else {
+	                        sortedData = this.descSortData(sortedData, key);
+	                    }
+	                    break;
+	                case "asc":
+	                    if (column.ascSortFunction && typeof column.ascSortFunction == "function") {
+	                        sortedData = column.ascSortFunction(sortedData, key);
+	                    } else {
+	                        sortedData = this.ascSortData(sortedData, key);
+	                    }
+	                    break;
+	            }
+	        }
+	        return sortedData;
+	    },
+	
+	    ascSortData: function (data, key) {
+	        return this.sortDataByKey(data, key, (function (a, b) {
+	            if (this.parseFloatable(a) && this.parseFloatable(b)) {
+	                a = this.parseIfFloat(a);
+	                b = this.parseIfFloat(b);
+	            }
+	            if (a >= b) {
+	                return 1;
+	            } else if (a < b) {
+	                return -1;
+	            }
+	        }).bind(this));
+	    },
+	
+	    descSortData: function (data, key) {
+	        return this.sortDataByKey(data, key, (function (a, b) {
+	            if (this.parseFloatable(a) && this.parseFloatable(b)) {
+	                a = this.parseIfFloat(a);
+	                b = this.parseIfFloat(b);
+	            }
+	            if (a <= b) {
+	                return 1;
+	            } else if (a > b) {
+	                return -1;
+	            }
+	        }).bind(this));
+	    },
+	
+	    parseFloatable: function (value) {
+	        return typeof value === "string" && (/^\d+$/.test(value) || /^\d+$/.test(value.replace(/[,.%$]/g, ""))) ? true : false;
+	    },
+	
+	    parseIfFloat: function (value) {
+	        return parseFloat(value.replace(/,/g, ""));
+	    },
+	
+	    sortDataByKey: function (data, key, fn) {
+	        var clone = Array.apply(null, data);
+	
+	        return clone.sort(function (a, b) {
+	            return fn(a[key], b[key]);
+	        });
+	    },
+	
+	    onStateChange: function (index) {
+	        var sortings = this.state.sortings.map((function (sorting, i) {
+	            if (i == index) sorting = this.nextSortingState(sorting);
+	
+	            return sorting;
+	        }).bind(this));
+	
+	        this.setState({
+	            sortings: sortings
+	        });
+	    },
+	
+	    nextSortingState: function (state) {
+	        var next;
+	        switch (state) {
+	            case "both":
+	                next = "desc";
+	                break;
+	            case "desc":
+	                next = "asc";
+	                break;
+	            case "asc":
+	                next = "both";
+	                break;
+	        }
+	        return next;
+	    },
+	
+	    render: function () {
+	        var sortedData = this.sortData(this.props.data, this.state.sortings);
+	
+	        return React.createElement(
+	            "table",
+	            { className: "table table-striped table-bordered", style: this.props.style },
+	            React.createElement(SortableTableHeader, { columns: this.props.columns, sortings: this.state.sortings, onStateChange: this.onStateChange, iconStyle: this.props.iconStyle }),
+	            React.createElement(SortableTableBody, { columns: this.props.columns, data: sortedData, sortings: this.state.sortings })
+	        );
+	    }
+	});
+	
+	module.exports = SortableTable;
+
+/***/ },
+
+/***/ 246:
+/*!*********************************************!*\
+  !*** ./components/sortable-table-header.js ***!
+  \*********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var icons = __webpack_require__(/*! ./icons.js */ 248);
+	var SortIconBoth = icons.SortIconBoth;
+	var SortIconDesc = icons.SortIconDesc;
+	var SortIconAsc = icons.SortIconAsc;
+	
+	var SortableTableHeader = React.createClass({
+	    displayName: "SortableTableHeader",
+	
+	    propTypes: {
+	        columns: React.PropTypes.array.isRequired,
+	        sortings: React.PropTypes.array.isRequired,
+	        onStateChange: React.PropTypes.func,
+	        iconStyle: React.PropTypes.object
+	    },
+	
+	    onClick: function (index) {
+	        this.props.onStateChange(index);
+	    },
+	
+	    render: function () {
+	        var headers = this.props.columns.map((function (column, index) {
+	            var sorting = this.props.sortings[index];
+	            return React.createElement(SortableTableHeaderItem, { sortable: column.sortable, key: index, index: index, header: column.header, sorting: sorting, onClick: this.onClick, style: column.headerStyle, iconStyle: this.props.iconStyle });
+	        }).bind(this));
+	
+	        return React.createElement(
+	            "thead",
+	            null,
+	            React.createElement(
+	                "tr",
+	                null,
+	                headers
+	            )
+	        );
+	    }
+	});
+	
+	var SortableTableHeaderItem = React.createClass({
+	    displayName: "SortableTableHeaderItem",
+	
+	    getDefaultProps: function () {
+	        return {
+	            sortable: true
+	        };
+	    },
+	
+	    onClick: function (e) {
+	        if (this.props.sortable) this.props.onClick(this.props.index);
+	    },
+	
+	    render: function () {
+	        var sortIcon;
+	        if (this.props.sortable) {
+	            sortIcon = React.createElement(SortIconBoth, { style: this.props.iconStyle });
+	            if (this.props.sorting == "desc") {
+	                sortIcon = React.createElement(SortIconDesc, { style: this.props.iconStyle });
+	            } else if (this.props.sorting == "asc") {
+	                sortIcon = React.createElement(SortIconAsc, { style: this.props.iconStyle });
+	            }
+	        }
+	
+	        return React.createElement(
+	            "th",
+	            { style: this.props.style, onClick: this.onClick },
+	            this.props.header,
+	            sortIcon
+	        );
+	    }
+	});
+	
+	module.exports = SortableTableHeader;
+
+/***/ },
+
+/***/ 247:
+/*!*******************************************!*\
+  !*** ./components/sortable-table-body.js ***!
+  \*******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	
+	var SortableTableBody = React.createClass({
+	    displayName: "SortableTableBody",
+	
+	    propTypes: {
+	        data: React.PropTypes.array.isRequired,
+	        columns: React.PropTypes.array.isRequired,
+	        sortings: React.PropTypes.array.isRequired
+	    },
+	
+	    render: function () {
+	        var bodies = this.props.data.map((function (item, index) {
+	            return React.createElement(SortableTableRow, { key: index, data: item, columns: this.props.columns });
+	        }).bind(this));
+	
+	        return React.createElement(
+	            "tbody",
+	            null,
+	            bodies
+	        );
+	    }
+	});
+	
+	var SortableTableRow = React.createClass({
+	    displayName: "SortableTableRow",
+	
+	    render: function () {
+	        var tds = this.props.columns.map((function (item, index) {
+	            var value = this.props.data[item.key];
+	            return React.createElement(
+	                "td",
+	                { key: index, style: item.dataStyle },
+	                value
+	            );
+	        }).bind(this));
+	
+	        return React.createElement(
+	            "tr",
+	            null,
+	            tds
+	        );
+	    }
+	});
+	
+	module.exports = SortableTableBody;
+
+/***/ },
+
+/***/ 248:
 /*!*****************************!*\
-  !*** ./components/table.js ***!
+  !*** ./components/icons.js ***!
   \*****************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(/*! react */ 1);
-	var TableHeader = __webpack_require__(/*! ./table-header.js */ 244);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var Table = React.createClass({
-		displayName: 'Table',
+	var SortIconBoth = React.createClass({
+	    displayName: "SortIconBoth",
 	
-		getInitialState: function () {
-			return { data: this.props.data };
-		},
-	
-		render: function () {
-	
-			var header = React.createElement(
-				'thead',
-				null,
-				React.createElement(
-					'tr',
-					null,
-					this.state.data[0].map(function (cell, j) {
-						return React.createElement(
-							'th',
-							{ key: j },
-							cell
-						);
-					})
-				)
-			);
-	
-			var body = React.createElement(
-				'tbody',
-				null,
-				this.state.data.map(function (row, i) {
-					return React.createElement(
-						'tr',
-						{ key: i },
-						row.map(function (cell, j) {
-							var result;
-							if (i !== 0) {
-								result = React.createElement(
-									'td',
-									{ key: j },
-									cell
-								);
-							}
-							return result;
-						})
-					);
-				})
-			);
-	
-			return React.createElement(
-				'table',
-				{ className: 'table table-striped table-bordered' },
-				header,
-				body
-			);
-		}
+	    render: function () {
+	        return React.createElement(FaIcon, { icon: "fa-sort", style: this.props.style });
+	    }
 	});
 	
-	module.exports = Table;
+	var SortIconAsc = React.createClass({
+	    displayName: "SortIconAsc",
+	
+	    render: function () {
+	        return React.createElement(FaIcon, { icon: "fa-sort-asc", style: this.props.style });
+	    }
+	});
+	
+	var SortIconDesc = React.createClass({
+	    displayName: "SortIconDesc",
+	
+	    render: function () {
+	        return React.createElement(FaIcon, { icon: "fa-sort-desc", style: this.props.style });
+	    }
+	});
+	
+	var FaIcon = React.createClass({
+	    displayName: "FaIcon",
+	
+	    render: function () {
+	        var className = "fa fa-lg ";
+	        className += this.props.icon;
+	        return React.createElement("i", { className: className, style: this.props.style, align: "right" });
+	    }
+	});
+	
+	exports.SortIconBoth = SortIconBoth;
+	exports.SortIconDesc = SortIconDesc;
+	exports.SortIconAsc = SortIconAsc;
 
 /***/ },
 
-/***/ 244:
-/*!************************************!*\
-  !*** ./components/table-header.js ***!
-  \************************************/
+/***/ 249:
+/*!********************************!*\
+  !*** ./components/dropdown.js ***!
+  \********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ListItem = __webpack_require__(/*! ./list-item */ 250);
+	
+	module.exports = React.createClass({
+		displayName: 'exports',
+	
+		handleClick: function () {
+			this.setState({
+				open: !this.state.open
+			});
+		},
+		getInitialState: function () {
+			return { open: false };
+		},
+		handleItemClick: function (item) {
+			this.setState({
+				open: false,
+				itemTitle: item
+			});
+		},
+		render: function () {
+			var list = this.props.items.map((function (item) {
+				return React.createElement(ListItem, {
+					item: item,
+					whenItemClicked: this.handleItemClick,
+					className: this.state.itemTitle === item ? "active" : "" });
+			}).bind(this));
+	
+			return React.createElement(
+				'div',
+				{ className: 'dropdown' },
+				React.createElement(
+					'button',
+					{ className: 'btn btn-default dropdown-toggle', onClick: this.handleClick },
+					(this.state.itemTitle || this.props.title) + " ",
+					React.createElement('span', { className: 'caret' })
+				),
+				React.createElement(
+					'ul',
+					{ className: "dropdown-menu " + (this.state.open ? "show" : "") },
+					list
+				)
+			);
+		}
+	});
+
+/***/ },
+
+/***/ 250:
+/*!*********************************!*\
+  !*** ./components/list-item.js ***!
+  \*********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(/*! react */ 1);
 	
-	var TableHeader = React.createClass({
-		displayName: 'TableHeader',
+	var ListItem = React.createClass({
+		displayName: 'ListItem',
 	
+		handleClick: function () {
+			this.props.whenItemClicked(this.props.item);
+		},
 		render: function () {
-	
 			return React.createElement(
-				'thead',
-				null,
-				this.props.tableData.map(function (row) {
-					return React.createElement(
-						'tr',
-						null,
-						row.rowData.map(function (cell) {
-							return React.createElement(
-								'th',
-								null,
-								cell
-							);
-						})
-					);
-				})
+				'li',
+				{ className: this.props.className },
+				React.createElement(
+					'a',
+					{ onClick: this.handleClick },
+					this.props.item
+				)
 			);
 		}
 	});
 	
-	module.exports = TableHeader;
+	module.exports = ListItem;
 
 /***/ }
 
