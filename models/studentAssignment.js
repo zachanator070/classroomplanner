@@ -21,6 +21,6 @@ assignmentSchema.set('toJSON', {
 assignmentSchema.plugin(findOrCreate);
 
 // create assignment
-var StudentAssignment = mongoose.model('assignments', assignmentSchema);
+var StudentAssignment = mongoose.model('studentAssignments', assignmentSchema);
 
 module.exports = StudentAssignment;
