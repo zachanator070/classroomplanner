@@ -19,6 +19,13 @@ var ViewAssignments = React.createClass({
                 ]
         };
     },
+    removeRow: function(index, event) {
+
+            console.log(index); //TEMP
+            var newData = this.state.data.slice();
+            newData.splice(index, 1);
+            this.setState({data: newData});
+    },
 
     render: function () {
 
@@ -33,7 +40,7 @@ var ViewAssignments = React.createClass({
 
         var columns = [
             { header: "ID", key: "id"},
-            { header: "NAME", key: "name" }, 
+            { header: "Student Name", key: "name" }, 
             { header: "CLASS", key: "class"}
         ];
 
@@ -46,15 +53,34 @@ var ViewAssignments = React.createClass({
             ]
         };
 
+        var deleteButtons = [];
+        var index = 0;
+
+        while(index < this.state.data.length){
+            deleteButtons.push(<button key={index} onClick={this.removeRow.bind(this, index)}>X</button>);
+            index++;
+        }
+
         return (
             <div>
                 <TabBar  data={tabs} />
                 <Dropdown title={dropdownData.title} items={dropdownData.items}/>
-                <SortableTable data={this.state.data} columns={columns} />
+                <div align='left'>
+                    <SortableTable data={this.state.data} columns={columns} />
+                    <div position='relative' >
+                        {deleteButtons}
+                    </div>
+                </div>
             </div>
         );
     }
 });
+
+// <button className="btn btn-default"
+//     type="button"
+//     onClick={this.removeRow} >
+//     Push Me
+// </button>
 
 module.exports = ViewAssignments;
 
