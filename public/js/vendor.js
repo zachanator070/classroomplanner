@@ -101,7 +101,7 @@
   \********************/
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! jquery */210);
+	__webpack_require__(/*! jquery */213);
 	__webpack_require__(/*! react */1);
 	module.exports = __webpack_require__(/*! react-router */159);
 
@@ -24713,7 +24713,10 @@
 /***/ },
 /* 208 */,
 /* 209 */,
-/* 210 */
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */
 /*!**********************************!*\
   !*** ../~/jquery/dist/jquery.js ***!
   \**********************************/

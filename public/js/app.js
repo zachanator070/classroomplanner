@@ -15,8 +15,8 @@ webpackJsonp([1],{
 	var IndexRoute = ReactRouter.IndexRoute;
 	
 	var App = __webpack_require__(/*! ./app.js */ 208);
-	var Home = __webpack_require__(/*! ./home.js */ 211);
-	var List = __webpack_require__(/*! ./list.js */ 212);
+	var Home = __webpack_require__(/*! ./home.js */ 209);
+	var List = __webpack_require__(/*! ./list.js */ 210);
 	var Login = __webpack_require__(/*! ./login.js */ 218);
 	var Register = __webpack_require__(/*! ./register.js */ 219);
 	
@@ -83,7 +83,7 @@ webpackJsonp([1],{
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	var History = ReactRouter.History;
 	
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
+	var auth = __webpack_require__(/*! ./auth.js */ 217);
 	
 	// Top-level component for the app
 	var App = React.createClass({
@@ -130,29 +130,26 @@ webpackJsonp([1],{
 	          { className: "container" },
 	          React.createElement(
 	            "div",
-	            { className: "navbar-header" },
-	            React.createElement(
-	              "button",
-	              { type: "button", className: "navbar-toggle", "data-toggle": "collapse", "data-target": "#bs-example-navbar-collapse-1" },
-	              React.createElement(
-	                "span",
-	                { className: "sr-only" },
-	                "Toggle navigation"
-	              ),
-	              React.createElement("span", { className: "icon-bar" }),
-	              React.createElement("span", { className: "icon-bar" }),
-	              React.createElement("span", { className: "icon-bar" })
-	            ),
+	            { className: "col-md-1" },
 	            React.createElement(
 	              "a",
-	              { className: "navbar-brand", href: "/" },
-	              "List-o-matic"
+	              { href: "/" },
+	              React.createElement("img", { className: "logo", src: "../logo.png" })
+	            )
+	          ),
+	          React.createElement(
+	            "div",
+	            { className: "col-md-6" },
+	            React.createElement(
+	              "h1",
+	              { className: "navbar-brand" },
+	              "Classroom Planner"
 	            )
 	          ),
 	          React.createElement(
 	            "div",
 	            { className: "collapse navbar-collapse", id: "bs-example-navbar-collapse-1" },
-	            this.state.loggedIn ? React.createElement(
+	            this.state.loggedIn ? this.state.type === "instructor" ? React.createElement(
 	              "ul",
 	              { className: "nav navbar-nav" },
 	              React.createElement(
@@ -200,6 +197,18 @@ webpackJsonp([1],{
 	                  "Logout"
 	                )
 	              )
+	            ) : React.createElement(
+	              "ul",
+	              { className: "nav navbar-nav" },
+	              React.createElement(
+	                "li",
+	                null,
+	                React.createElement(
+	                  "a",
+	                  { href: "/" },
+	                  "A link for a student"
+	                )
+	              )
 	            ) : React.createElement("div", null)
 	          )
 	        )
@@ -218,105 +227,6 @@ webpackJsonp([1],{
 /***/ },
 
 /***/ 209:
-/*!****************************!*\
-  !*** ./components/auth.js ***!
-  \****************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var $ = __webpack_require__(/*! jquery */ 210);
-	
-	// authentication object
-	var auth = {
-	  register: function (name, username, password, cb) {
-	    // submit request to server, call the callback when complete
-	    var url = "/api/users/register";
-	    $.ajax({
-	      url: url,
-	      dataType: 'json',
-	      type: 'POST',
-	      data: {
-	        name: name,
-	        username: username,
-	        password: password
-	      },
-	      // on success, store a login token
-	      success: (function (res) {
-	        localStorage.token = res.token;
-	        localStorage.name = res.name;
-	        this.onChange(true);
-	        if (cb) cb(true);
-	      }).bind(this),
-	      error: (function (xhr, status, err) {
-	        // if there is an error, remove any login token
-	        delete localStorage.token;
-	        this.onChange(false);
-	        if (cb) cb(false);
-	      }).bind(this)
-	    });
-	  },
-	  // login the user
-	  login: function (username, password, cb) {
-	    // submit login request to server, call callback when complete
-	    cb = arguments[arguments.length - 1];
-	    // check if token in local storage
-	    if (localStorage.token) {
-	      this.onChange(true);
-	      if (cb) cb(true);
-	      return;
-	    }
-	
-	    // submit request to server
-	    var url = "/api/users/login";
-	    $.ajax({
-	      url: url,
-	      dataType: 'json',
-	      type: 'POST',
-	      data: {
-	        username: username,
-	        password: password
-	      },
-	      success: (function (res) {
-	        // on success, store a login token
-	        localStorage.token = res.token;
-	        localStorage.name = res.name;
-	        this.onChange(true);
-	        if (cb) cb(true);
-	      }).bind(this),
-	      error: (function (xhr, status, err) {
-	        // if there is an error, remove any login token
-	        delete localStorage.token;
-	        this.onChange(false);
-	        if (cb) cb(false);
-	      }).bind(this)
-	    });
-	  },
-	  // get the token from local storage
-	  getToken: function () {
-	    return localStorage.token;
-	  },
-	  // get the name from local storage
-	  getName: function () {
-	    return localStorage.name;
-	  },
-	  // logout the user, call the callback when complete
-	  logout: function (cb) {
-	    delete localStorage.token;
-	    this.onChange(false);
-	    if (cb) cb();
-	  },
-	  // check if user is logged in
-	  loggedIn: function () {
-	    return !!localStorage.token;
-	  },
-	  // default onChange function
-	  onChange: function () {}
-	};
-	
-	module.exports = auth;
-
-/***/ },
-
-/***/ 211:
 /*!****************************!*\
   !*** ./components/home.js ***!
   \****************************/
@@ -339,12 +249,6 @@ webpackJsonp([1],{
 	        Link,
 	        { className: "btn btn-default", to: "login" },
 	        "Login"
-	      ),
-	      " or ",
-	      React.createElement(
-	        Link,
-	        { className: "btn btn-warning", to: "register" },
-	        "Register"
 	      )
 	    );
 	  }
@@ -354,7 +258,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 212:
+/***/ 210:
 /*!****************************!*\
   !*** ./components/list.js ***!
   \****************************/
@@ -363,12 +267,12 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var ListHeader = __webpack_require__(/*! ./listheader.js */ 213);
-	var ListEntry = __webpack_require__(/*! ./listentry.js */ 215);
-	var ListItems = __webpack_require__(/*! ./listitems.js */ 216);
+	var ListHeader = __webpack_require__(/*! ./listheader.js */ 211);
+	var ListEntry = __webpack_require__(/*! ./listentry.js */ 214);
+	var ListItems = __webpack_require__(/*! ./listitems.js */ 215);
 	
-	var api = __webpack_require__(/*! ./api.js */ 214);
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
+	var api = __webpack_require__(/*! ./api.js */ 212);
+	var auth = __webpack_require__(/*! ./auth.js */ 217);
 	
 	// List page, shows the todo list of items
 	var List = React.createClass({
@@ -431,7 +335,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 213:
+/***/ 211:
 /*!**********************************!*\
   !*** ./components/listheader.js ***!
   \**********************************/
@@ -439,7 +343,7 @@ webpackJsonp([1],{
 
 	var React = __webpack_require__(/*! react */ 1);
 	
-	var api = __webpack_require__(/*! ./api.js */ 214);
+	var api = __webpack_require__(/*! ./api.js */ 212);
 	
 	// List header, which shows who the list is for, the number of items in the list, and a button to clear completed items
 	var ListHeader = React.createClass({
@@ -527,13 +431,13 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 214:
+/***/ 212:
 /*!***************************!*\
   !*** ./components/api.js ***!
   \***************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var $ = __webpack_require__(/*! jquery */ 210);
+	var $ = __webpack_require__(/*! jquery */ 213);
 	// API object
 	var api = {
 	
@@ -822,7 +726,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 215:
+/***/ 214:
 /*!*********************************!*\
   !*** ./components/listentry.js ***!
   \*********************************/
@@ -830,7 +734,7 @@ webpackJsonp([1],{
 
 	var React = __webpack_require__(/*! react */ 1);
 	
-	var api = __webpack_require__(/*! ./api.js */ 214);
+	var api = __webpack_require__(/*! ./api.js */ 212);
 	
 	// List entry component, handles adding new items to the list
 	var ListEntry = React.createClass({
@@ -868,7 +772,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 216:
+/***/ 215:
 /*!*********************************!*\
   !*** ./components/listitems.js ***!
   \*********************************/
@@ -877,7 +781,7 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var Item = __webpack_require__(/*! ./item.js */ 217);
+	var Item = __webpack_require__(/*! ./item.js */ 216);
 	
 	// List items component, shows the list of items
 	var ListItems = React.createClass({
@@ -919,7 +823,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 217:
+/***/ 216:
 /*!****************************!*\
   !*** ./components/item.js ***!
   \****************************/
@@ -927,7 +831,7 @@ webpackJsonp([1],{
 
 	var React = __webpack_require__(/*! react */ 1);
 	
-	var api = __webpack_require__(/*! ./api.js */ 214);
+	var api = __webpack_require__(/*! ./api.js */ 212);
 	
 	// Item shown in the todo list
 	var Item = React.createClass({
@@ -1029,6 +933,111 @@ webpackJsonp([1],{
 
 /***/ },
 
+/***/ 217:
+/*!****************************!*\
+  !*** ./components/auth.js ***!
+  \****************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var $ = __webpack_require__(/*! jquery */ 213);
+	
+	// authentication object
+	var auth = {
+	  register: function (name, username, password, cb) {
+	    // submit request to server, call the callback when complete
+	    var url = "/api/users/register";
+	    $.ajax({
+	      url: url,
+	      dataType: 'json',
+	      type: 'POST',
+	      data: {
+	        name: name,
+	        username: username,
+	        password: password
+	      },
+	      // on success, store a login token
+	      success: (function (res) {
+	        localStorage.token = res.token;
+	        localStorage.name = res.name;
+	        this.onChange(true);
+	        if (cb) cb(true);
+	      }).bind(this),
+	      error: (function (xhr, status, err) {
+	        // if there is an error, remove any login token
+	        delete localStorage.token;
+	        this.onChange(false);
+	        if (cb) cb(false);
+	      }).bind(this)
+	    });
+	  },
+	  // login the user
+	  login: function (username, password, cb) {
+	    // submit login request to server, call callback when complete
+	    cb = arguments[arguments.length - 1];
+	    // check if token in local storage
+	    if (localStorage.token) {
+	      this.onChange(true);
+	      if (cb) cb(true, localStorage.type);
+	      return;
+	    }
+	
+	    // submit request to server
+	    var url = "/api/users/login";
+	    $.ajax({
+	      url: url,
+	      dataType: 'json',
+	      type: 'POST',
+	      data: {
+	        username: username,
+	        password: password
+	      },
+	      success: (function (res) {
+	        // on success, store a login token
+	        localStorage.token = res.token;
+	        localStorage.name = res.name;
+	        localStorage.type = res.type;
+	        this.onChange(true);
+	        if (cb) cb(true, res.type);
+	      }).bind(this),
+	      error: (function (xhr, status, err) {
+	        // if there is an error, remove any login token
+	        delete localStorage.token;
+	        this.onChange(false);
+	        if (cb) cb(false, null);
+	      }).bind(this)
+	    });
+	  },
+	  // get the token from local storage
+	  getToken: function () {
+	    return localStorage.token;
+	  },
+	  // get the name from local storage
+	  getName: function () {
+	    return localStorage.name;
+	  },
+	  //get the users type from local storage
+	  getType: function () {
+	    return localStorage.type;
+	  },
+	  // logout the user, call the callback when complete
+	  logout: function (cb) {
+	    delete localStorage.token;
+	    delete localStorage.type;
+	    this.onChange(false);
+	    if (cb) cb();
+	  },
+	  // check if user is logged in
+	  loggedIn: function () {
+	    return !!localStorage.token;
+	  },
+	  // default onChange function
+	  onChange: function () {}
+	};
+	
+	module.exports = auth;
+
+/***/ },
+
 /***/ 218:
 /*!*****************************!*\
   !*** ./components/login.js ***!
@@ -1039,7 +1048,7 @@ webpackJsonp([1],{
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	var History = ReactRouter.History;
 	
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
+	var auth = __webpack_require__(/*! ./auth.js */ 217);
 	
 	// Login page, shows the login form and redirects to the list if login is successful
 	var Login = React.createClass({
@@ -1116,7 +1125,7 @@ webpackJsonp([1],{
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	var History = ReactRouter.History;
 	
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
+	var auth = __webpack_require__(/*! ./auth.js */ 217);
 	
 	// Register page, shows the registration form and redirects to the list if login is successful
 	var Register = React.createClass({
@@ -1236,8 +1245,8 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var api = __webpack_require__(/*! ./api.js */ 214);
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
+	var api = __webpack_require__(/*! ./api.js */ 212);
+	var auth = __webpack_require__(/*! ./auth.js */ 217);
 	
 	var TabBar = React.createClass({
 		displayName: "TabBar",
@@ -1627,8 +1636,8 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var api = __webpack_require__(/*! ./api.js */ 214);
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
+	var api = __webpack_require__(/*! ./api.js */ 212);
+	var auth = __webpack_require__(/*! ./auth.js */ 217);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
 	
@@ -1755,8 +1764,8 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var api = __webpack_require__(/*! ./api.js */ 214);
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
+	var api = __webpack_require__(/*! ./api.js */ 212);
+	var auth = __webpack_require__(/*! ./auth.js */ 217);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
 	
@@ -2068,8 +2077,8 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var api = __webpack_require__(/*! ./api.js */ 214);
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
+	var api = __webpack_require__(/*! ./api.js */ 212);
+	var auth = __webpack_require__(/*! ./auth.js */ 217);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
 	
@@ -2232,8 +2241,8 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var api = __webpack_require__(/*! ./api.js */ 214);
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
+	var api = __webpack_require__(/*! ./api.js */ 212);
+	var auth = __webpack_require__(/*! ./auth.js */ 217);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
 	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);

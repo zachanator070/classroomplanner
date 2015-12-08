@@ -8,7 +8,7 @@ var Home = React.createClass({
   render: function() {
     return (
       <p>
-        <Link className="btn btn-default" to="login">Login</Link> or <Link className="btn btn-warning" to="register">Register</Link>
+        <Link className="btn btn-default" to="login">Login</Link>
       </p>
     );
   }
