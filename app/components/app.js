@@ -40,25 +40,25 @@ var App = React.createClass({
       <div>
         <nav className="navbar navbar-default" role="navigation">
           <div className="container">
-            <div className="navbar-header">
-              <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-		<span className="sr-only">Toggle navigation</span>
-		<span className="icon-bar"></span>
-		<span className="icon-bar"></span>
-		<span className="icon-bar"></span>
-              </button>
-              <a className="navbar-brand" href="/">List-o-matic</a>
-            </div>
+            <div className="col-md-1"><a href="/"><img className="logo" src="../logo.png" /></a></div>
+            <div className="col-md-6"><h1 className="navbar-brand">Classroom Planner</h1></div>
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              {this.state.loggedIn ? (
-                 <ul className="nav navbar-nav">
-                   <li><a href="#/subjectmanager/viewall">Subject Manager</a></li>
-                   <li><a href="#/assignmentmanager/viewall">Assignment Manager</a></li>
-                   <li><a href="#/studentmanager/viewall">Student Manager</a></li>
-                   <li><a href="#/studentassignments/late">Student Assignments</a></li>
-                   <li><a href="#" onClick={this.logout}>Logout</a></li>
-                 </ul>
-               ) : (<div></div>)}
+               {this.state.loggedIn ?
+                   this.state.type==="instructor" ? (
+                     <ul className="nav navbar-nav">
+                       <li><a href="#/subjectmanager/viewall">Subject Manager</a></li>
+                       <li><a href="#/assignmentmanager/viewall">Assignment Manager</a></li>
+                       <li><a href="#/studentmanager/viewall">Student Manager</a></li>
+                       <li><a href="#/studentassignments/late">Student Assignments</a></li>
+                       <li><a href="#" onClick={this.logout}>Logout</a></li>
+                     </ul>
+                      ):
+                     (
+                       <ul className="nav navbar-nav">
+                         <li><a href="/">A link for a student</a></li>
+                       </ul>
+                     )
+                  : (<div></div>) }
             </div>
           </div>
         </nav>

@@ -130,29 +130,26 @@ webpackJsonp([1],{
 	          { className: "container" },
 	          React.createElement(
 	            "div",
-	            { className: "navbar-header" },
-	            React.createElement(
-	              "button",
-	              { type: "button", className: "navbar-toggle", "data-toggle": "collapse", "data-target": "#bs-example-navbar-collapse-1" },
-	              React.createElement(
-	                "span",
-	                { className: "sr-only" },
-	                "Toggle navigation"
-	              ),
-	              React.createElement("span", { className: "icon-bar" }),
-	              React.createElement("span", { className: "icon-bar" }),
-	              React.createElement("span", { className: "icon-bar" })
-	            ),
+	            { className: "col-md-1" },
 	            React.createElement(
 	              "a",
-	              { className: "navbar-brand", href: "/" },
-	              "List-o-matic"
+	              { href: "/" },
+	              React.createElement("img", { className: "logo", src: "../logo.png" })
+	            )
+	          ),
+	          React.createElement(
+	            "div",
+	            { className: "col-md-6" },
+	            React.createElement(
+	              "h1",
+	              { className: "navbar-brand" },
+	              "Classroom Planner"
 	            )
 	          ),
 	          React.createElement(
 	            "div",
 	            { className: "collapse navbar-collapse", id: "bs-example-navbar-collapse-1" },
-	            this.state.loggedIn ? React.createElement(
+	            this.state.loggedIn ? this.state.type === "instructor" ? React.createElement(
 	              "ul",
 	              { className: "nav navbar-nav" },
 	              React.createElement(
@@ -198,6 +195,18 @@ webpackJsonp([1],{
 	                  "a",
 	                  { href: "#", onClick: this.logout },
 	                  "Logout"
+	                )
+	              )
+	            ) : React.createElement(
+	              "ul",
+	              { className: "nav navbar-nav" },
+	              React.createElement(
+	                "li",
+	                null,
+	                React.createElement(
+	                  "a",
+	                  { href: "/" },
+	                  "A link for a student"
 	                )
 	              )
 	            ) : React.createElement("div", null)
@@ -261,7 +270,7 @@ webpackJsonp([1],{
 	    // check if token in local storage
 	    if (localStorage.token) {
 	      this.onChange(true);
-	      if (cb) cb(true);
+	      if (cb) cb(true, localStorage.type);
 	      return;
 	    }
 	
@@ -279,14 +288,15 @@ webpackJsonp([1],{
 	        // on success, store a login token
 	        localStorage.token = res.token;
 	        localStorage.name = res.name;
+	        localStorage.type = res.type;
 	        this.onChange(true);
-	        if (cb) cb(true);
+	        if (cb) cb(true, res.type);
 	      }).bind(this),
 	      error: (function (xhr, status, err) {
 	        // if there is an error, remove any login token
 	        delete localStorage.token;
 	        this.onChange(false);
-	        if (cb) cb(false);
+	        if (cb) cb(false, null);
 	      }).bind(this)
 	    });
 	  },
@@ -298,9 +308,14 @@ webpackJsonp([1],{
 	  getName: function () {
 	    return localStorage.name;
 	  },
+	  //get the users type from local storage
+	  getType: function () {
+	    return localStorage.type;
+	  },
 	  // logout the user, call the callback when complete
 	  logout: function (cb) {
 	    delete localStorage.token;
+	    delete localStorage.type;
 	    this.onChange(false);
 	    if (cb) cb();
 	  },
@@ -333,18 +348,30 @@ webpackJsonp([1],{
 	
 	  render: function () {
 	    return React.createElement(
-	      "p",
-	      null,
+	      "div",
+	      { className: "content" },
 	      React.createElement(
-	        Link,
-	        { className: "btn btn-default", to: "login" },
-	        "Login"
-	      ),
-	      " or ",
-	      React.createElement(
-	        Link,
-	        { className: "btn btn-warning", to: "register" },
-	        "Register"
+	        "div",
+	        null,
+	        React.createElement(
+	          "h1",
+	          null,
+	          "What is due today?"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Sign in with your username and password to find out!"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement(
+	            Link,
+	            { className: "btn btn-default", to: "login" },
+	            "Login"
+	          )
+	        )
 	      )
 	    );
 	  }
@@ -1080,7 +1107,7 @@ webpackJsonp([1],{
 	  render: function () {
 	    return React.createElement(
 	      "div",
-	      null,
+	      { className: "content" },
 	      React.createElement(
 	        "h2",
 	        null,
@@ -1090,8 +1117,11 @@ webpackJsonp([1],{
 	        "form",
 	        { className: "form-vertical", onSubmit: this.login },
 	        React.createElement("input", { type: "text", placeholder: "Username", ref: "username", autoFocus: true }),
+	        React.createElement("br", null),
 	        React.createElement("input", { type: "password", placeholder: "Password", ref: "password" }),
+	        React.createElement("br", null),
 	        React.createElement("input", { className: "btn btn-warning", type: "submit", value: "Login" }),
+	        React.createElement("br", null),
 	        this.state.error ? React.createElement(
 	          "div",
 	          { className: "alert" },

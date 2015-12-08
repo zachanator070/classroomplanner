@@ -39,7 +39,7 @@ var auth = {
     if (localStorage.token) {
       this.onChange(true);
       if (cb)
-        cb(true);
+        cb(true,localStorage.type);
       return;
     }
 
@@ -57,16 +57,17 @@ var auth = {
         // on success, store a login token
         localStorage.token = res.token;
         localStorage.name = res.name;
+        localStorage.type = res.type;
         this.onChange(true);
         if (cb)
-          cb(true);
+          cb(true,res.type);
       }.bind(this),
       error: function(xhr, status, err) {
         // if there is an error, remove any login token
         delete localStorage.token;
         this.onChange(false);
         if (cb)
-          cb(false);
+          cb(false,null);
       }.bind(this)
     });
   },
@@ -78,9 +79,14 @@ var auth = {
   getName: function() {
     return localStorage.name;
   },
+  //get the users type from local storage
+  getType: function(){
+    return localStorage.type;
+  },
   // logout the user, call the callback when complete
   logout: function(cb) {
     delete localStorage.token;
+    delete localStorage.type;
     this.onChange(false);
     if (cb) cb();
   },
