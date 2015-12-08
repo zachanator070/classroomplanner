@@ -13,7 +13,7 @@ var SortableTableBody = React.createClass({
                 <SortableTableRow key={index} data={item} columns={this.props.columns} />
             );
         }.bind(this));
-        
+
         return (
             <tbody>
                 {bodies}
@@ -27,7 +27,7 @@ var SortableTableRow = React.createClass({
         var tds = this.props.columns.map(function (item, index) {
             var value = this.props.data[item.key];
             return (
-                <td key={index} style={item.dataStyle}>{value}</td>
+                <td key={index} index={index} style={item.dataStyle}>{value}</td>
             );
         }.bind(this));
             

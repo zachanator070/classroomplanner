@@ -1405,7 +1405,7 @@ webpackJsonp([1],{
 	            var value = this.props.data[item.key];
 	            return React.createElement(
 	                "td",
-	                { key: index, style: item.dataStyle },
+	                { key: index, index: index, style: item.dataStyle },
 	                value
 	            );
 	        }).bind(this));
@@ -1658,6 +1658,13 @@ webpackJsonp([1],{
 	            data: [{ id: 3, name: "Billy Bob", class: "B" }, { id: 1, name: "Tina Turner", class: "A" }, { id: 2, name: "Ken Doll", class: "A" }, { id: 4, name: "Mary Joseph", class: "C" }]
 	        };
 	    },
+	    removeRow: function (index, event) {
+	
+	        console.log(index); //TEMP
+	        var newData = this.state.data.slice();
+	        newData.splice(index, 1);
+	        this.setState({ data: newData });
+	    },
 	
 	    render: function () {
 	
@@ -1667,7 +1674,7 @@ webpackJsonp([1],{
 	            tabData: [{ tabName: "View Assignments", tabLink: "#/assignmentmanager/viewall", active: true }, { tabName: "Add Assignment", tabLink: "#/assignmentmanager/add", active: false }]
 	        };
 	
-	        var columns = [{ header: "ID", key: "id" }, { header: "NAME", key: "name" }, { header: "CLASS", key: "class" }];
+	        var columns = [{ header: "ID", key: "id" }, { header: "Student Name", key: "name" }, { header: "CLASS", key: "class" }];
 	
 	        var dropdownData = {
 	            title: 'Choose subject', //What should show up on the button to open/close the dropdown
@@ -1675,15 +1682,42 @@ webpackJsonp([1],{
 	            'Math 7', 'English 8', 'Spanish 7']
 	        };
 	
+	        var deleteButtons = [];
+	        var index = 0;
+	
+	        while (index < this.state.data.length) {
+	            deleteButtons.push(React.createElement(
+	                "button",
+	                { key: index, onClick: this.removeRow.bind(this, index) },
+	                "X"
+	            ));
+	            index++;
+	        }
+	
 	        return React.createElement(
 	            "div",
 	            null,
 	            React.createElement(TabBar, { data: tabs }),
 	            React.createElement(Dropdown, { title: dropdownData.title, items: dropdownData.items }),
-	            React.createElement(SortableTable, { data: this.state.data, columns: columns })
+	            React.createElement(
+	                "div",
+	                { align: "left" },
+	                React.createElement(SortableTable, { data: this.state.data, columns: columns }),
+	                React.createElement(
+	                    "div",
+	                    { position: "relative" },
+	                    deleteButtons
+	                )
+	            )
 	        );
 	    }
 	});
+	
+	// <button className="btn btn-default"
+	//     type="button"
+	//     onClick={this.removeRow} >
+	//     Push Me
+	// </button>
 	
 	module.exports = ViewAssignments;
 	
@@ -1847,13 +1881,22 @@ webpackJsonp([1],{
 		displayName: "AddAssignment",
 	
 		getInitialState: function () {
-			return { value: '' };
+			return { name: '', subject: '', dueDate: '', expDate: '' };
 		},
-		handleChange: function (event) {
-			this.setState({ value: event.target.value });
+		handleNameChange: function (event) {
+			this.setState({ name: event.target.value });
+		},
+		handleSubjectChange: function (event) {
+			this.setState({ subject: event.target.value });
+		},
+		handleDueDateChange: function (event) {
+			this.setState({ dueDate: event.target.value });
+		},
+		handleExpDateChange: function (event) {
+			this.setState({ expDate: event.target.value });
 		},
 		createAssignment: function () {
-			if (this.state.value) {
+			if (this.state.name && this.state.subject && this.state.dueDate && this.state.expDate) {
 				// <--- api function call goes here!!!
 				console.log("Assignment \"" + this.state.value + "\" was created"); //TEMP
 				this.setState({ value: '' });
@@ -1886,19 +1929,92 @@ webpackJsonp([1],{
 						{ className: "panel-body" },
 						React.createElement(
 							"form",
-							{ className: "form-inline" },
-							React.createElement("input", { className: "form-control",
-								type: "text",
-								placeholder: "Assignment Name",
-								value: this.state.value,
-								onChange: this.handleChange }),
+							{ className: "form-horizontal" },
 							React.createElement(
-								"button",
-								{ className: "btn btn-default",
-									type: "submit",
-									disabled: !this.state.value,
-									onClick: this.createAssignment },
-								"Create"
+								"div",
+								{ className: "form-group" },
+								React.createElement(
+									"label",
+									{ htmlFor: "inputTitle", className: "col-sm-2 control-label" },
+									"Name"
+								),
+								React.createElement(
+									"div",
+									{ className: "col-sm-10" },
+									React.createElement("input", { type: "text", className: "form-control",
+										id: "inputTitle",
+										placeholder: "Name",
+										value: this.state.name,
+										onChange: this.handleNameChange })
+								)
+							),
+							React.createElement(
+								"div",
+								{ className: "form-group" },
+								React.createElement(
+									"label",
+									{ htmlFor: "inputSubject", className: "col-sm-2 control-label" },
+									"Subject"
+								),
+								React.createElement(
+									"div",
+									{ className: "col-sm-10" },
+									React.createElement("input", { type: "text", className: "form-control",
+										id: "inputSubject",
+										placeholder: "Subject",
+										value: this.state.subject,
+										onChange: this.handleSubjectChange })
+								)
+							),
+							React.createElement(
+								"div",
+								{ className: "form-group" },
+								React.createElement(
+									"label",
+									{ htmlFor: "inputDueDate", className: "col-sm-2 control-label" },
+									"Due Date"
+								),
+								React.createElement(
+									"div",
+									{ className: "col-sm-10" },
+									React.createElement("input", { type: "date", className: "form-control",
+										id: "inputDueDate",
+										value: this.state.dueDate,
+										onChange: this.handleDueDateChange })
+								)
+							),
+							React.createElement(
+								"div",
+								{ className: "form-group" },
+								React.createElement(
+									"label",
+									{ htmlFor: "inputExpDate", className: "col-sm-2 control-label" },
+									"Expiration Date"
+								),
+								React.createElement(
+									"div",
+									{ className: "col-sm-10" },
+									React.createElement("input", { type: "date", className: "form-control",
+										id: "inputExpDate",
+										value: this.state.expDate,
+										onChange: this.handleExpDateChange })
+								)
+							),
+							React.createElement(
+								"div",
+								{ className: "form-group" },
+								React.createElement(
+									"div",
+									{ className: "col-sm-offset-2 col-sm-10" },
+									React.createElement(
+										"button",
+										{ className: "btn btn-default",
+											type: "submit",
+											disabled: !this.state.name || !this.state.subject || !this.state.dueDate || !this.state.expDate,
+											onClick: this.createAssignment },
+										"Create"
+									)
+								)
 							)
 						)
 					)
