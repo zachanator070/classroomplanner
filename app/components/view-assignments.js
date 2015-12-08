@@ -2,7 +2,6 @@ var React = require("react");
 var ReactRouter = require("react-router");
 
 var TabBar = require('./tab-bar.js');
-var Dropdown = require('./dropdown.js');
 var SortableTable = require('./sortable-table.js');
 
 // SORTING FUNCTIONS CAN BE PLACED HERE - SEE CODE BELOW COMPONENT
@@ -10,21 +9,20 @@ var SortableTable = require('./sortable-table.js');
 var ViewAssignments = React.createClass({
     
     getInitialState: function () {
+        // var assignments will be replaced with api call
+        var assignments =  [
+                    { name: "Read pg 18, ex 1-10", subject: "English 7" , dueDate: "11/12/15"},
+                    { name: "Read pg 4, ex 20-36", subject: "Math 7" , dueDate: "12/1/15"},
+                    { name: "Read pg 75, ex 1-4", subject: "Reading 7" , dueDate: "12/8/15"},
+                    { name: "Read pg 13, ex 2-6", subject: "English 7" , dueDate: "12/5/15"},
+                ];
         return {
-                data: [
-                    { id: 3, name: "Billy Bob", class: "B" },
-                    { id: 1, name: "Tina Turner", class: "A" },
-                    { id: 2, name: "Ken Doll", class: "A" },
-                    { id: 4, name: "Mary Joseph", class: "C" }
-                ]
+                data: assignments,
         };
     },
-    removeRow: function(index, event) {
-
-            console.log(index); //TEMP
-            var newData = this.state.data.slice();
-            newData.splice(index, 1);
-            this.setState({data: newData});
+    removeAssignment: function(index) {
+        // < -- insert api call here!!
+        console.log("Removing assignment: " + this.state.data[index].name); //TEMP
     },
 
     render: function () {
@@ -39,48 +37,20 @@ var ViewAssignments = React.createClass({
         };
 
         var columns = [
-            { header: "ID", key: "id"},
-            { header: "Student Name", key: "name" }, 
-            { header: "CLASS", key: "class"}
+            { header: "Name", key: "name"},
+            { header: "Subject", key: "subject"},
+            { header: "Due Date", key: "dueDate"},
+            { header: 'Delete', key: "xButton"} //Delete Button Column
         ];
-
-        var dropdownData = {
-            title: 'Choose subject', //What should show up on the button to open/close the dropdown
-            items: [ // List of items to show in the dropdown
-                'Math 7',
-                'English 8',
-                'Spanish 7'
-            ]
-        };
-
-        var deleteButtons = [];
-        var index = 0;
-
-        while(index < this.state.data.length){
-            deleteButtons.push(<button key={index} onClick={this.removeRow.bind(this, index)}>X</button>);
-            index++;
-        }
 
         return (
             <div>
                 <TabBar  data={tabs} />
-                <Dropdown title={dropdownData.title} items={dropdownData.items}/>
-                <div align='left'>
-                    <SortableTable data={this.state.data} columns={columns} />
-                    <div position='relative' >
-                        {deleteButtons}
-                    </div>
-                </div>
+                <SortableTable data={this.state.data} columns={columns} removeRow={this.removeAssignment} deleteCol='true' />
             </div>
         );
     }
 });
-
-// <button className="btn btn-default"
-//     type="button"
-//     onClick={this.removeRow} >
-//     Push Me
-// </button>
 
 module.exports = ViewAssignments;
 

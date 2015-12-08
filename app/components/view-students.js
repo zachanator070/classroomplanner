@@ -9,12 +9,17 @@ var ViewStudents = React.createClass({
 	getInitialState: function () {
 		return {
 		    	data: [
-		        	{ id: 3, name: "Billy Bob", class: "B" },
-		        	{ id: 1, name: "Tina Turner", class: "A" },
-		        	{ id: 2, name: "Ken Doll", class: "A" },
-		        	{ id: 4, name: "Mary Joseph", class: "C" }
+		        	{ name: "Billy Bob", password: "xz8c7v3z64c" },
+		        	{ name: "Tina Turner", password: "f2ghqj3fd47s" },
+		        	{ name: "Ken Doll", password: "98x7c6v7bs9d" },
+		        	{ name: "Mary Joseph", password: "kjabh2hjb3112" }
 		    	]
 		};
+	},
+
+	removeStudent: function(index) {
+		// < -- insert api call here!!
+		console.log("Removing student: " + this.state.data[index].name); //TEMP
 	},
 
 	render: function() {
@@ -27,14 +32,14 @@ var ViewStudents = React.createClass({
 		};
 
 		var columns = [
-	            { header: "ID", key: "id"},
-	            { header: "NAME", key: "name" }, 
-	            { header: "CLASS", key: "class"}
+	            { header: "Name", key: "name"},
+	            { header: "Password", key: "password" }, 
+	            {} //Delete Button Column
         	];
 
 		return <div>
 			<TabBar  data={tabs} />
-			<SortableTable data={this.state.data} columns={columns} />
+			<SortableTable data={this.state.data} columns={columns} removeRow={this.removeStudent} />
 		</div>
 	}
 });

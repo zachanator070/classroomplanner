@@ -10,7 +10,7 @@ var SortableTableBody = React.createClass({
     render: function () {
         var bodies = this.props.data.map(function (item, index) {
             return (
-                <SortableTableRow key={index} data={item} columns={this.props.columns} />
+                <SortableTableRow key={index} rowIndex={index} data={item} columns={this.props.columns} removeRow={this.props.removeRow} />
             );
         }.bind(this));
 
@@ -23,12 +23,27 @@ var SortableTableBody = React.createClass({
 });
 
 var SortableTableRow = React.createClass({
+
+    removeRow: function(index, event) {
+        this.props.removeRow(index);
+    },
+
     render: function () {
+
         var tds = this.props.columns.map(function (item, index) {
             var value = this.props.data[item.key];
-            return (
-                <td key={index} index={index} style={item.dataStyle}>{value}</td>
-            );
+            if (index === this.props.columns.length-1 && this.props.removeRow) {
+                return (
+                    <td className="invisibleCell" key={index} >
+                        <button key={index} onClick={this.removeRow.bind(this, this.props.rowIndex)}>X</button>
+                    </td>
+                );
+            }
+            else {
+                return (
+                    <td key={index} style={item.dataStyle} >{value}</td>
+                );
+            }
         }.bind(this));
             
         return (
