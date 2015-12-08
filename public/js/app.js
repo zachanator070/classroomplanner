@@ -14,24 +14,24 @@ webpackJsonp([1],{
 	var Route = ReactRouter.Route;
 	var IndexRoute = ReactRouter.IndexRoute;
 	
-	var App = __webpack_require__(/*! ./app.js */ 210);
-	var Home = __webpack_require__(/*! ./home.js */ 213);
-	var List = __webpack_require__(/*! ./list.js */ 214);
-	var Login = __webpack_require__(/*! ./login.js */ 220);
-	var Register = __webpack_require__(/*! ./register.js */ 221);
+	var App = __webpack_require__(/*! ./app.js */ 208);
+	var Home = __webpack_require__(/*! ./home.js */ 211);
+	var List = __webpack_require__(/*! ./list.js */ 212);
+	var Login = __webpack_require__(/*! ./login.js */ 218);
+	var Register = __webpack_require__(/*! ./register.js */ 219);
 	
-	var ViewStudents = __webpack_require__(/*! ./view-students.js */ 222);
+	var ViewStudents = __webpack_require__(/*! ./view-students.js */ 220);
 	var AddStudent = __webpack_require__(/*! ./add-student.js */ 226);
 	var ViewSubjects = __webpack_require__(/*! ./view-subjects.js */ 227);
 	var AddSubject = __webpack_require__(/*! ./add-subject.js */ 228);
 	var ViewAssignments = __webpack_require__(/*! ./view-assignments.js */ 229);
-	var AddAssignment = __webpack_require__(/*! ./add-assignment.js */ 230);
-	var CurrentAssignments = __webpack_require__(/*! ./current-assignments.js */ 231);
-	var LateAssignments = __webpack_require__(/*! ./late-assignments.js */ 232);
-	var ExpiredAssignments = __webpack_require__(/*! ./expired-assignments.js */ 233);
+	var AddAssignment = __webpack_require__(/*! ./add-assignment.js */ 232);
+	var CurrentAssignments = __webpack_require__(/*! ./current-assignments.js */ 233);
+	var LateAssignments = __webpack_require__(/*! ./late-assignments.js */ 234);
+	var ExpiredAssignments = __webpack_require__(/*! ./expired-assignments.js */ 235);
 	
-	__webpack_require__(/*! ../../~/bootstrap/dist/css/bootstrap.min.css */ 234);
-	__webpack_require__(/*! ../css/app.css */ 243);
+	__webpack_require__(/*! ../../~/bootstrap/dist/css/bootstrap.min.css */ 236);
+	__webpack_require__(/*! ../css/app.css */ 245);
 	
 	var routes = React.createElement(
 	  Router,
@@ -73,7 +73,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 210:
+/***/ 208:
 /*!***************************!*\
   !*** ./components/app.js ***!
   \***************************/
@@ -83,7 +83,7 @@ webpackJsonp([1],{
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	var History = ReactRouter.History;
 	
-	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	var auth = __webpack_require__(/*! ./auth.js */ 209);
 	
 	// Top-level component for the app
 	var App = React.createClass({
@@ -217,13 +217,13 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 211:
+/***/ 209:
 /*!****************************!*\
   !*** ./components/auth.js ***!
   \****************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var $ = __webpack_require__(/*! jquery */ 212);
+	var $ = __webpack_require__(/*! jquery */ 210);
 	
 	// authentication object
 	var auth = {
@@ -316,7 +316,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 213:
+/***/ 211:
 /*!****************************!*\
   !*** ./components/home.js ***!
   \****************************/
@@ -354,7 +354,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 214:
+/***/ 212:
 /*!****************************!*\
   !*** ./components/list.js ***!
   \****************************/
@@ -363,12 +363,12 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var ListHeader = __webpack_require__(/*! ./listheader.js */ 215);
-	var ListEntry = __webpack_require__(/*! ./listentry.js */ 217);
-	var ListItems = __webpack_require__(/*! ./listitems.js */ 218);
+	var ListHeader = __webpack_require__(/*! ./listheader.js */ 213);
+	var ListEntry = __webpack_require__(/*! ./listentry.js */ 215);
+	var ListItems = __webpack_require__(/*! ./listitems.js */ 216);
 	
-	var api = __webpack_require__(/*! ./api.js */ 216);
-	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	var api = __webpack_require__(/*! ./api.js */ 214);
+	var auth = __webpack_require__(/*! ./auth.js */ 209);
 	
 	// List page, shows the todo list of items
 	var List = React.createClass({
@@ -431,7 +431,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 215:
+/***/ 213:
 /*!**********************************!*\
   !*** ./components/listheader.js ***!
   \**********************************/
@@ -439,7 +439,7 @@ webpackJsonp([1],{
 
 	var React = __webpack_require__(/*! react */ 1);
 	
-	var api = __webpack_require__(/*! ./api.js */ 216);
+	var api = __webpack_require__(/*! ./api.js */ 214);
 	
 	// List header, which shows who the list is for, the number of items in the list, and a button to clear completed items
 	var ListHeader = React.createClass({
@@ -527,13 +527,13 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 216:
+/***/ 214:
 /*!***************************!*\
   !*** ./components/api.js ***!
   \***************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var $ = __webpack_require__(/*! jquery */ 212);
+	var $ = __webpack_require__(/*! jquery */ 210);
 	
 	// API object
 	var api = {
@@ -626,7 +626,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 217:
+/***/ 215:
 /*!*********************************!*\
   !*** ./components/listentry.js ***!
   \*********************************/
@@ -634,7 +634,7 @@ webpackJsonp([1],{
 
 	var React = __webpack_require__(/*! react */ 1);
 	
-	var api = __webpack_require__(/*! ./api.js */ 216);
+	var api = __webpack_require__(/*! ./api.js */ 214);
 	
 	// List entry component, handles adding new items to the list
 	var ListEntry = React.createClass({
@@ -672,7 +672,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 218:
+/***/ 216:
 /*!*********************************!*\
   !*** ./components/listitems.js ***!
   \*********************************/
@@ -681,7 +681,7 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var Item = __webpack_require__(/*! ./item.js */ 219);
+	var Item = __webpack_require__(/*! ./item.js */ 217);
 	
 	// List items component, shows the list of items
 	var ListItems = React.createClass({
@@ -723,7 +723,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 219:
+/***/ 217:
 /*!****************************!*\
   !*** ./components/item.js ***!
   \****************************/
@@ -731,7 +731,7 @@ webpackJsonp([1],{
 
 	var React = __webpack_require__(/*! react */ 1);
 	
-	var api = __webpack_require__(/*! ./api.js */ 216);
+	var api = __webpack_require__(/*! ./api.js */ 214);
 	
 	// Item shown in the todo list
 	var Item = React.createClass({
@@ -833,7 +833,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 220:
+/***/ 218:
 /*!*****************************!*\
   !*** ./components/login.js ***!
   \*****************************/
@@ -843,7 +843,7 @@ webpackJsonp([1],{
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	var History = ReactRouter.History;
 	
-	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	var auth = __webpack_require__(/*! ./auth.js */ 209);
 	
 	// Login page, shows the login form and redirects to the list if login is successful
 	var Login = React.createClass({
@@ -910,7 +910,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 221:
+/***/ 219:
 /*!********************************!*\
   !*** ./components/register.js ***!
   \********************************/
@@ -920,7 +920,7 @@ webpackJsonp([1],{
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	var History = ReactRouter.History;
 	
-	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	var auth = __webpack_require__(/*! ./auth.js */ 209);
 	
 	// Register page, shows the registration form and redirects to the list if login is successful
 	var Register = React.createClass({
@@ -989,7 +989,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 222:
+/***/ 220:
 /*!*************************************!*\
   !*** ./components/view-students.js ***!
   \*************************************/
@@ -998,28 +998,31 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var api = __webpack_require__(/*! ./api.js */ 216);
-	var auth = __webpack_require__(/*! ./auth.js */ 211);
-	
-	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
-	var Table = __webpack_require__(/*! ./table.js */ 224);
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
+	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
 	
 	var ViewStudents = React.createClass({
-		displayName: "ViewStudents",
+		displayName: 'ViewStudents',
+	
+		getInitialState: function () {
+			return {
+				data: [{ id: 3, name: "Billy Bob", class: "B" }, { id: 1, name: "Tina Turner", class: "A" }, { id: 2, name: "Ken Doll", class: "A" }, { id: 4, name: "Mary Joseph", class: "C" }]
+			};
+		},
 	
 		render: function () {
 	
-			var myData = {
+			var tabs = {
 				tabData: [{ tabName: "View Students", tabLink: "#/studentmanager/viewall", active: true }, { tabName: "Add Students", tabLink: "#/studentmanager/add", active: false }]
 			};
 	
-			var tableData = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [13, 14, 15], [16, 17, 18]];
+			var columns = [{ header: "ID", key: "id" }, { header: "NAME", key: "name" }, { header: "CLASS", key: "class" }];
 	
 			return React.createElement(
-				"div",
+				'div',
 				null,
-				React.createElement(TabBar, { data: myData }),
-				React.createElement(Table, { data: tableData })
+				React.createElement(TabBar, { data: tabs }),
+				React.createElement(SortableTable, { data: this.state.data, columns: columns })
 			);
 		}
 	});
@@ -1028,7 +1031,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 223:
+/***/ 221:
 /*!*******************************!*\
   !*** ./components/tab-bar.js ***!
   \*******************************/
@@ -1037,8 +1040,8 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var api = __webpack_require__(/*! ./api.js */ 216);
-	var auth = __webpack_require__(/*! ./auth.js */ 211);
+	var api = __webpack_require__(/*! ./api.js */ 214);
+	var auth = __webpack_require__(/*! ./auth.js */ 209);
 	
 	var TabBar = React.createClass({
 		displayName: "TabBar",
@@ -1073,506 +1076,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 224:
-/*!*****************************!*\
-  !*** ./components/table.js ***!
-  \*****************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var TableHeader = __webpack_require__(/*! ./table-header.js */ 225);
-	
-	var Table = React.createClass({
-		displayName: 'Table',
-	
-		getInitialState: function () {
-			return { data: this.props.data };
-		},
-	
-		render: function () {
-	
-			var header = React.createElement(
-				'thead',
-				null,
-				React.createElement(
-					'tr',
-					null,
-					this.props.data[0].map(function (cell, j) {
-						return React.createElement(
-							'th',
-							{ key: j },
-							cell
-						);
-					})
-				)
-			);
-	
-			var body = React.createElement(
-				'tbody',
-				null,
-				this.props.data.map(function (row, i) {
-					return React.createElement(
-						'tr',
-						{ key: i },
-						row.map(function (cell, j) {
-							var result;
-							if (i !== 0) {
-								result = React.createElement(
-									'td',
-									{ key: j },
-									cell
-								);
-							}
-							return result;
-						})
-					);
-				})
-			);
-	
-			return React.createElement(
-				'table',
-				{ className: 'table table-striped table-bordered sortable' },
-				header,
-				body
-			);
-		}
-	});
-	
-	module.exports = Table;
-
-/***/ },
-
-/***/ 225:
-/*!************************************!*\
-  !*** ./components/table-header.js ***!
-  \************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	
-	var TableHeader = React.createClass({
-		displayName: 'TableHeader',
-	
-		render: function () {
-	
-			return React.createElement(
-				'thead',
-				null,
-				this.props.tableData.map(function (row) {
-					return React.createElement(
-						'tr',
-						null,
-						row.rowData.map(function (cell) {
-							return React.createElement(
-								'th',
-								null,
-								cell
-							);
-						})
-					);
-				})
-			);
-		}
-	});
-	
-	module.exports = TableHeader;
-
-/***/ },
-
-/***/ 226:
-/*!***********************************!*\
-  !*** ./components/add-student.js ***!
-  \***********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactRouter = __webpack_require__(/*! react-router */ 159);
-	
-	var api = __webpack_require__(/*! ./api.js */ 216);
-	var auth = __webpack_require__(/*! ./auth.js */ 211);
-	
-	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
-	
-	var AddStudent = React.createClass({
-		displayName: "AddStudent",
-	
-		render: function () {
-	
-			var myData = {
-				tabData: [{ tabName: "View Students", tabLink: "#/studentmanager/viewall", active: false }, { tabName: "Add Students", tabLink: "#/studentmanager/add", active: true }]
-			};
-	
-			return React.createElement(
-				"div",
-				null,
-				React.createElement(TabBar, { data: myData }),
-				"Add Student!!!!!!!!!!!!!!!!!!!!!"
-			);
-		}
-	});
-	
-	module.exports = AddStudent;
-
-/***/ },
-
-/***/ 227:
-/*!*************************************!*\
-  !*** ./components/view-subjects.js ***!
-  \*************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactRouter = __webpack_require__(/*! react-router */ 159);
-	
-	var api = __webpack_require__(/*! ./api.js */ 216);
-	var auth = __webpack_require__(/*! ./auth.js */ 211);
-	
-	var TabBar = __webpack_require__(/*! ./tab-bar.js */ 223);
-	var Table = __webpack_require__(/*! ./table.js */ 224);
-	
-	var ViewSubjects = React.createClass({
-		displayName: "ViewSubjects",
-	
-		render: function () {
-	
-			var myData = {
-				tabData: [{ tabName: "View Subjects", tabLink: "#/subjectmanager/viewall", active: true }, { tabName: "Add Subject", tabLink: "#/subjectmanager/add", active: false }]
-			};
-	
-			var tableData = [[1, 2, 3], [7, 8, 9], [10, 11, 12], [13, 14, 15], [16, 17, 18]];
-	
-			return React.createElement(
-				"div",
-				null,
-				React.createElement(TabBar, { data: myData }),
-				React.createElement(Table, { data: tableData })
-			);
-		}
-	});
-	
-	module.exports = ViewSubjects;
-
-/***/ },
-
-/***/ 228:
-/*!***********************************!*\
-  !*** ./components/add-subject.js ***!
-  \***********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactRouter = __webpack_require__(/*! react-router */ 159);
-	
-	var api = __webpack_require__(/*! ./api.js */ 216);
-	var auth = __webpack_require__(/*! ./auth.js */ 211);
-	
-	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
-	
-	var AddSubject = React.createClass({
-		displayName: "AddSubject",
-	
-		render: function () {
-	
-			var myData = {
-				tabData: [{ tabName: "View Subjects", tabLink: "#/subjectmanager/viewall", active: false }, { tabName: "Add Subject", tabLink: "#/subjectmanager/add", active: true }]
-			};
-	
-			return React.createElement(
-				"div",
-				null,
-				React.createElement(TabBar, { data: myData }),
-				"Add Subject!!!!!!!!!!!!!!!!!!!!!"
-			);
-		}
-	});
-	
-	module.exports = AddSubject;
-
-/***/ },
-
-/***/ 229:
-/*!****************************************!*\
-  !*** ./components/view-assignments.js ***!
-  \****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactRouter = __webpack_require__(/*! react-router */ 159);
-	
-	var TabBar = __webpack_require__(/*! ./tab-bar.js */ 223);
-	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 249);
-	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 245);
-	
-	// SORTING FUNCTIONS CAN BE PLACED HERE - SEE CODE BELOW COMPONENT
-	
-	var ViewAssignments = React.createClass({
-	    displayName: "ViewAssignments",
-	
-	    getInitialState: function () {
-	        return {
-	            data: [{ id: 3, name: "Satoshi Yamamoto", class: "B" }, { id: 1, name: "Taro Tanak", class: "A" }, { id: 2, name: "Ken Asada", class: "A" }, { id: 4, name: "Masaru Tokunaga", class: "C" }]
-	        };
-	    },
-	
-	    render: function () {
-	
-	        // OPTIONS CAN BE PLACED HERE - SEE EXAMPLE CODE BELOW COMPONENT
-	
-	        var tabs = {
-	            tabData: [{ tabName: "View Assignments", tabLink: "#/assignmentmanager/viewall", active: true }, { tabName: "Add Assignment", tabLink: "#/assignmentmanager/add", active: false }]
-	        };
-	
-	        var columns = [{ header: "ID", key: "id" }, { header: "NAME", key: "name" }, { header: "CLASS", key: "class" }];
-	
-	        var options = {
-	            title: 'Choose subject', //What should show up on the button to open/close the dropdown
-	            items: [// List of items to show in the dropdown
-	            'Math 7', 'English 8', 'Spanish 7']
-	        };
-	
-	        return React.createElement(
-	            "div",
-	            null,
-	            React.createElement(TabBar, { data: tabs }),
-	            React.createElement(Dropdown, { title: options.title, items: options.items }),
-	            React.createElement(SortableTable, { data: this.state.data, columns: columns })
-	        );
-	    }
-	});
-	
-	module.exports = ViewAssignments;
-	
-	// RENDER OPTIONS
-	// var columns = [
-	//     { header: "ID", key: "id", defaultSorting: "ASC", headerStyle: {fontSize: "15px", backgroundColor: "#FFDAB9", width: "100px" }, dataStyle: {fontSize: "15px", backgroundColor: "#FFDAB9"} },
-	//     { header: "NAME", key: "name", headerStyle: {fontSize: "15px"}, descSortFunction: FamilyNameSorter.desc, ascSortFunction: FamilyNameSorter.asc },
-	//     { header: "CLASS", key: "class", headerStyle: {fontSize: "15px"}, sortable: false }
-	// ];
-	// var style = {
-	//     backgroundColor: "#eee"
-	// };
-	
-	// var iconStyle = {
-	//     color: "#aaa",
-	//     paddingLeft: "5px",
-	//     paddingRight: "5px"
-	// };
-	// return (
-	//     <div>
-	//         <TabBar  data={tabs} />
-	//         <SortableTable data={this.state.data} columns={columns} style={style} iconStyle={iconStyle} />
-	//     </div>
-	// );
-	
-	// SORTING FUNCTIONS
-	
-	// var getFamilyName = function (name) {
-	//     return name.split(" ").slice(-1)[0]
-	// };
-	
-	// var FamilyNameSorter = {
-	//     desc: function (data, key) {
-	//         var result = data.sort(function (_a, _b) {
-	//             var a = getFamilyName(_a[key]);
-	//             var b = getFamilyName(_b[key]);
-	//             if ( a <= b ) {
-	//                 return 1;
-	//             } else if ( a > b) {
-	//                 return -1;
-	//             }
-	//         });
-	//             return result;
-	//     },
-	
-	//     asc: function (data, key) {
-	//         return data.sort(function (_a, _b) {
-	//             var a = getFamilyName(_a[key]);
-	//             var b = getFamilyName(_b[key]);
-	//             if ( a >= b ) {
-	//                 return 1;
-	//             } else if ( a < b) {
-	//                 return -1;
-	//             }
-	//         })
-	//     }
-	// };
-
-/***/ },
-
-/***/ 230:
-/*!**************************************!*\
-  !*** ./components/add-assignment.js ***!
-  \**************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactRouter = __webpack_require__(/*! react-router */ 159);
-	
-	var api = __webpack_require__(/*! ./api.js */ 216);
-	var auth = __webpack_require__(/*! ./auth.js */ 211);
-	
-	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
-	
-	var AddAssignment = React.createClass({
-		displayName: "AddAssignment",
-	
-		render: function () {
-	
-			var myData = {
-				tabData: [{ tabName: "View Assignments", tabLink: "#/assignmentmanager/viewall", active: false }, { tabName: "Add Assignment", tabLink: "#/assignmentmanager/add", active: true }]
-			};
-	
-			return React.createElement(
-				"div",
-				null,
-				React.createElement(TabBar, { data: myData }),
-				"Add Assignment!!!!!!!!!!!!!!!!!!!!!"
-			);
-		}
-	});
-	
-	module.exports = AddAssignment;
-
-/***/ },
-
-/***/ 231:
-/*!*******************************************!*\
-  !*** ./components/current-assignments.js ***!
-  \*******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactRouter = __webpack_require__(/*! react-router */ 159);
-	
-	var api = __webpack_require__(/*! ./api.js */ 216);
-	var auth = __webpack_require__(/*! ./auth.js */ 211);
-	
-	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
-	var Table = __webpack_require__(/*! ./table.js */ 224);
-	
-	var CurrentAssignments = React.createClass({
-		displayName: "CurrentAssignments",
-	
-		render: function () {
-	
-			var myData = {
-				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: true }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: false }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false }]
-			};
-	
-			var tableData = [[1, 2, 3], [7, 8, 9], [13, 14, 15], [16, 17, 18]];
-	
-			return React.createElement(
-				"div",
-				null,
-				React.createElement(TabBar, { data: myData }),
-				React.createElement(Table, { data: tableData })
-			);
-		}
-	});
-	
-	module.exports = CurrentAssignments;
-
-/***/ },
-
-/***/ 232:
-/*!****************************************!*\
-  !*** ./components/late-assignments.js ***!
-  \****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactRouter = __webpack_require__(/*! react-router */ 159);
-	
-	var api = __webpack_require__(/*! ./api.js */ 216);
-	var auth = __webpack_require__(/*! ./auth.js */ 211);
-	
-	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
-	var Table = __webpack_require__(/*! ./table.js */ 224);
-	
-	var LateAssignments = React.createClass({
-		displayName: "LateAssignments",
-	
-		render: function () {
-	
-			var myData = {
-				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: true }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false }]
-			};
-	
-			var tableData = [[1, 2, 3], [7, 8, 9], [10, 11, 12], [13, 14, 15]];
-	
-			return React.createElement(
-				"div",
-				null,
-				React.createElement(TabBar, { data: myData }),
-				React.createElement(Table, { data: tableData })
-			);
-		}
-	});
-	
-	module.exports = LateAssignments;
-
-/***/ },
-
-/***/ 233:
-/*!*******************************************!*\
-  !*** ./components/expired-assignments.js ***!
-  \*******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactRouter = __webpack_require__(/*! react-router */ 159);
-	
-	var api = __webpack_require__(/*! ./api.js */ 216);
-	var auth = __webpack_require__(/*! ./auth.js */ 211);
-	
-	var TabBar = __webpack_require__(/*! ./tab-bar */ 223);
-	var Table = __webpack_require__(/*! ./table.js */ 224);
-	
-	var ExpiredAssignments = React.createClass({
-		displayName: "ExpiredAssignments",
-	
-		render: function () {
-	
-			var myData = {
-				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: false }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: true }]
-			};
-	
-			var tableData = [[7, 8, 9], [10, 11, 12], [13, 14, 15], [16, 17, 18]];
-	
-			return React.createElement(
-				"div",
-				null,
-				React.createElement(TabBar, { data: myData }),
-				React.createElement(Table, { data: tableData })
-			);
-		}
-	});
-	
-	module.exports = ExpiredAssignments;
-
-/***/ },
-
-/***/ 234:
-/*!*************************************************!*\
-  !*** ../~/bootstrap/dist/css/bootstrap.min.css ***!
-  \*************************************************/
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-
-/***/ 243:
-/*!*********************!*\
-  !*** ./css/app.css ***!
-  \*********************/
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-
-/***/ 245:
+/***/ 222:
 /*!**************************************!*\
   !*** ./components/sortable-table.js ***!
   \**************************************/
@@ -1580,8 +1084,8 @@ webpackJsonp([1],{
 
 	var React = __webpack_require__(/*! react */ 1);
 	
-	var SortableTableHeader = __webpack_require__(/*! ./sortable-table-header.js */ 246);
-	var SortableTableBody = __webpack_require__(/*! ./sortable-table-body.js */ 247);
+	var SortableTableHeader = __webpack_require__(/*! ./sortable-table-header.js */ 223);
+	var SortableTableBody = __webpack_require__(/*! ./sortable-table-body.js */ 225);
 	
 	var SortableTable = React.createClass({
 	    displayName: "SortableTable",
@@ -1731,7 +1235,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 246:
+/***/ 223:
 /*!*********************************************!*\
   !*** ./components/sortable-table-header.js ***!
   \*********************************************/
@@ -1740,7 +1244,7 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var icons = __webpack_require__(/*! ./icons.js */ 248);
+	var icons = __webpack_require__(/*! ./icons.js */ 224);
 	var SortIconBoth = icons.SortIconBoth;
 	var SortIconDesc = icons.SortIconDesc;
 	var SortIconAsc = icons.SortIconAsc;
@@ -1814,7 +1318,56 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 247:
+/***/ 224:
+/*!*****************************!*\
+  !*** ./components/icons.js ***!
+  \*****************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var SortIconBoth = React.createClass({
+	    displayName: "SortIconBoth",
+	
+	    render: function () {
+	        return React.createElement(FaIcon, { icon: "fa-sort", style: this.props.style });
+	    }
+	});
+	
+	var SortIconAsc = React.createClass({
+	    displayName: "SortIconAsc",
+	
+	    render: function () {
+	        return React.createElement(FaIcon, { icon: "fa-sort-asc", style: this.props.style });
+	    }
+	});
+	
+	var SortIconDesc = React.createClass({
+	    displayName: "SortIconDesc",
+	
+	    render: function () {
+	        return React.createElement(FaIcon, { icon: "fa-sort-desc", style: this.props.style });
+	    }
+	});
+	
+	var FaIcon = React.createClass({
+	    displayName: "FaIcon",
+	
+	    render: function () {
+	        var className = "fa fa-lg ";
+	        className += this.props.icon;
+	        return React.createElement("i", { className: className, style: this.props.style, align: "right" });
+	    }
+	});
+	
+	exports.SortIconBoth = SortIconBoth;
+	exports.SortIconDesc = SortIconDesc;
+	exports.SortIconAsc = SortIconAsc;
+
+/***/ },
+
+/***/ 225:
 /*!*******************************************!*\
   !*** ./components/sortable-table-body.js ***!
   \*******************************************/
@@ -1869,63 +1422,237 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 248:
-/*!*****************************!*\
-  !*** ./components/icons.js ***!
-  \*****************************/
+/***/ 226:
+/*!***********************************!*\
+  !*** ./components/add-student.js ***!
+  \***********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var SortIconBoth = React.createClass({
-	    displayName: "SortIconBoth",
+	var api = __webpack_require__(/*! ./api.js */ 214);
+	var auth = __webpack_require__(/*! ./auth.js */ 209);
 	
-	    render: function () {
-	        return React.createElement(FaIcon, { icon: "fa-sort", style: this.props.style });
-	    }
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
+	
+	var AddStudent = React.createClass({
+		displayName: "AddStudent",
+	
+		render: function () {
+	
+			var myData = {
+				tabData: [{ tabName: "View Students", tabLink: "#/studentmanager/viewall", active: false }, { tabName: "Add Students", tabLink: "#/studentmanager/add", active: true }]
+			};
+	
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(TabBar, { data: myData }),
+				"Add Student!!!!!!!!!!!!!!!!!!!!!"
+			);
+		}
 	});
 	
-	var SortIconAsc = React.createClass({
-	    displayName: "SortIconAsc",
-	
-	    render: function () {
-	        return React.createElement(FaIcon, { icon: "fa-sort-asc", style: this.props.style });
-	    }
-	});
-	
-	var SortIconDesc = React.createClass({
-	    displayName: "SortIconDesc",
-	
-	    render: function () {
-	        return React.createElement(FaIcon, { icon: "fa-sort-desc", style: this.props.style });
-	    }
-	});
-	
-	var FaIcon = React.createClass({
-	    displayName: "FaIcon",
-	
-	    render: function () {
-	        var className = "fa fa-lg ";
-	        className += this.props.icon;
-	        return React.createElement("i", { className: className, style: this.props.style, align: "right" });
-	    }
-	});
-	
-	exports.SortIconBoth = SortIconBoth;
-	exports.SortIconDesc = SortIconDesc;
-	exports.SortIconAsc = SortIconAsc;
+	module.exports = AddStudent;
 
 /***/ },
 
-/***/ 249:
+/***/ 227:
+/*!*************************************!*\
+  !*** ./components/view-subjects.js ***!
+  \*************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar.js */ 221);
+	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
+	
+	var ViewSubjects = React.createClass({
+		displayName: 'ViewSubjects',
+	
+		getInitialState: function () {
+			return {
+				data: [{ id: 3, name: "Billy Bob", class: "B" }, { id: 1, name: "Tina Turner", class: "A" }, { id: 2, name: "Ken Doll", class: "A" }, { id: 4, name: "Mary Joseph", class: "C" }]
+			};
+		},
+	
+		render: function () {
+	
+			var tabs = {
+				tabData: [{ tabName: "View Subjects", tabLink: "#/subjectmanager/viewall", active: true }, { tabName: "Add Subject", tabLink: "#/subjectmanager/add", active: false }]
+			};
+	
+			var columns = [{ header: "ID", key: "id" }, { header: "NAME", key: "name" }, { header: "CLASS", key: "class" }];
+	
+			return React.createElement(
+				'div',
+				null,
+				React.createElement(TabBar, { data: tabs }),
+				React.createElement(SortableTable, { data: this.state.data, columns: columns })
+			);
+		}
+	});
+	
+	module.exports = ViewSubjects;
+
+/***/ },
+
+/***/ 228:
+/*!***********************************!*\
+  !*** ./components/add-subject.js ***!
+  \***********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 214);
+	var auth = __webpack_require__(/*! ./auth.js */ 209);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
+	
+	var AddSubject = React.createClass({
+		displayName: "AddSubject",
+	
+		render: function () {
+	
+			var myData = {
+				tabData: [{ tabName: "View Subjects", tabLink: "#/subjectmanager/viewall", active: false }, { tabName: "Add Subject", tabLink: "#/subjectmanager/add", active: true }]
+			};
+	
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(TabBar, { data: myData }),
+				"Add Subject!!!!!!!!!!!!!!!!!!!!!"
+			);
+		}
+	});
+	
+	module.exports = AddSubject;
+
+/***/ },
+
+/***/ 229:
+/*!****************************************!*\
+  !*** ./components/view-assignments.js ***!
+  \****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar.js */ 221);
+	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 230);
+	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
+	
+	// SORTING FUNCTIONS CAN BE PLACED HERE - SEE CODE BELOW COMPONENT
+	
+	var ViewAssignments = React.createClass({
+	    displayName: "ViewAssignments",
+	
+	    getInitialState: function () {
+	        return {
+	            data: [{ id: 3, name: "Billy Bob", class: "B" }, { id: 1, name: "Tina Turner", class: "A" }, { id: 2, name: "Ken Doll", class: "A" }, { id: 4, name: "Mary Joseph", class: "C" }]
+	        };
+	    },
+	
+	    render: function () {
+	
+	        // OPTIONS CAN BE PLACED HERE - SEE EXAMPLE CODE BELOW COMPONENT
+	
+	        var tabs = {
+	            tabData: [{ tabName: "View Assignments", tabLink: "#/assignmentmanager/viewall", active: true }, { tabName: "Add Assignment", tabLink: "#/assignmentmanager/add", active: false }]
+	        };
+	
+	        var columns = [{ header: "ID", key: "id" }, { header: "NAME", key: "name" }, { header: "CLASS", key: "class" }];
+	
+	        var dropdownData = {
+	            title: 'Choose subject', //What should show up on the button to open/close the dropdown
+	            items: [// List of items to show in the dropdown
+	            'Math 7', 'English 8', 'Spanish 7']
+	        };
+	
+	        return React.createElement(
+	            "div",
+	            null,
+	            React.createElement(TabBar, { data: tabs }),
+	            React.createElement(Dropdown, { title: dropdownData.title, items: dropdownData.items }),
+	            React.createElement(SortableTable, { data: this.state.data, columns: columns })
+	        );
+	    }
+	});
+	
+	module.exports = ViewAssignments;
+	
+	// RENDER OPTIONS
+	// var columns = [
+	//     { header: "ID", key: "id", defaultSorting: "ASC", headerStyle: {fontSize: "15px", backgroundColor: "#FFDAB9", width: "100px" }, dataStyle: {fontSize: "15px", backgroundColor: "#FFDAB9"} },
+	//     { header: "NAME", key: "name", headerStyle: {fontSize: "15px"}, descSortFunction: FamilyNameSorter.desc, ascSortFunction: FamilyNameSorter.asc },
+	//     { header: "CLASS", key: "class", headerStyle: {fontSize: "15px"}, sortable: false }
+	// ];
+	// var style = {
+	//     backgroundColor: "#eee"
+	// };
+	
+	// var iconStyle = {
+	//     color: "#aaa",
+	//     paddingLeft: "5px",
+	//     paddingRight: "5px"
+	// };
+	// return (
+	//     <div>
+	//         <TabBar  data={tabs} />
+	//         <SortableTable data={this.state.data} columns={columns} style={style} iconStyle={iconStyle} />
+	//     </div>
+	// );
+	
+	// SORTING FUNCTIONS
+	
+	// var getFamilyName = function (name) {
+	//     return name.split(" ").slice(-1)[0]
+	// };
+	
+	// var FamilyNameSorter = {
+	//     desc: function (data, key) {
+	//         var result = data.sort(function (_a, _b) {
+	//             var a = getFamilyName(_a[key]);
+	//             var b = getFamilyName(_b[key]);
+	//             if ( a <= b ) {
+	//                 return 1;
+	//             } else if ( a > b) {
+	//                 return -1;
+	//             }
+	//         });
+	//             return result;
+	//     },
+	
+	//     asc: function (data, key) {
+	//         return data.sort(function (_a, _b) {
+	//             var a = getFamilyName(_a[key]);
+	//             var b = getFamilyName(_b[key]);
+	//             if ( a >= b ) {
+	//                 return 1;
+	//             } else if ( a < b) {
+	//                 return -1;
+	//             }
+	//         })
+	//     }
+	// };
+
+/***/ },
+
+/***/ 230:
 /*!********************************!*\
   !*** ./components/dropdown.js ***!
   \********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(/*! react */ 1);
-	var ListItem = __webpack_require__(/*! ./list-item */ 250);
+	var ListItem = __webpack_require__(/*! ./list-item */ 231);
 	
 	module.exports = React.createClass({
 		displayName: 'exports',
@@ -1945,8 +1672,8 @@ webpackJsonp([1],{
 			});
 		},
 		render: function () {
-			var list = this.props.items.map((function (item) {
-				return React.createElement(ListItem, {
+			var list = this.props.items.map((function (item, i) {
+				return React.createElement(ListItem, { key: i,
 					item: item,
 					whenItemClicked: this.handleItemClick,
 					className: this.state.itemTitle === item ? "active" : "" });
@@ -1972,7 +1699,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 250:
+/***/ 231:
 /*!*********************************!*\
   !*** ./components/list-item.js ***!
   \*********************************/
@@ -2001,8 +1728,192 @@ webpackJsonp([1],{
 	
 	module.exports = ListItem;
 
+/***/ },
+
+/***/ 232:
+/*!**************************************!*\
+  !*** ./components/add-assignment.js ***!
+  \**************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 214);
+	var auth = __webpack_require__(/*! ./auth.js */ 209);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
+	
+	var AddAssignment = React.createClass({
+		displayName: "AddAssignment",
+	
+		render: function () {
+	
+			var myData = {
+				tabData: [{ tabName: "View Assignments", tabLink: "#/assignmentmanager/viewall", active: false }, { tabName: "Add Assignment", tabLink: "#/assignmentmanager/add", active: true }]
+			};
+	
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(TabBar, { data: myData }),
+				"Add Assignment!!!!!!!!!!!!!!!!!!!!!"
+			);
+		}
+	});
+	
+	module.exports = AddAssignment;
+
+/***/ },
+
+/***/ 233:
+/*!*******************************************!*\
+  !*** ./components/current-assignments.js ***!
+  \*******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 214);
+	var auth = __webpack_require__(/*! ./auth.js */ 209);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
+	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
+	
+	var CurrentAssignments = React.createClass({
+		displayName: "CurrentAssignments",
+	
+		getInitialState: function () {
+			return {
+				data: [{ id: 3, name: "Billy Bob", class: "B" }, { id: 1, name: "Tina Turner", class: "A" }, { id: 2, name: "Ken Doll", class: "A" }, { id: 4, name: "Mary Joseph", class: "C" }]
+			};
+		},
+	
+		render: function () {
+	
+			var tabs = {
+				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: true }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: false }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false }]
+			};
+	
+			var columns = [{ header: "ID", key: "id" }, { header: "NAME", key: "name" }, { header: "CLASS", key: "class" }];
+	
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(TabBar, { data: tabs }),
+				React.createElement(SortableTable, { data: this.state.data, columns: columns })
+			);
+		}
+	});
+	
+	module.exports = CurrentAssignments;
+
+/***/ },
+
+/***/ 234:
+/*!****************************************!*\
+  !*** ./components/late-assignments.js ***!
+  \****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
+	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
+	
+	var LateAssignments = React.createClass({
+		displayName: 'LateAssignments',
+	
+		getInitialState: function () {
+			return {
+				data: [{ id: 3, name: "Billy Bob", class: "B" }, { id: 1, name: "Tina Turner", class: "A" }, { id: 2, name: "Ken Doll", class: "A" }, { id: 4, name: "Mary Joseph", class: "C" }]
+			};
+		},
+	
+		render: function () {
+	
+			var tabs = {
+				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: true }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false }]
+			};
+	
+			var columns = [{ header: "ID", key: "id" }, { header: "NAME", key: "name" }, { header: "CLASS", key: "class" }];
+	
+			return React.createElement(
+				'div',
+				null,
+				React.createElement(TabBar, { data: tabs }),
+				React.createElement(SortableTable, { data: this.state.data, columns: columns })
+			);
+		}
+	});
+	
+	module.exports = LateAssignments;
+
+/***/ },
+
+/***/ 235:
+/*!*******************************************!*\
+  !*** ./components/expired-assignments.js ***!
+  \*******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
+	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
+	
+	var ExpiredAssignments = React.createClass({
+		displayName: 'ExpiredAssignments',
+	
+		getInitialState: function () {
+			return {
+				data: [{ id: 3, name: "Billy Bob", class: "B" }, { id: 1, name: "Tina Turner", class: "A" }, { id: 2, name: "Ken Doll", class: "A" }, { id: 4, name: "Mary Joseph", class: "C" }]
+			};
+		},
+	
+		render: function () {
+	
+			var tabs = {
+				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: false }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: true }]
+			};
+	
+			var columns = [{ header: "ID", key: "id" }, { header: "NAME", key: "name" }, { header: "CLASS", key: "class" }];
+	
+			return React.createElement(
+				'div',
+				null,
+				React.createElement(TabBar, { data: tabs }),
+				React.createElement(SortableTable, { data: this.state.data, columns: columns })
+			);
+		}
+	});
+	
+	module.exports = ExpiredAssignments;
+
+/***/ },
+
+/***/ 236:
+/*!*************************************************!*\
+  !*** ../~/bootstrap/dist/css/bootstrap.min.css ***!
+  \*************************************************/
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 245:
+/*!*********************!*\
+  !*** ./css/app.css ***!
+  \*********************/
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
 /***/ }
 
 });
-//# sourceMappingURL=app.js.map
 //# sourceMappingURL=app.js.map

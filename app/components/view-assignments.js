@@ -11,12 +11,12 @@ var ViewAssignments = React.createClass({
     
     getInitialState: function () {
         return {
-            data: [
-                { id: 3, name: "Satoshi Yamamoto", class: "B" },
-                { id: 1, name: "Taro Tanak", class: "A" },
-                { id: 2, name: "Ken Asada", class: "A" },
-                { id: 4, name: "Masaru Tokunaga", class: "C" }
-            ]
+                data: [
+                    { id: 3, name: "Billy Bob", class: "B" },
+                    { id: 1, name: "Tina Turner", class: "A" },
+                    { id: 2, name: "Ken Doll", class: "A" },
+                    { id: 4, name: "Mary Joseph", class: "C" }
+                ]
         };
     },
 
@@ -37,7 +37,7 @@ var ViewAssignments = React.createClass({
             { header: "CLASS", key: "class"}
         ];
 
-        var options = {
+        var dropdownData = {
             title: 'Choose subject', //What should show up on the button to open/close the dropdown
             items: [ // List of items to show in the dropdown
                 'Math 7',
@@ -49,7 +49,7 @@ var ViewAssignments = React.createClass({
         return (
             <div>
                 <TabBar  data={tabs} />
-                <Dropdown title={options.title} items={options.items}/>
+                <Dropdown title={dropdownData.title} items={dropdownData.items}/>
                 <SortableTable data={this.state.data} columns={columns} />
             </div>
         );

@@ -17,8 +17,8 @@ module.exports = React.createClass({
 		});
 	},
 	render: function() {
-		var list = this.props.items.map(function(item) {
-			return <ListItem 
+		var list = this.props.items.map(function(item, i) {
+			return <ListItem key={i}
 				item={item} 
 				whenItemClicked={this.handleItemClick} 
 				className={this.state.itemTitle === item ? "active" : ""} />
