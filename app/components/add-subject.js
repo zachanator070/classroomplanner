@@ -7,9 +7,26 @@ var auth = require("./auth.js");
 var TabBar = require('./tab-bar');
 
 var AddSubject = React.createClass({
+
+	getInitialState: function() {
+		return {value: ''};
+	},
+
+	handleChange: function(event) {
+		this.setState({value: event.target.value});
+	},
+
+	createSubject: function() {
+		if(this.state.value) {
+			// <--- api function call goes here!!!
+			console.log("Subject \"" + this.state.value + "\" was created"); //TEMP
+			this.setState({value: ''});
+		}
+	},
+
 	render: function() {
 
-		var myData = {
+		var tabs = {
 			tabData: [
 				{tabName: "View Subjects", tabLink: "#/subjectmanager/viewall", active: false},
 				{tabName: "Add Subject", tabLink: "#/subjectmanager/add", active: true}
@@ -17,8 +34,27 @@ var AddSubject = React.createClass({
 		};
 
 		return <div>
-			<TabBar data={myData} />
-			Add Subject!!!!!!!!!!!!!!!!!!!!!
+			<TabBar data={tabs} />
+			<div className="panel panel-default">
+				<div className="panel-heading">
+					<h3 className="panel-title">Create New Subject</h3>
+				</div>
+				<div className="panel-body">
+					<form className="form-inline">
+						<input className="form-control" 
+							type="text"
+							placeholder="Subject Name"
+							value={this.state.value}
+							onChange={this.handleChange} />
+						<button className="btn btn-default"
+							type="submit"
+							disabled={!this.state.value} 
+							onClick={this.createSubject} >
+							Create
+						</button>
+					</form>
+				</div>
+			</div>
 		</div>
 	}
 });

@@ -1048,10 +1048,10 @@ webpackJsonp([1],{
 	
 		render: function () {
 	
-			var tabs = this.props.data.tabData.map(function (tab) {
+			var tabs = this.props.data.tabData.map(function (tab, i) {
 				return React.createElement(
 					"li",
-					{ role: "presentation", key: tab.tabName, className: tab.active ? "active" : "" },
+					{ role: "presentation", key: i, className: tab.active ? "active" : "" },
 					React.createElement(
 						"a",
 						{ href: tab.tabLink },
@@ -1439,22 +1439,72 @@ webpackJsonp([1],{
 	var AddStudent = React.createClass({
 		displayName: "AddStudent",
 	
+		getInitialState: function () {
+			return { value: '' };
+		},
+		handleChange: function (event) {
+			this.setState({ value: event.target.value });
+		},
+	
+		createStudent: function () {
+			if (this.state.value) {
+				// <--- api function call goes here!!!
+				console.log("Student \"" + this.state.value + "\" was created"); //TEMP
+				this.setState({ value: '' });
+			}
+		},
+	
 		render: function () {
 	
-			var myData = {
+			var tabs = {
 				tabData: [{ tabName: "View Students", tabLink: "#/studentmanager/viewall", active: false }, { tabName: "Add Students", tabLink: "#/studentmanager/add", active: true }]
 			};
 	
 			return React.createElement(
 				"div",
 				null,
-				React.createElement(TabBar, { data: myData }),
-				"Add Student!!!!!!!!!!!!!!!!!!!!!"
+				React.createElement(TabBar, { data: tabs }),
+				React.createElement(
+					"div",
+					{ className: "panel panel-default" },
+					React.createElement(
+						"div",
+						{ className: "panel-heading" },
+						React.createElement(
+							"h3",
+							{ className: "panel-title" },
+							"Create Student Account"
+						)
+					),
+					React.createElement(
+						"div",
+						{ className: "panel-body" },
+						React.createElement(
+							"form",
+							{ className: "form-inline" },
+							React.createElement("input", { className: "form-control",
+								type: "text",
+								placeholder: "Student Name",
+								value: this.state.value,
+								onChange: this.handleChange }),
+							React.createElement(
+								"button",
+								{ className: "btn btn-default",
+									type: "submit",
+									disabled: !this.state.value,
+									onClick: this.createStudent },
+								"Create"
+							)
+						)
+					)
+				)
 			);
 		}
 	});
 	
 	module.exports = AddStudent;
+	
+	//{(this.state.value === '') ? 'true' : 'false'}
 
 /***/ },
 
@@ -1517,17 +1567,66 @@ webpackJsonp([1],{
 	var AddSubject = React.createClass({
 		displayName: "AddSubject",
 	
+		getInitialState: function () {
+			return { value: '' };
+		},
+	
+		handleChange: function (event) {
+			this.setState({ value: event.target.value });
+		},
+	
+		createSubject: function () {
+			if (this.state.value) {
+				// <--- api function call goes here!!!
+				console.log("Subject \"" + this.state.value + "\" was created"); //TEMP
+				this.setState({ value: '' });
+			}
+		},
+	
 		render: function () {
 	
-			var myData = {
+			var tabs = {
 				tabData: [{ tabName: "View Subjects", tabLink: "#/subjectmanager/viewall", active: false }, { tabName: "Add Subject", tabLink: "#/subjectmanager/add", active: true }]
 			};
 	
 			return React.createElement(
 				"div",
 				null,
-				React.createElement(TabBar, { data: myData }),
-				"Add Subject!!!!!!!!!!!!!!!!!!!!!"
+				React.createElement(TabBar, { data: tabs }),
+				React.createElement(
+					"div",
+					{ className: "panel panel-default" },
+					React.createElement(
+						"div",
+						{ className: "panel-heading" },
+						React.createElement(
+							"h3",
+							{ className: "panel-title" },
+							"Create New Subject"
+						)
+					),
+					React.createElement(
+						"div",
+						{ className: "panel-body" },
+						React.createElement(
+							"form",
+							{ className: "form-inline" },
+							React.createElement("input", { className: "form-control",
+								type: "text",
+								placeholder: "Subject Name",
+								value: this.state.value,
+								onChange: this.handleChange }),
+							React.createElement(
+								"button",
+								{ className: "btn btn-default",
+									type: "submit",
+									disabled: !this.state.value,
+									onClick: this.createSubject },
+								"Create"
+							)
+						)
+					)
+				)
 			);
 		}
 	});
@@ -1747,17 +1846,63 @@ webpackJsonp([1],{
 	var AddAssignment = React.createClass({
 		displayName: "AddAssignment",
 	
+		getInitialState: function () {
+			return { value: '' };
+		},
+		handleChange: function (event) {
+			this.setState({ value: event.target.value });
+		},
+		createAssignment: function () {
+			if (this.state.value) {
+				// <--- api function call goes here!!!
+				console.log("Assignment \"" + this.state.value + "\" was created"); //TEMP
+				this.setState({ value: '' });
+			}
+		},
 		render: function () {
 	
-			var myData = {
+			var tabs = {
 				tabData: [{ tabName: "View Assignments", tabLink: "#/assignmentmanager/viewall", active: false }, { tabName: "Add Assignment", tabLink: "#/assignmentmanager/add", active: true }]
 			};
 	
 			return React.createElement(
 				"div",
 				null,
-				React.createElement(TabBar, { data: myData }),
-				"Add Assignment!!!!!!!!!!!!!!!!!!!!!"
+				React.createElement(TabBar, { data: tabs }),
+				React.createElement(
+					"div",
+					{ className: "panel panel-default" },
+					React.createElement(
+						"div",
+						{ className: "panel-heading" },
+						React.createElement(
+							"h3",
+							{ className: "panel-title" },
+							"Create New Assignment"
+						)
+					),
+					React.createElement(
+						"div",
+						{ className: "panel-body" },
+						React.createElement(
+							"form",
+							{ className: "form-inline" },
+							React.createElement("input", { className: "form-control",
+								type: "text",
+								placeholder: "Assignment Name",
+								value: this.state.value,
+								onChange: this.handleChange }),
+							React.createElement(
+								"button",
+								{ className: "btn btn-default",
+									type: "submit",
+									disabled: !this.state.value,
+									onClick: this.createAssignment },
+								"Create"
+							)
+						)
+					)
+				)
 			);
 		}
 	});
@@ -1916,4 +2061,5 @@ webpackJsonp([1],{
 /***/ }
 
 });
+//# sourceMappingURL=app.js.map
 //# sourceMappingURL=app.js.map

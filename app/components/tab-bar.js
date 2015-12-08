@@ -7,8 +7,8 @@ var auth = require("./auth.js");
 var TabBar = React.createClass({
 	render: function() {
 
-		var tabs = this.props.data.tabData.map(function(tab) {
-			return <li role="presentation" key={tab.tabName} className={ tab.active ? "active" : ""}>
+		var tabs = this.props.data.tabData.map(function(tab, i) {
+			return <li role="presentation" key={i} className={ tab.active ? "active" : ""}>
 				<a href={tab.tabLink}>
 					{tab.tabName}
 				</a>
