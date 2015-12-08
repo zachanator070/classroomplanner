@@ -9,12 +9,17 @@ var ViewSubjects = React.createClass({
 	getInitialState: function () {
 		return {
 		    	data: [
-		        	{ id: 3, name: "Billy Bob", class: "B" },
-		        	{ id: 1, name: "Tina Turner", class: "A" },
-		        	{ id: 2, name: "Ken Doll", class: "A" },
-		        	{ id: 4, name: "Mary Joseph", class: "C" }
+		        	{ subject: 'English 7' },
+		        	{ subject: 'Math 8' },
+		        	{ subject: 'Reading 7' },
+		        	{ subject: 'Spanish 7' }
 		    	]
 		};
+	},
+
+	removeSubject: function(index) {
+		// < -- insert api call here!!
+		console.log("Removing subject: " + this.state.data[index].subject); //TEMP
 	},
 
 	render: function() {
@@ -27,14 +32,13 @@ var ViewSubjects = React.createClass({
 		};
 
 		var columns = [
-	            { header: "ID", key: "id"},
-	            { header: "NAME", key: "name" }, 
-	            { header: "CLASS", key: "class"}
+	            { header: "Subject", key: "subject"},
+	            {} // Delete buttons column
         	];
 		
 		return <div>
 			<TabBar  data={tabs} />
-			<SortableTable data={this.state.data} columns={columns} />
+			<SortableTable data={this.state.data} columns={columns} removeRow={this.removeSubject}/>
 		</div>
 	}
 });

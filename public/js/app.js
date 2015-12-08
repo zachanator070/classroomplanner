@@ -1202,8 +1202,13 @@ webpackJsonp([1],{
 	
 		getInitialState: function () {
 			return {
-				data: [{ id: 3, name: "Billy Bob", class: "B" }, { id: 1, name: "Tina Turner", class: "A" }, { id: 2, name: "Ken Doll", class: "A" }, { id: 4, name: "Mary Joseph", class: "C" }]
+				data: [{ name: "Billy Bob", password: "xz8c7v3z64c" }, { name: "Tina Turner", password: "f2ghqj3fd47s" }, { name: "Ken Doll", password: "98x7c6v7bs9d" }, { name: "Mary Joseph", password: "kjabh2hjb3112" }]
 			};
+		},
+	
+		removeStudent: function (index) {
+			// < -- insert api call here!!
+			console.log("Removing student: " + this.state.data[index].name); //TEMP
 		},
 	
 		render: function () {
@@ -1212,13 +1217,14 @@ webpackJsonp([1],{
 				tabData: [{ tabName: "View Students", tabLink: "#/studentmanager/viewall", active: true }, { tabName: "Add Students", tabLink: "#/studentmanager/add", active: false }]
 			};
 	
-			var columns = [{ header: "ID", key: "id" }, { header: "NAME", key: "name" }, { header: "CLASS", key: "class" }];
+			var columns = [{ header: "Name", key: "name" }, { header: "Password", key: "password" }, {} //Delete Button Column
+			];
 	
 			return React.createElement(
 				'div',
 				null,
 				React.createElement(TabBar, { data: tabs }),
-				React.createElement(SortableTable, { data: this.state.data, columns: columns })
+				React.createElement(SortableTable, { data: this.state.data, columns: columns, removeRow: this.removeStudent })
 			);
 		}
 	});
@@ -1422,7 +1428,7 @@ webpackJsonp([1],{
 	            "table",
 	            { className: "table table-striped table-bordered", style: this.props.style },
 	            React.createElement(SortableTableHeader, { columns: this.props.columns, sortings: this.state.sortings, onStateChange: this.onStateChange, iconStyle: this.props.iconStyle }),
-	            React.createElement(SortableTableBody, { columns: this.props.columns, data: sortedData, sortings: this.state.sortings })
+	            React.createElement(SortableTableBody, { columns: this.props.columns, data: sortedData, sortings: this.state.sortings, removeRow: this.props.removeRow })
 	        );
 	    }
 	});
@@ -1582,7 +1588,7 @@ webpackJsonp([1],{
 	
 	    render: function () {
 	        var bodies = this.props.data.map((function (item, index) {
-	            return React.createElement(SortableTableRow, { key: index, data: item, columns: this.props.columns });
+	            return React.createElement(SortableTableRow, { key: index, rowIndex: index, data: item, columns: this.props.columns, removeRow: this.props.removeRow });
 	        }).bind(this));
 	
 	        return React.createElement(
@@ -1596,14 +1602,31 @@ webpackJsonp([1],{
 	var SortableTableRow = React.createClass({
 	    displayName: "SortableTableRow",
 	
+	    removeRow: function (index, event) {
+	        this.props.removeRow(index);
+	    },
+	
 	    render: function () {
+	
 	        var tds = this.props.columns.map((function (item, index) {
 	            var value = this.props.data[item.key];
-	            return React.createElement(
-	                "td",
-	                { key: index, index: index, style: item.dataStyle },
-	                value
-	            );
+	            if (index === this.props.columns.length - 1 && this.props.removeRow) {
+	                return React.createElement(
+	                    "td",
+	                    { className: "invisibleCell", key: index },
+	                    React.createElement(
+	                        "button",
+	                        { key: index, onClick: this.removeRow.bind(this, this.props.rowIndex) },
+	                        "X"
+	                    )
+	                );
+	            } else {
+	                return React.createElement(
+	                    "td",
+	                    { key: index, style: item.dataStyle },
+	                    value
+	                );
+	            }
 	        }).bind(this));
 	
 	        return React.createElement(
@@ -1721,8 +1744,13 @@ webpackJsonp([1],{
 	
 		getInitialState: function () {
 			return {
-				data: [{ id: 3, name: "Billy Bob", class: "B" }, { id: 1, name: "Tina Turner", class: "A" }, { id: 2, name: "Ken Doll", class: "A" }, { id: 4, name: "Mary Joseph", class: "C" }]
+				data: [{ subject: 'English 7' }, { subject: 'Math 8' }, { subject: 'Reading 7' }, { subject: 'Spanish 7' }]
 			};
+		},
+	
+		removeSubject: function (index) {
+			// < -- insert api call here!!
+			console.log("Removing subject: " + this.state.data[index].subject); //TEMP
 		},
 	
 		render: function () {
@@ -1731,13 +1759,14 @@ webpackJsonp([1],{
 				tabData: [{ tabName: "View Subjects", tabLink: "#/subjectmanager/viewall", active: true }, { tabName: "Add Subject", tabLink: "#/subjectmanager/add", active: false }]
 			};
 	
-			var columns = [{ header: "ID", key: "id" }, { header: "NAME", key: "name" }, { header: "CLASS", key: "class" }];
+			var columns = [{ header: "Subject", key: "subject" }, {} // Delete buttons column
+			];
 	
 			return React.createElement(
 				'div',
 				null,
 				React.createElement(TabBar, { data: tabs }),
-				React.createElement(SortableTable, { data: this.state.data, columns: columns })
+				React.createElement(SortableTable, { data: this.state.data, columns: columns, removeRow: this.removeSubject })
 			);
 		}
 	});
@@ -1841,7 +1870,6 @@ webpackJsonp([1],{
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar.js */ 221);
-	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 230);
 	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
 	
 	// SORTING FUNCTIONS CAN BE PLACED HERE - SEE CODE BELOW COMPONENT
@@ -1850,16 +1878,15 @@ webpackJsonp([1],{
 	    displayName: "ViewAssignments",
 	
 	    getInitialState: function () {
+	        // var assignments will be replaced with api call
+	        var assignments = [{ name: "Read pg 18, ex 1-10", subject: "English 7", dueDate: "11/12/15" }, { name: "Read pg 4, ex 20-36", subject: "Math 7", dueDate: "12/1/15" }, { name: "Read pg 75, ex 1-4", subject: "Reading 7", dueDate: "12/8/15" }, { name: "Read pg 13, ex 2-6", subject: "English 7", dueDate: "12/5/15" }];
 	        return {
-	            data: [{ id: 3, name: "Billy Bob", class: "B" }, { id: 1, name: "Tina Turner", class: "A" }, { id: 2, name: "Ken Doll", class: "A" }, { id: 4, name: "Mary Joseph", class: "C" }]
+	            data: assignments
 	        };
 	    },
-	    removeRow: function (index, event) {
-	
-	        console.log(index); //TEMP
-	        var newData = this.state.data.slice();
-	        newData.splice(index, 1);
-	        this.setState({ data: newData });
+	    removeAssignment: function (index) {
+	        // < -- insert api call here!!
+	        console.log("Removing assignment: " + this.state.data[index].name); //TEMP
 	    },
 	
 	    render: function () {
@@ -1870,50 +1897,17 @@ webpackJsonp([1],{
 	            tabData: [{ tabName: "View Assignments", tabLink: "#/assignmentmanager/viewall", active: true }, { tabName: "Add Assignment", tabLink: "#/assignmentmanager/add", active: false }]
 	        };
 	
-	        var columns = [{ header: "ID", key: "id" }, { header: "Student Name", key: "name" }, { header: "CLASS", key: "class" }];
-	
-	        var dropdownData = {
-	            title: 'Choose subject', //What should show up on the button to open/close the dropdown
-	            items: [// List of items to show in the dropdown
-	            'Math 7', 'English 8', 'Spanish 7']
-	        };
-	
-	        var deleteButtons = [];
-	        var index = 0;
-	
-	        while (index < this.state.data.length) {
-	            deleteButtons.push(React.createElement(
-	                "button",
-	                { key: index, onClick: this.removeRow.bind(this, index) },
-	                "X"
-	            ));
-	            index++;
-	        }
+	        var columns = [{ header: "Name", key: "name" }, { header: "Subject", key: "subject" }, { header: "Due Date", key: "dueDate" }, { header: 'Delete', key: "xButton" } //Delete Button Column
+	        ];
 	
 	        return React.createElement(
 	            "div",
 	            null,
 	            React.createElement(TabBar, { data: tabs }),
-	            React.createElement(Dropdown, { title: dropdownData.title, items: dropdownData.items }),
-	            React.createElement(
-	                "div",
-	                { align: "left" },
-	                React.createElement(SortableTable, { data: this.state.data, columns: columns }),
-	                React.createElement(
-	                    "div",
-	                    { position: "relative" },
-	                    deleteButtons
-	                )
-	            )
+	            React.createElement(SortableTable, { data: this.state.data, columns: columns, removeRow: this.removeAssignment, deleteCol: "true" })
 	        );
 	    }
 	});
-	
-	// <button className="btn btn-default"
-	//     type="button"
-	//     onClick={this.removeRow} >
-	//     Push Me
-	// </button>
 	
 	module.exports = ViewAssignments;
 	
@@ -1995,6 +1989,7 @@ webpackJsonp([1],{
 			return { open: false };
 		},
 		handleItemClick: function (item) {
+			this.props.itemSelected(item);
 			this.setState({
 				open: false,
 				itemTitle: item
@@ -2236,15 +2231,47 @@ webpackJsonp([1],{
 	var auth = __webpack_require__(/*! ./auth.js */ 209);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
+	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 230);
 	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
 	
 	var CurrentAssignments = React.createClass({
 		displayName: "CurrentAssignments",
 	
 		getInitialState: function () {
+			// var assignments will be replaced with api call
+			var assignments = [{ title: "Read pg 12, ex 1-10", subject: "English 7", student: "Billy Bob", dueDate: "11/12/15", expDate: "11/22/2015", submissions: '0', done: 'false' }, { title: "Read pg 18, ex 91-100", subject: "Math 7", student: "Billy Bob", dueDate: "11/13/15", expDate: "11/23/2015", submissions: '1', done: 'true' }, { title: "Read pg 98, ex 4-8", subject: "Reading 7", student: "Sally Sue", dueDate: "11/14/15", expDate: "11/24/2015", submissions: '0', done: 'false' }, { title: "Read pg 33, ex 1-5", subject: "English 7", student: "Sally Sue", dueDate: "11/15/15", expDate: "11/25/2015", submissions: '1', done: 'true' }];
 			return {
-				data: [{ id: 3, name: "Billy Bob", class: "B" }, { id: 1, name: "Tina Turner", class: "A" }, { id: 2, name: "Ken Doll", class: "A" }, { id: 4, name: "Mary Joseph", class: "C" }]
+				data: assignments,
+				displayedData: assignments,
+				studentSelected: '--Student--',
+				subjectSelected: '--Subject--'
 			};
+		},
+		filterData: function (studentSelected, subjectSelected) {
+			var filtered = this.state.data;
+			if (subjectSelected !== '--Subject--') {
+				var filtered = filtered.filter(function (item) {
+					return item.subject == subjectSelected;
+				});
+			};
+			if (studentSelected !== '--Student--') {
+				var filtered = filtered.filter(function (item) {
+					return item.student == studentSelected;
+				});
+			};
+			this.setState({
+				displayedData: filtered,
+				studentSelected: studentSelected,
+				subjectSelected: subjectSelected
+			});
+		},
+		handleSubjectDropdown: function (selected) {
+			console.log(selected);
+			this.filterData(this.state.studentSelected, selected);
+		},
+		handleStudentDropdown: function (selected) {
+			console.log(selected);
+			this.filterData(selected, this.state.subjectSelected);
 		},
 	
 		render: function () {
@@ -2253,13 +2280,27 @@ webpackJsonp([1],{
 				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: true }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: false }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false }]
 			};
 	
-			var columns = [{ header: "ID", key: "id" }, { header: "NAME", key: "name" }, { header: "CLASS", key: "class" }];
+			var columns = [{ header: "Title", key: "title" }, { header: "Subject", key: "subject" }, { header: "Student", key: "student" }, { header: "Due Date", key: "dueDate" }, { header: "Expiration Date", key: "expDate" }, { header: "Submissions", key: "submissions" }, { header: "Done", key: "done" }];
+	
+			var subjectDropdown = {
+				title: '--Subject--', //What should show up on the button to open/close the dropdown
+				items: [// List of items to show in the dropdown
+				'--Subject--', 'Math 7', 'English 7', 'Reading 7']
+			};
+	
+			var studentDropdown = {
+				title: '--Student--', //What should show up on the button to open/close the dropdown
+				items: [// List of items to show in the dropdown
+				'--Student--', 'Billy Bob', 'Sally Sue']
+			};
 	
 			return React.createElement(
 				"div",
 				null,
 				React.createElement(TabBar, { data: tabs }),
-				React.createElement(SortableTable, { data: this.state.data, columns: columns })
+				React.createElement(Dropdown, { title: subjectDropdown.title, items: subjectDropdown.items, itemSelected: this.handleSubjectDropdown }),
+				React.createElement(Dropdown, { title: studentDropdown.title, items: studentDropdown.items, itemSelected: this.handleStudentDropdown }),
+				React.createElement(SortableTable, { data: this.state.displayedData, columns: columns })
 			);
 		}
 	});

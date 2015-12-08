@@ -11,6 +11,7 @@ module.exports = React.createClass({
 		return { open: false }
 	},
 	handleItemClick: function(item) {
+		this.props.itemSelected(item);
 		this.setState({
 			open: false,
 			itemTitle: item
