@@ -7,9 +7,17 @@ var Link = ReactRouter.Link;
 var Home = React.createClass({
   render: function() {
     return (
-      <p>
-        <Link className="btn btn-default" to="login">Login</Link>
-      </p>
+      <div className="content">
+      <div>
+        <h1>What is due today?</h1>
+        <p>
+            Sign in with your username and password to find out!
+        </p>
+        <p>
+          <Link className="btn btn-default" to="login">Login</Link>
+        </p>
+      </div>
+      </div>
     );
   }
 });

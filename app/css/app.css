@@ -1,4 +1,6 @@
 body {
+  background-image: url("background.png");
+  background-color: rgba(77, 139, 219, 0.52);
 }
 
 .container {
@@ -62,6 +64,14 @@ body {
 .logo{
   width:75px;
   height:75px;
+}
+
+.content{
+  background-color:white;
+  font-family: Ubuntu;
+  padding: 10px;
+  border-radius: 14px;
+  border: thin solid;
 }
 
 .login-button {
