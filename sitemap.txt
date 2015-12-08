@@ -41,13 +41,16 @@ subjects{
 
 assignments{
 	Assignment {
+		_id:
+		Subject: subject name
 		Title:
 		Due Date:
 		Expiration Date: (optional, hidden from the student)
 	}
 
 	StudentAssignment {
-		assignment: assignmentName
+		_id:
+		assignmentName: assignmentName
 		Completed: t/f
 		TimesSubmitted: int
 		student: name
