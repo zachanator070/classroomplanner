@@ -20,9 +20,9 @@ var ViewAssignments = React.createClass({
                 data: assignments,
         };
     },
-    removeAssignment: function(index) {
+    removeAssignment: function(item) {
         // < -- insert api call here!!
-        console.log("Removing assignment: " + this.state.data[index].name); //TEMP
+        console.log("Removing assignment: " + item.name); //TEMP
     },
 
     render: function () {

@@ -17,9 +17,9 @@ var ViewSubjects = React.createClass({
 		};
 	},
 
-	removeSubject: function(index) {
+	removeSubject: function(item) {
 		// < -- insert api call here!!
-		console.log("Removing subject: " + this.state.data[index].subject); //TEMP
+		console.log("Removing subject: " + item.subject); //TEMP
 	},
 
 	render: function() {
