@@ -17,13 +17,18 @@ app.use(bodyParser.urlencoded({
 // register a user
 app.post('/api/users/register', function (req, res) {
   // find or create the user with the given username
+  console.log('received register command');//TEMP
+  console.log("req body name: " + req.body.name);
   User.findOrCreate({name: req.body.name}, function(err, user, created) {
+    console.log('inside findOrCreate in api.js created: ' + created + "error: " + err + " User: " + user);//TEMP
     if (created) {
+      console.log('inside created check'); //TEMP
         // if this username is not taken, then create a user record
         user.name = req.body.name;
         user.password = req.body.password;
         user.save(function(err) {
         	if (err) {
+              console.log('problems here!!!11111');
         	  res.sendStatus("403");
         	  return;
         	}
@@ -34,6 +39,7 @@ app.post('/api/users/register', function (req, res) {
           });
     } else {
       // return an error if the username is taken
+      console.log('problems here!!!222222');
       res.sendStatus("403");
     }
   });
@@ -52,7 +58,7 @@ app.post('/api/users/login', function (req, res) {
     // validate the user exists and the password is correct
     if (user && user.checkPassword(req.body.password)) {
       // create a token
-      var token = User.generateToken(user.username);
+      var token = User.generateToken(user.name);
       // return value is JSON containing user's name and token
       res.json({name: user.name, token: token,type:user.type});
 

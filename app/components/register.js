@@ -23,13 +23,12 @@ var Register = React.createClass({
     event.preventDefault();
     // get data from form
     var name = this.refs.name.value;
-    var username = this.refs.username.value;
     var password = this.refs.password.value;
-    if (!name || !username || !password) {
+    if (!name || !password) {
       return;
     }
     // register via the API
-    auth.register(name, username, password, function(loggedIn) {
+    auth.register(name, password, function(loggedIn) {
       // register callback
       if (!loggedIn)
         return this.setState({
@@ -41,17 +40,15 @@ var Register = React.createClass({
 
   // show the registration form
   render: function() {
+
     return (
-      <div>
+      <div className="content">
         <h2>Register</h2>
         <form className="form-vertical" onSubmit={this.register}>
-          <input type="text" placeholder="Name" ref="name" autoFocus={true} />
-          <input type="text" placeholder="Username" ref="username"/>
-          <input type="password" placeholder="Password" ref="password"/>
-          <input className="btn" type="submit" value="Register" />
-          {this.state.error ? (
-             <div className="alert">Invalid username or password.</div>
-           ) : null }
+          <input type="text" className="shortInput form-control" placeholder="Name" ref="name" autoFocus={true} /><br/>
+          <input type="password" className="shortInput form-control" placeholder="Password" ref="password"/><br/>
+          <input className="btn btn-primary btn-padding" type="submit" value="Register" /><br/>
+          {this.state.error ? (<div className="alert">Invalid username or password.</div>) : null }
         </form>
       </div>
     );

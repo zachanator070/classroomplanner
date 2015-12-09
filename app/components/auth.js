@@ -2,7 +2,9 @@ var $ = require("jquery");
 
 // authentication object
 var auth = {
-  register: function(name, username, password, cb) {
+  //register: function(name, username, password, cb) {
+  register: function(name, password, cb) {
+    console.log('Inside register in auth.js [ name: ' + name + " password: " + password + " ]"); //TEMP
     // submit request to server, call the callback when complete
     var url = "/api/users/register";
     $.ajax({
@@ -11,7 +13,6 @@ var auth = {
       type: 'POST',
       data: {
         name: name,
-        username: username,
         password: password
       },
       // on success, store a login token
@@ -32,7 +33,7 @@ var auth = {
     });
   },
   // login the user
-  login: function(username, password, cb) {
+  login: function(name, password, cb) {
 
     console.log("called login");
 
@@ -54,7 +55,7 @@ var auth = {
       dataType: 'json',
       type: 'POST',
       data: {
-        name: username,
+        name: name,
         password: password
       },
       success: function(res) {

@@ -23,14 +23,14 @@ var Login = React.createClass({
     // prevent default browser submit
     event.preventDefault();
     // get data from form
-    var username = this.refs.username.value;
+    var name = this.refs.name.value;
     var password = this.refs.password.value;
-    if (!username || !password) {
+    if (!name || !password) {
       return;
     }
 
     // login via API
-    auth.login(username, password, function(loggedIn) {
+    auth.login(name, password, function(loggedIn) {
       // login callback
       if (!loggedIn)
         return this.setState({
@@ -53,7 +53,7 @@ var Login = React.createClass({
       <div className="content">
         <h2>Login</h2>
         <form className="form-vertical" onSubmit={this.login}>
-          <input type="text" className="shortInput form-control" placeholder="Username" ref="username" autoFocus={true} /><br/>
+          <input type="text" className="shortInput form-control" placeholder="Name" ref="name" autoFocus={true} /><br/>
           <input type="password"className="shortInput form-control" placeholder="Password" ref="password"/><br/>
           <input className="btn btn-primary btn-padding" type="submit" value="Login" /><br/>
           {this.state.error ? (

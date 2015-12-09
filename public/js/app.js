@@ -249,7 +249,9 @@ webpackJsonp([1],{
 	
 	// authentication object
 	var auth = {
-	  register: function (name, username, password, cb) {
+	  //register: function(name, username, password, cb) {
+	  register: function (name, password, cb) {
+	    console.log('Inside register in auth.js [ name: ' + name + " password: " + password + " ]"); //TEMP
 	    // submit request to server, call the callback when complete
 	    var url = "/api/users/register";
 	    $.ajax({
@@ -258,7 +260,6 @@ webpackJsonp([1],{
 	      type: 'POST',
 	      data: {
 	        name: name,
-	        username: username,
 	        password: password
 	      },
 	      // on success, store a login token
@@ -277,7 +278,7 @@ webpackJsonp([1],{
 	    });
 	  },
 	  // login the user
-	  login: function (username, password, cb) {
+	  login: function (name, password, cb) {
 	
 	    console.log("called login");
 	
@@ -299,7 +300,7 @@ webpackJsonp([1],{
 	      dataType: 'json',
 	      type: 'POST',
 	      data: {
-	        name: username,
+	        name: name,
 	        password: password
 	      },
 	      success: (function (res) {
@@ -1115,14 +1116,14 @@ webpackJsonp([1],{
 	    // prevent default browser submit
 	    event.preventDefault();
 	    // get data from form
-	    var username = this.refs.username.value;
+	    var name = this.refs.name.value;
 	    var password = this.refs.password.value;
-	    if (!username || !password) {
+	    if (!name || !password) {
 	      return;
 	    }
 	
 	    // login via API
-	    auth.login(username, password, (function (loggedIn) {
+	    auth.login(name, password, (function (loggedIn) {
 	      // login callback
 	      if (!loggedIn) return this.setState({
 	        error: true
@@ -1149,7 +1150,7 @@ webpackJsonp([1],{
 	      React.createElement(
 	        "form",
 	        { className: "form-vertical", onSubmit: this.login },
-	        React.createElement("input", { type: "text", className: "shortInput form-control", placeholder: "Username", ref: "username", autoFocus: true }),
+	        React.createElement("input", { type: "text", className: "shortInput form-control", placeholder: "Name", ref: "name", autoFocus: true }),
 	        React.createElement("br", null),
 	        React.createElement("input", { type: "password", className: "shortInput form-control", placeholder: "Password", ref: "password" }),
 	        React.createElement("br", null),
@@ -1202,13 +1203,12 @@ webpackJsonp([1],{
 	    event.preventDefault();
 	    // get data from form
 	    var name = this.refs.name.value;
-	    var username = this.refs.username.value;
 	    var password = this.refs.password.value;
-	    if (!name || !username || !password) {
+	    if (!name || !password) {
 	      return;
 	    }
 	    // register via the API
-	    auth.register(name, username, password, (function (loggedIn) {
+	    auth.register(name, password, (function (loggedIn) {
 	      // register callback
 	      if (!loggedIn) return this.setState({
 	        error: true
@@ -1219,9 +1219,10 @@ webpackJsonp([1],{
 	
 	  // show the registration form
 	  render: function () {
+	
 	    return React.createElement(
 	      "div",
-	      null,
+	      { className: "content" },
 	      React.createElement(
 	        "h2",
 	        null,
@@ -1230,10 +1231,12 @@ webpackJsonp([1],{
 	      React.createElement(
 	        "form",
 	        { className: "form-vertical", onSubmit: this.register },
-	        React.createElement("input", { type: "text", placeholder: "Name", ref: "name", autoFocus: true }),
-	        React.createElement("input", { type: "text", placeholder: "Username", ref: "username" }),
-	        React.createElement("input", { type: "password", placeholder: "Password", ref: "password" }),
-	        React.createElement("input", { className: "btn", type: "submit", value: "Register" }),
+	        React.createElement("input", { type: "text", className: "shortInput form-control", placeholder: "Name", ref: "name", autoFocus: true }),
+	        React.createElement("br", null),
+	        React.createElement("input", { type: "password", className: "shortInput form-control", placeholder: "Password", ref: "password" }),
+	        React.createElement("br", null),
+	        React.createElement("input", { className: "btn btn-primary btn-padding", type: "submit", value: "Register" }),
+	        React.createElement("br", null),
 	        this.state.error ? React.createElement(
 	          "div",
 	          { className: "alert" },
