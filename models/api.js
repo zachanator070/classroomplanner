@@ -26,6 +26,7 @@ app.post('/api/users/register', function (req, res) {
         // if this username is not taken, then create a user record
         user.name = req.body.name;
         user.password = req.body.password;
+        user.type = "instructor";
         user.save(function(err) {
         	if (err) {
               console.log('problems here!!!11111');
