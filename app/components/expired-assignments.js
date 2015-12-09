@@ -57,8 +57,8 @@ var ExpiredAssignments = React.createClass({
 		var tabs = {
 			tabData: [
 				{tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false},
-				{tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: true},
-				{tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false}
+				{tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: false},
+				{tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: true}
 			],
 		};
 

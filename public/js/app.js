@@ -2246,7 +2246,7 @@ webpackJsonp([1],{
 		render: function () {
 	
 			var tabs = {
-				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: true }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false }]
+				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: true }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: false }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false }]
 			};
 	
 			var columns = [{ header: "Title", key: "title" }, { header: "Subject", key: "subject" }, { header: "Student", key: "student" }, { header: "Due Date", key: "dueDate" }, { header: "Expiration Date", key: "expDate" }, { header: "Submissions", key: "submissions" }, { header: "Done", key: "done" }];
@@ -2548,7 +2548,7 @@ webpackJsonp([1],{
 		render: function () {
 	
 			var tabs = {
-				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: true }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false }]
+				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: false }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: true }]
 			};
 	
 			var columns = [{ header: "Title", key: "title" }, { header: "Subject", key: "subject" }, { header: "Student", key: "student" }, { header: "Due Date", key: "dueDate" }, { header: "Expiration Date", key: "expDate" }, { header: "Submissions", key: "submissions" }, { header: "Done", key: "done" }];
