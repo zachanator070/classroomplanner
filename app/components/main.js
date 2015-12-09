@@ -29,7 +29,6 @@ var routes = (
   <Router>
     <Route name="app" path="/" component ={App}>
       <IndexRoute component = {Home} />
-      <Route path="/list" component={List} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
 

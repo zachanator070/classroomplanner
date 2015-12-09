@@ -33,15 +33,19 @@ var auth = {
   },
   // login the user
   login: function(username, password, cb) {
+
+    console.log("called login");
+
     // submit login request to server, call callback when complete
     cb = arguments[arguments.length - 1];
     // check if token in local storage
-    if (localStorage.token) {
-      this.onChange(true);
-      if (cb)
-        cb(true,localStorage.type);
-      return;
-    }
+    // if (localStorage.token) {
+    //   this.onChange(true);
+    //
+    //   if (cb)
+    //     cb(true,localStorage.type);
+    //   return;
+    // }
 
     // submit request to server
     var url = "/api/users/login";
@@ -50,7 +54,7 @@ var auth = {
       dataType: 'json',
       type: 'POST',
       data: {
-        username: username,
+        name: username,
         password: password
       },
       success: function(res) {
@@ -58,14 +62,15 @@ var auth = {
         localStorage.token = res.token;
         localStorage.name = res.name;
         localStorage.type = res.type;
-        this.onChange(true);
+
+        this.onChange(true,res.type);
         if (cb)
           cb(true,res.type);
       }.bind(this),
       error: function(xhr, status, err) {
         // if there is an error, remove any login token
         delete localStorage.token;
-        this.onChange(false);
+        this.onChange(false,null);
         if (cb)
           cb(false,null);
       }.bind(this)
@@ -87,7 +92,7 @@ var auth = {
   logout: function(cb) {
     delete localStorage.token;
     delete localStorage.type;
-    this.onChange(false);
+    this.onChange(false,null);
     if (cb) cb();
   },
   // check if user is logged in

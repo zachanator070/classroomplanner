@@ -41,18 +41,23 @@ app.post('/api/users/register', function (req, res) {
 
 // login a user
 app.post('/api/users/login', function (req, res) {
+
   // find the user with the given username
   User.findOne({name: req.body.name}, function(err,user) {
     if (err) {
       res.sendStatus(403);
       return;
     }
+
+    console.log("found :"+user.name+"of type:"+user.type);
+
     // validate the user exists and the password is correct
     if (user && user.checkPassword(req.body.password)) {
       // create a token
       var token = User.generateToken(user.username);
       // return value is JSON containing user's name and token
-      res.json({name: user.name, token: token});
+      res.json({name: user.name, token: token,type:user.type});
+
     } else {
       res.sendStatus(403);
     }

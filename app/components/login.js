@@ -28,6 +28,7 @@ var Login = React.createClass({
     if (!username || !password) {
       return;
     }
+
     // login via API
     auth.login(username, password, function(loggedIn) {
       // login callback
@@ -35,7 +36,14 @@ var Login = React.createClass({
         return this.setState({
           error: true
         });
-      this.history.pushState(null, '/list');
+
+        console.log("Type of user:"+auth.getType());
+
+      if(auth.getType()=="instructor"){
+        this.history.pushState(null, '/studentassignments/late');
+      }else{
+
+      }
     }.bind(this));
   },
 

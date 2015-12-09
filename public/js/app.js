@@ -25,8 +25,8 @@ webpackJsonp([1],{
 	var ViewSubjects = __webpack_require__(/*! ./view-subjects.js */ 227);
 	var AddSubject = __webpack_require__(/*! ./add-subject.js */ 228);
 	var ViewAssignments = __webpack_require__(/*! ./view-assignments.js */ 229);
-	var AddAssignment = __webpack_require__(/*! ./add-assignment.js */ 232);
-	var CurrentAssignments = __webpack_require__(/*! ./current-assignments.js */ 233);
+	var AddAssignment = __webpack_require__(/*! ./add-assignment.js */ 230);
+	var CurrentAssignments = __webpack_require__(/*! ./current-assignments.js */ 231);
 	var LateAssignments = __webpack_require__(/*! ./late-assignments.js */ 234);
 	var ExpiredAssignments = __webpack_require__(/*! ./expired-assignments.js */ 235);
 	
@@ -40,7 +40,6 @@ webpackJsonp([1],{
 	    Route,
 	    { name: "app", path: "/", component: App },
 	    React.createElement(IndexRoute, { component: Home }),
-	    React.createElement(Route, { path: "/list", component: List }),
 	    React.createElement(Route, { path: "/login", component: Login }),
 	    React.createElement(Route, { path: "/register", component: Register }),
 	    "// Our code below",
@@ -101,8 +100,8 @@ webpackJsonp([1],{
 	  },
 	
 	  // callback when user is logged in
-	  setStateOnAuth: function (loggedIn) {
-	    this.setState({ loggedIn: loggedIn });
+	  setStateOnAuth: function (loggedIn, type) {
+	    this.setState({ loggedIn: loggedIn, type: type });
 	  },
 	
 	  // when the component loads, setup the callback
@@ -265,14 +264,19 @@ webpackJsonp([1],{
 	  },
 	  // login the user
 	  login: function (username, password, cb) {
+	
+	    console.log("called login");
+	
 	    // submit login request to server, call callback when complete
 	    cb = arguments[arguments.length - 1];
 	    // check if token in local storage
-	    if (localStorage.token) {
-	      this.onChange(true);
-	      if (cb) cb(true, localStorage.type);
-	      return;
-	    }
+	    // if (localStorage.token) {
+	    //   this.onChange(true);
+	    //
+	    //   if (cb)
+	    //     cb(true,localStorage.type);
+	    //   return;
+	    // }
 	
 	    // submit request to server
 	    var url = "/api/users/login";
@@ -281,7 +285,7 @@ webpackJsonp([1],{
 	      dataType: 'json',
 	      type: 'POST',
 	      data: {
-	        username: username,
+	        name: username,
 	        password: password
 	      },
 	      success: (function (res) {
@@ -289,13 +293,14 @@ webpackJsonp([1],{
 	        localStorage.token = res.token;
 	        localStorage.name = res.name;
 	        localStorage.type = res.type;
-	        this.onChange(true);
+	
+	        this.onChange(true, res.type);
 	        if (cb) cb(true, res.type);
 	      }).bind(this),
 	      error: (function (xhr, status, err) {
 	        // if there is an error, remove any login token
 	        delete localStorage.token;
-	        this.onChange(false);
+	        this.onChange(false, null);
 	        if (cb) cb(false, null);
 	      }).bind(this)
 	    });
@@ -316,7 +321,7 @@ webpackJsonp([1],{
 	  logout: function (cb) {
 	    delete localStorage.token;
 	    delete localStorage.type;
-	    this.onChange(false);
+	    this.onChange(false, null);
 	    if (cb) cb();
 	  },
 	  // check if user is logged in
@@ -1093,13 +1098,19 @@ webpackJsonp([1],{
 	    if (!username || !password) {
 	      return;
 	    }
+	
 	    // login via API
 	    auth.login(username, password, (function (loggedIn) {
 	      // login callback
 	      if (!loggedIn) return this.setState({
 	        error: true
 	      });
-	      this.history.pushState(null, '/list');
+	
+	      console.log("Type of user:" + auth.getType());
+	
+	      if (auth.getType() == "instructor") {
+	        this.history.pushState(null, '/studentassignments/late');
+	      } else {}
 	    }).bind(this));
 	  },
 	
@@ -1999,92 +2010,6 @@ webpackJsonp([1],{
 /***/ },
 
 /***/ 230:
-/*!********************************!*\
-  !*** ./components/dropdown.js ***!
-  \********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ListItem = __webpack_require__(/*! ./list-item */ 231);
-	
-	module.exports = React.createClass({
-		displayName: 'exports',
-	
-		handleClick: function () {
-			this.setState({
-				open: !this.state.open
-			});
-		},
-		getInitialState: function () {
-			return { open: false };
-		},
-		handleItemClick: function (item) {
-			this.props.itemSelected(item);
-			this.setState({
-				open: false,
-				itemTitle: item
-			});
-		},
-		render: function () {
-			var list = this.props.items.map((function (item, i) {
-				return React.createElement(ListItem, { key: i,
-					item: item,
-					whenItemClicked: this.handleItemClick,
-					className: this.state.itemTitle === item ? "active" : "" });
-			}).bind(this));
-	
-			return React.createElement(
-				'div',
-				{ className: 'dropdown' },
-				React.createElement(
-					'button',
-					{ className: 'btn btn-default dropdown-toggle', onClick: this.handleClick },
-					(this.state.itemTitle || this.props.title) + " ",
-					React.createElement('span', { className: 'caret' })
-				),
-				React.createElement(
-					'ul',
-					{ className: "dropdown-menu " + (this.state.open ? "show" : "") },
-					list
-				)
-			);
-		}
-	});
-
-/***/ },
-
-/***/ 231:
-/*!*********************************!*\
-  !*** ./components/list-item.js ***!
-  \*********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	
-	var ListItem = React.createClass({
-		displayName: 'ListItem',
-	
-		handleClick: function () {
-			this.props.whenItemClicked(this.props.item);
-		},
-		render: function () {
-			return React.createElement(
-				'li',
-				{ className: this.props.className },
-				React.createElement(
-					'a',
-					{ onClick: this.handleClick },
-					this.props.item
-				)
-			);
-		}
-	});
-	
-	module.exports = ListItem;
-
-/***/ },
-
-/***/ 232:
 /*!**************************************!*\
   !*** ./components/add-assignment.js ***!
   \**************************************/
@@ -2248,7 +2173,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 233:
+/***/ 231:
 /*!*******************************************!*\
   !*** ./components/current-assignments.js ***!
   \*******************************************/
@@ -2261,7 +2186,7 @@ webpackJsonp([1],{
 	var auth = __webpack_require__(/*! ./auth.js */ 209);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
-	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 230);
+	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 232);
 	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
 	
 	var CurrentAssignments = React.createClass({
@@ -2339,6 +2264,92 @@ webpackJsonp([1],{
 
 /***/ },
 
+/***/ 232:
+/*!********************************!*\
+  !*** ./components/dropdown.js ***!
+  \********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ListItem = __webpack_require__(/*! ./list-item */ 233);
+	
+	module.exports = React.createClass({
+		displayName: 'exports',
+	
+		handleClick: function () {
+			this.setState({
+				open: !this.state.open
+			});
+		},
+		getInitialState: function () {
+			return { open: false };
+		},
+		handleItemClick: function (item) {
+			this.props.itemSelected(item);
+			this.setState({
+				open: false,
+				itemTitle: item
+			});
+		},
+		render: function () {
+			var list = this.props.items.map((function (item, i) {
+				return React.createElement(ListItem, { key: i,
+					item: item,
+					whenItemClicked: this.handleItemClick,
+					className: this.state.itemTitle === item ? "active" : "" });
+			}).bind(this));
+	
+			return React.createElement(
+				'div',
+				{ className: 'dropdown' },
+				React.createElement(
+					'button',
+					{ className: 'btn btn-default dropdown-toggle', onClick: this.handleClick },
+					(this.state.itemTitle || this.props.title) + " ",
+					React.createElement('span', { className: 'caret' })
+				),
+				React.createElement(
+					'ul',
+					{ className: "dropdown-menu " + (this.state.open ? "show" : "") },
+					list
+				)
+			);
+		}
+	});
+
+/***/ },
+
+/***/ 233:
+/*!*********************************!*\
+  !*** ./components/list-item.js ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	
+	var ListItem = React.createClass({
+		displayName: 'ListItem',
+	
+		handleClick: function () {
+			this.props.whenItemClicked(this.props.item);
+		},
+		render: function () {
+			return React.createElement(
+				'li',
+				{ className: this.props.className },
+				React.createElement(
+					'a',
+					{ onClick: this.handleClick },
+					this.props.item
+				)
+			);
+		}
+	});
+	
+	module.exports = ListItem;
+
+/***/ },
+
 /***/ 234:
 /*!****************************************!*\
   !*** ./components/late-assignments.js ***!
@@ -2352,7 +2363,7 @@ webpackJsonp([1],{
 	var auth = __webpack_require__(/*! ./auth.js */ 209);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
-	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 230);
+	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 232);
 	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
 	
 	var LateAssignments = React.createClass({
@@ -2443,7 +2454,7 @@ webpackJsonp([1],{
 	var auth = __webpack_require__(/*! ./auth.js */ 209);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
-	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 230);
+	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 232);
 	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
 	
 	var ExpiredAssignments = React.createClass({

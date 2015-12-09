@@ -18,8 +18,8 @@ var App = React.createClass({
   },
 
   // callback when user is logged in
-  setStateOnAuth: function(loggedIn) {
-    this.setState({loggedIn:loggedIn});
+  setStateOnAuth: function(loggedIn, type) {
+    this.setState({loggedIn:loggedIn,type:type});
   },
 
   // when the component loads, setup the callback
