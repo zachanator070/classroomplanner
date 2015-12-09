@@ -8,14 +8,15 @@ var Home = React.createClass({
   render: function() {
     return (
       <div className="content">
-      <div>
-        <h1>What is due today?</h1>
+      <div className="greeting">
+        <h1>Welcome to the Classroom Planner</h1>
         <p>
-            Sign in with your username and password to find out!
+          Your interactive planner for all your classroom needs!<br/>New instructor? Create an account!
         </p>
         <p>
-          <Link className="btn btn-default" to="login">Login</Link>
+          <Link className="btn btn-default btn-primary" to="login">Login</Link>&nbsp;&nbsp;&nbsp;&nbsp; <Link className="btn btn-default btn-primary" to="register">Register</Link>
         </p>
+
       </div>
       </div>
     );

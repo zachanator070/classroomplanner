@@ -371,24 +371,32 @@ webpackJsonp([1],{
 	      { className: "content" },
 	      React.createElement(
 	        "div",
-	        null,
+	        { className: "greeting" },
 	        React.createElement(
 	          "h1",
 	          null,
-	          "What is due today?"
+	          "Welcome to the Classroom Planner"
 	        ),
 	        React.createElement(
 	          "p",
 	          null,
-	          "Sign in with your username and password to find out!"
+	          "Your interactive planner for all your classroom needs!",
+	          React.createElement("br", null),
+	          "New instructor? Create an account!"
 	        ),
 	        React.createElement(
 	          "p",
 	          null,
 	          React.createElement(
 	            Link,
-	            { className: "btn btn-default", to: "login" },
+	            { className: "btn btn-default btn-primary", to: "login" },
 	            "Login"
+	          ),
+	          "     ",
+	          React.createElement(
+	            Link,
+	            { className: "btn btn-default btn-primary", to: "register" },
+	            "Register"
 	          )
 	        )
 	      )
@@ -1141,11 +1149,11 @@ webpackJsonp([1],{
 	      React.createElement(
 	        "form",
 	        { className: "form-vertical", onSubmit: this.login },
-	        React.createElement("input", { type: "text", placeholder: "Username", ref: "username", autoFocus: true }),
+	        React.createElement("input", { type: "text", className: "shortInput form-control", placeholder: "Username", ref: "username", autoFocus: true }),
 	        React.createElement("br", null),
-	        React.createElement("input", { type: "password", placeholder: "Password", ref: "password" }),
+	        React.createElement("input", { type: "password", className: "shortInput form-control", placeholder: "Password", ref: "password" }),
 	        React.createElement("br", null),
-	        React.createElement("input", { className: "btn btn-warning", type: "submit", value: "Login" }),
+	        React.createElement("input", { className: "btn btn-primary btn-padding", type: "submit", value: "Login" }),
 	        React.createElement("br", null),
 	        this.state.error ? React.createElement(
 	          "div",

@@ -96,9 +96,23 @@ body {
 }
 
 .btn-primary {
-    background-color: #aec4f5 !important;
+    background-color: rgb(216, 229, 252) !important;
     border-color: #333 !important;
     color: #333 !important;
+}
+
+.btn-padding{
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.shortInput{
+    width:auto;
+}
+
+.greeting{
+  padding-left: 25px;
+padding-bottom: 15px;
 }
 
 input[type="radio"], input[type="checkbox"] {
