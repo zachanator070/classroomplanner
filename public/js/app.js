@@ -1213,7 +1213,7 @@ webpackJsonp([1],{
 	      if (!loggedIn) return this.setState({
 	        error: true
 	      });
-	      this.history.pushState(null, '/list');
+	      this.history.pushState(null, '/studentassignments/late');
 	    }).bind(this));
 	  },
 	
