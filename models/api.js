@@ -49,8 +49,6 @@ app.post('/api/users/login', function (req, res) {
       return;
     }
 
-    console.log("found :"+user.name+"of type:"+user.type);
-
     // validate the user exists and the password is correct
     if (user && user.checkPassword(req.body.password)) {
       // create a token

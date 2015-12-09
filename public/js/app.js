@@ -118,6 +118,79 @@ webpackJsonp([1],{
 	  // show the navigation bar
 	  // the route handler replaces the RouteHandler element with the current page
 	  render: function () {
+	
+	    var links;
+	
+	    if (this.state.loggedIn) {
+	      if (this.state.type === "instructor") {
+	        links = React.createElement(
+	          "ul",
+	          { className: "nav navbar-nav" },
+	          React.createElement(
+	            "li",
+	            null,
+	            React.createElement(
+	              "a",
+	              { href: "#/subjectmanager/viewall" },
+	              "Subject Manager"
+	            )
+	          ),
+	          React.createElement(
+	            "li",
+	            null,
+	            React.createElement(
+	              "a",
+	              { href: "#/assignmentmanager/viewall" },
+	              "Assignment Manager"
+	            )
+	          ),
+	          React.createElement(
+	            "li",
+	            null,
+	            React.createElement(
+	              "a",
+	              { href: "#/studentmanager/viewall" },
+	              "Student Manager"
+	            )
+	          ),
+	          React.createElement(
+	            "li",
+	            null,
+	            React.createElement(
+	              "a",
+	              { href: "#/studentassignments/late" },
+	              "Student Assignments"
+	            )
+	          ),
+	          React.createElement(
+	            "li",
+	            null,
+	            React.createElement(
+	              "a",
+	              { href: "#", onClick: this.logout },
+	              "Logout"
+	            )
+	          )
+	        );
+	      } else if (this.state.type === "student") {
+	        links = React.createElement(
+	          "ul",
+	          { className: "nav navbar-nav" },
+	          React.createElement(
+	            "li",
+	            null,
+	            React.createElement(
+	              "a",
+	              { href: "/" },
+	              "A link for a student"
+	            )
+	          )
+	        );
+	      }
+	    } else {
+	      links = React.createElement("div", null);
+	    }
+	
 	    return React.createElement(
 	      "div",
 	      null,
@@ -148,67 +221,7 @@ webpackJsonp([1],{
 	          React.createElement(
 	            "div",
 	            { className: "collapse navbar-collapse", id: "bs-example-navbar-collapse-1" },
-	            this.state.loggedIn ? this.state.type === "instructor" ? React.createElement(
-	              "ul",
-	              { className: "nav navbar-nav" },
-	              React.createElement(
-	                "li",
-	                null,
-	                React.createElement(
-	                  "a",
-	                  { href: "#/subjectmanager/viewall" },
-	                  "Subject Manager"
-	                )
-	              ),
-	              React.createElement(
-	                "li",
-	                null,
-	                React.createElement(
-	                  "a",
-	                  { href: "#/assignmentmanager/viewall" },
-	                  "Assignment Manager"
-	                )
-	              ),
-	              React.createElement(
-	                "li",
-	                null,
-	                React.createElement(
-	                  "a",
-	                  { href: "#/studentmanager/viewall" },
-	                  "Student Manager"
-	                )
-	              ),
-	              React.createElement(
-	                "li",
-	                null,
-	                React.createElement(
-	                  "a",
-	                  { href: "#/studentassignments/late" },
-	                  "Student Assignments"
-	                )
-	              ),
-	              React.createElement(
-	                "li",
-	                null,
-	                React.createElement(
-	                  "a",
-	                  { href: "#", onClick: this.logout },
-	                  "Logout"
-	                )
-	              )
-	            ) : React.createElement(
-	              "ul",
-	              { className: "nav navbar-nav" },
-	              React.createElement(
-	                "li",
-	                null,
-	                React.createElement(
-	                  "a",
-	                  { href: "/" },
-	                  "A link for a student"
-	                )
-	              )
-	            ) : React.createElement("div", null)
+	            links
 	          )
 	        )
 	      ),
