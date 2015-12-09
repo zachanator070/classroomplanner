@@ -93,16 +93,14 @@ var LateAssignments = React.createClass({
 
 		return <div>
 			<TabBar  data={tabs} />
-			<div className="panel panel-default">
-				<div className="panel-heading">
-					<h3 className="panel-title">Filter by</h3>
+
+				<div className="tabContent">
+					<div className="col-md-2 filterBy">Filter by:</div>
+					<div className="col-md-2 "><Dropdown title={subjectDropdown.title} items={subjectDropdown.items} itemSelected={this.handleSubjectDropdown} /></div>
+					<div className="col-md-2 "><Dropdown title={studentDropdown.title} items={studentDropdown.items} itemSelected={this.handleStudentDropdown} /></div>
+					<SortableTable data={this.state.displayedData} columns={columns} />
 				</div>
-				<div className="panel-body">
-				<div className="col-md-2 "><Dropdown title={subjectDropdown.title} items={subjectDropdown.items} itemSelected={this.handleSubjectDropdown} /></div>
-				<div className="col-md-2 "><Dropdown title={studentDropdown.title} items={studentDropdown.items} itemSelected={this.handleStudentDropdown} /></div>
-				</div>
-			</div>
-			<SortableTable data={this.state.displayedData} columns={columns} />
+
 		</div>
 	}
 });

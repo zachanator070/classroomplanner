@@ -56,8 +56,8 @@ var CurrentAssignments = React.createClass({
 
 		var tabs = {
 			tabData: [
-				{tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: true},
-				{tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: false},
+				{tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false},
+				{tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: true},
 				{tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false}
 			],
 		};
@@ -93,8 +93,14 @@ var CurrentAssignments = React.createClass({
 
 		return <div>
 			<TabBar  data={tabs} />
-			<Dropdown title={subjectDropdown.title} items={subjectDropdown.items} itemSelected={this.handleSubjectDropdown} /><Dropdown title={studentDropdown.title} items={studentDropdown.items} itemSelected={this.handleStudentDropdown} />
-			<SortableTable data={this.state.displayedData} columns={columns} />
+
+				<div className="tabContent">
+					<div className="col-md-2 filterBy">Filter by:</div>
+					<div className="col-md-2 "><Dropdown title={subjectDropdown.title} items={subjectDropdown.items} itemSelected={this.handleSubjectDropdown} /></div>
+					<div className="col-md-2 "><Dropdown title={studentDropdown.title} items={studentDropdown.items} itemSelected={this.handleStudentDropdown} /></div>
+					<SortableTable data={this.state.displayedData} columns={columns} />
+				</div>
+
 		</div>
 	}
 });

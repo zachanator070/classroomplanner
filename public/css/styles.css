@@ -76,7 +76,24 @@
   font-family: Ubuntu;
   padding: 10px;
   border-radius: 14px;
-  border: thin solid;
+  border: thin solid rgba(0,0,0,.5);
+}
+
+.tabContent{
+  background-color:white;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-left: thin solid gray;
+  border-right: thin solid gray;
+  border-bottom: thin solid gray;
+  padding: 0px 15px;
+}
+
+.filterBy{
+  width: 100px;
+  padding-left: 12px;
+  padding-top: 18px;
+  padding-right: 0px;
 }
 
 .login-button {

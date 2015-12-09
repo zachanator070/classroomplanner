@@ -2246,7 +2246,7 @@ webpackJsonp([1],{
 		render: function () {
 	
 			var tabs = {
-				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: true }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: false }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false }]
+				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: true }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false }]
 			};
 	
 			var columns = [{ header: "Title", key: "title" }, { header: "Subject", key: "subject" }, { header: "Student", key: "student" }, { header: "Due Date", key: "dueDate" }, { header: "Expiration Date", key: "expDate" }, { header: "Submissions", key: "submissions" }, { header: "Done", key: "done" }];
@@ -2267,9 +2267,26 @@ webpackJsonp([1],{
 				"div",
 				null,
 				React.createElement(TabBar, { data: tabs }),
-				React.createElement(Dropdown, { title: subjectDropdown.title, items: subjectDropdown.items, itemSelected: this.handleSubjectDropdown }),
-				React.createElement(Dropdown, { title: studentDropdown.title, items: studentDropdown.items, itemSelected: this.handleStudentDropdown }),
-				React.createElement(SortableTable, { data: this.state.displayedData, columns: columns })
+				React.createElement(
+					"div",
+					{ className: "tabContent" },
+					React.createElement(
+						"div",
+						{ className: "col-md-2 filterBy" },
+						"Filter by:"
+					),
+					React.createElement(
+						"div",
+						{ className: "col-md-2 " },
+						React.createElement(Dropdown, { title: subjectDropdown.title, items: subjectDropdown.items, itemSelected: this.handleSubjectDropdown })
+					),
+					React.createElement(
+						"div",
+						{ className: "col-md-2 " },
+						React.createElement(Dropdown, { title: studentDropdown.title, items: studentDropdown.items, itemSelected: this.handleStudentDropdown })
+					),
+					React.createElement(SortableTable, { data: this.state.displayedData, columns: columns })
+				)
 			);
 		}
 	});
@@ -2446,32 +2463,24 @@ webpackJsonp([1],{
 				React.createElement(TabBar, { data: tabs }),
 				React.createElement(
 					"div",
-					{ className: "panel panel-default" },
+					{ className: "tabContent" },
 					React.createElement(
 						"div",
-						{ className: "panel-heading" },
-						React.createElement(
-							"h3",
-							{ className: "panel-title" },
-							"Filter by"
-						)
+						{ className: "col-md-2 filterBy" },
+						"Filter by:"
 					),
 					React.createElement(
 						"div",
-						{ className: "panel-body" },
-						React.createElement(
-							"div",
-							{ className: "col-md-2 " },
-							React.createElement(Dropdown, { title: subjectDropdown.title, items: subjectDropdown.items, itemSelected: this.handleSubjectDropdown })
-						),
-						React.createElement(
-							"div",
-							{ className: "col-md-2 " },
-							React.createElement(Dropdown, { title: studentDropdown.title, items: studentDropdown.items, itemSelected: this.handleStudentDropdown })
-						)
-					)
-				),
-				React.createElement(SortableTable, { data: this.state.displayedData, columns: columns })
+						{ className: "col-md-2 " },
+						React.createElement(Dropdown, { title: subjectDropdown.title, items: subjectDropdown.items, itemSelected: this.handleSubjectDropdown })
+					),
+					React.createElement(
+						"div",
+						{ className: "col-md-2 " },
+						React.createElement(Dropdown, { title: studentDropdown.title, items: studentDropdown.items, itemSelected: this.handleStudentDropdown })
+					),
+					React.createElement(SortableTable, { data: this.state.displayedData, columns: columns })
+				)
 			);
 		}
 	});
@@ -2539,7 +2548,7 @@ webpackJsonp([1],{
 		render: function () {
 	
 			var tabs = {
-				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: false }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: true }]
+				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: true }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false }]
 			};
 	
 			var columns = [{ header: "Title", key: "title" }, { header: "Subject", key: "subject" }, { header: "Student", key: "student" }, { header: "Due Date", key: "dueDate" }, { header: "Expiration Date", key: "expDate" }, { header: "Submissions", key: "submissions" }, { header: "Done", key: "done" }];
@@ -2560,9 +2569,26 @@ webpackJsonp([1],{
 				"div",
 				null,
 				React.createElement(TabBar, { data: tabs }),
-				React.createElement(Dropdown, { title: subjectDropdown.title, items: subjectDropdown.items, itemSelected: this.handleSubjectDropdown }),
-				React.createElement(Dropdown, { title: studentDropdown.title, items: studentDropdown.items, itemSelected: this.handleStudentDropdown }),
-				React.createElement(SortableTable, { data: this.state.displayedData, columns: columns })
+				React.createElement(
+					"div",
+					{ className: "tabContent" },
+					React.createElement(
+						"div",
+						{ className: "col-md-2 filterBy" },
+						"Filter by:"
+					),
+					React.createElement(
+						"div",
+						{ className: "col-md-2 " },
+						React.createElement(Dropdown, { title: subjectDropdown.title, items: subjectDropdown.items, itemSelected: this.handleSubjectDropdown })
+					),
+					React.createElement(
+						"div",
+						{ className: "col-md-2 " },
+						React.createElement(Dropdown, { title: studentDropdown.title, items: studentDropdown.items, itemSelected: this.handleStudentDropdown })
+					),
+					React.createElement(SortableTable, { data: this.state.displayedData, columns: columns })
+				)
 			);
 		}
 	});
