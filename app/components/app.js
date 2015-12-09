@@ -13,7 +13,8 @@ var App = React.createClass({
   getInitialState: function() {
     return {
       // the user is logged in
-      loggedIn: auth.loggedIn()
+      loggedIn: auth.loggedIn(),
+      type: auth.getType()
     };
   },
 

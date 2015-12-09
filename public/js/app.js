@@ -95,7 +95,8 @@ webpackJsonp([1],{
 	  getInitialState: function () {
 	    return {
 	      // the user is logged in
-	      loggedIn: auth.loggedIn()
+	      loggedIn: auth.loggedIn(),
+	      type: auth.getType()
 	    };
 	  },
 	
@@ -1480,7 +1481,7 @@ webpackJsonp([1],{
 	
 	        return React.createElement(
 	            "table",
-	            { className: "table table-striped table-bordered", style: this.props.style },
+	            { className: "table table-striped table-bordered filledTable table-hover", style: this.props.style },
 	            React.createElement(SortableTableHeader, { columns: this.props.columns, sortings: this.state.sortings, onStateChange: this.onStateChange, iconStyle: this.props.iconStyle }),
 	            React.createElement(SortableTableBody, { columns: this.props.columns, data: sortedData, sortings: this.state.sortings, removeRow: this.props.removeRow })
 	        );
@@ -1563,7 +1564,7 @@ webpackJsonp([1],{
 	
 	        return React.createElement(
 	            "th",
-	            { style: this.props.style, onClick: this.onClick },
+	            { style: this.props.style, onClick: this.onClick, className: "sortedHeader" },
 	            this.props.header,
 	            sortIcon
 	        );
@@ -1667,7 +1668,7 @@ webpackJsonp([1],{
 	            if (index === this.props.columns.length - 1 && this.props.removeRow) {
 	                return React.createElement(
 	                    "td",
-	                    { className: "invisibleCell", key: index },
+	                    { key: index },
 	                    React.createElement(
 	                        "button",
 	                        { key: index, onClick: this.removeRow.bind(this, this.props.data) },
@@ -2443,8 +2444,33 @@ webpackJsonp([1],{
 				"div",
 				null,
 				React.createElement(TabBar, { data: tabs }),
-				React.createElement(Dropdown, { title: subjectDropdown.title, items: subjectDropdown.items, itemSelected: this.handleSubjectDropdown }),
-				React.createElement(Dropdown, { title: studentDropdown.title, items: studentDropdown.items, itemSelected: this.handleStudentDropdown }),
+				React.createElement(
+					"div",
+					{ className: "panel panel-default" },
+					React.createElement(
+						"div",
+						{ className: "panel-heading" },
+						React.createElement(
+							"h3",
+							{ className: "panel-title" },
+							"Filter by"
+						)
+					),
+					React.createElement(
+						"div",
+						{ className: "panel-body" },
+						React.createElement(
+							"div",
+							{ className: "col-md-2 " },
+							React.createElement(Dropdown, { title: subjectDropdown.title, items: subjectDropdown.items, itemSelected: this.handleSubjectDropdown })
+						),
+						React.createElement(
+							"div",
+							{ className: "col-md-2 " },
+							React.createElement(Dropdown, { title: studentDropdown.title, items: studentDropdown.items, itemSelected: this.handleStudentDropdown })
+						)
+					)
+				),
 				React.createElement(SortableTable, { data: this.state.displayedData, columns: columns })
 			);
 		}

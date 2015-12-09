@@ -98,6 +98,18 @@ input[type="radio"], input[type="checkbox"] {
     width: 300px;
 }
 
+.filledTable  {
+  background-color: white;
+}
+
+.sortedHeader{
+  cursor:pointer;
+}
+
+.dropdown{
+  margin:10px;
+}
+
 .search {
     font-size: 1.2em;
 }

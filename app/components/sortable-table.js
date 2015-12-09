@@ -10,10 +10,10 @@ var SortableTable = React.createClass({
         style: React.PropTypes.object,
         iconStyle: React.PropTypes.object
     },
-    
+
     getInitialState: function () {
         var sortings = this.getDefaultSortings();
-        
+
         return {
             sortings: sortings
         };
@@ -24,7 +24,7 @@ var SortableTable = React.createClass({
             var sorting = "both";
             if (column.defaultSorting) {
                 var defaultSorting = column.defaultSorting.toLowerCase();
-                
+
                 if (defaultSorting == "desc") {
                     sorting = "desc";
                 } else if (defaultSorting == "asc") {
@@ -88,15 +88,15 @@ var SortableTable = React.createClass({
             }
         }.bind(this));
     },
-    
+
     parseFloatable: function (value) {
         return ( typeof(value) === "string" && ( /^\d+$/.test(value) || /^\d+$/.test(value.replace(/[,.%$]/g, "")) ) ) ? true : false;
     },
-    
+
     parseIfFloat: function (value) {
         return parseFloat(value.replace(/,/g, ""));
     },
-    
+
     sortDataByKey: function (data, key, fn) {
         var clone = Array.apply(null, data);
 
@@ -104,7 +104,7 @@ var SortableTable = React.createClass({
             return fn(a[key], b[key]);
         });
     },
-    
+
     onStateChange: function (index) {
         var sortings = this.state.sortings.map(function (sorting, i) {
             if (i == index)
@@ -117,7 +117,7 @@ var SortableTable = React.createClass({
             sortings: sortings
         });
     },
-    
+
     nextSortingState: function (state) {
         var next;
         switch (state) {
@@ -133,12 +133,12 @@ var SortableTable = React.createClass({
         }
         return next;
     },
-    
+
     render: function () {
         var sortedData = this.sortData(this.props.data, this.state.sortings);
 
         return (
-            <table className="table table-striped table-bordered" style={this.props.style}>
+            <table className="table table-striped table-bordered filledTable table-hover" style={this.props.style}>
                 <SortableTableHeader columns={this.props.columns} sortings={this.state.sortings} onStateChange={this.onStateChange} iconStyle={this.props.iconStyle} />
                 <SortableTableBody columns={this.props.columns} data={sortedData} sortings={this.state.sortings} removeRow={this.props.removeRow}  />
             </table>

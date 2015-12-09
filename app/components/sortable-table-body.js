@@ -6,7 +6,7 @@ var SortableTableBody = React.createClass({
         columns: React.PropTypes.array.isRequired,
         sortings: React.PropTypes.array.isRequired
     },
-    
+
     render: function () {
         var bodies = this.props.data.map(function (item, index) {
             return (
@@ -34,7 +34,7 @@ var SortableTableRow = React.createClass({
             var value = this.props.data[item.key];
             if (index === this.props.columns.length-1 && this.props.removeRow) {
                 return (
-                    <td className="invisibleCell" key={index} >
+                    <td key={index} >
                         <button key={index} onClick={this.removeRow.bind(this, this.props.data)}>X</button>
                     </td>
                 );
@@ -45,7 +45,7 @@ var SortableTableRow = React.createClass({
                 );
             }
         }.bind(this));
-            
+
         return (
             <tr>
                 {tds}

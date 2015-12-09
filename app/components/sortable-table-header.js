@@ -13,7 +13,7 @@ var SortableTableHeader = React.createClass({
         onStateChange: React.PropTypes.func,
         iconStyle: React.PropTypes.object
     },
-        
+
     onClick: function (index) {
         this.props.onStateChange(index);
     },
@@ -25,7 +25,7 @@ var SortableTableHeader = React.createClass({
                 <SortableTableHeaderItem sortable={column.sortable} key={index} index={index} header={column.header} sorting={sorting} onClick={this.onClick} style={column.headerStyle} iconStyle={this.props.iconStyle} />
             );
         }.bind(this));
-        
+
         return (
             <thead>
                 <tr>
@@ -42,7 +42,7 @@ var SortableTableHeaderItem = React.createClass({
             sortable: true
         };
     },
-    
+
     onClick: function (e) {
         if (this.props.sortable)
             this.props.onClick(this.props.index);
@@ -60,7 +60,7 @@ var SortableTableHeaderItem = React.createClass({
         }
 
         return (
-            <th style={this.props.style} onClick={this.onClick}>
+            <th style={this.props.style} onClick={this.onClick} className="sortedHeader">
                 {this.props.header}
                 {sortIcon}
             </th>
