@@ -1,6 +1,8 @@
 var React = require("react");
 var ReactRouter = require("react-router");
 
+var api = require("./api.js");
+
 var TabBar = require('./tab-bar.js');
 var SortableTable = require('./sortable-table.js');
 

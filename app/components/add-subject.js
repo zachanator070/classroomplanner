@@ -2,7 +2,6 @@ var React = require('react');
 var ReactRouter = require("react-router");
 
 var api = require("./api.js");
-var auth = require("./auth.js");
 
 var TabBar = require('./tab-bar');
 

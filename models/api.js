@@ -159,7 +159,7 @@ app.get('/api/assignments', function (req,res) {
   });
 });
 
-// add an assignment
+// addAssignment
 app.post('/api/assignments', function (req,res) {
   // validate the supplied token
   // get indexes

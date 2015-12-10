@@ -1618,7 +1618,6 @@ webpackJsonp([1],{
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
 	var api = __webpack_require__(/*! ./api.js */ 214);
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
 	
@@ -1706,6 +1705,8 @@ webpackJsonp([1],{
 
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 214);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar.js */ 221);
 	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
@@ -1820,7 +1821,6 @@ webpackJsonp([1],{
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
 	var api = __webpack_require__(/*! ./api.js */ 214);
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
 	
@@ -1828,10 +1828,10 @@ webpackJsonp([1],{
 		displayName: "AddAssignment",
 	
 		getInitialState: function () {
-			return { name: '', subject: '', dueDate: '', expDate: '' };
+			return { title: '', subject: '', dueDate: '', expDate: '' };
 		},
-		handleNameChange: function (event) {
-			this.setState({ name: event.target.value });
+		handleTitleChange: function (event) {
+			this.setState({ title: event.target.value });
 		},
 		handleSubjectChange: function (event) {
 			this.setState({ subject: event.target.value });
@@ -1843,10 +1843,16 @@ webpackJsonp([1],{
 			this.setState({ expDate: event.target.value });
 		},
 		createAssignment: function () {
-			if (this.state.name && this.state.subject && this.state.dueDate && this.state.expDate) {
-				// <--- api function call goes here!!!
-				console.log("Assignment \"" + this.state.value + "\" was created"); //TEMP
-				this.setState({ value: '' });
+			if (this.state.title && this.state.subject && this.state.dueDate && this.state.expDate) {
+	
+				api.addAssignment(this.state.subject, this.state.title, this.state.dueDate, this.state.expDate, function () {
+					return;
+				});
+				console.log("Assignment \"" + this.state.title + "\" was created"); //TEMP
+				this.setState({ title: '' });
+				this.setState({ subject: '' });
+				this.setState({ dueDate: '' });
+				this.setState({ expDate: '' });
 			}
 		},
 		render: function () {
@@ -1886,16 +1892,16 @@ webpackJsonp([1],{
 									React.createElement(
 										"label",
 										{ htmlFor: "inputTitle", className: "col-sm-2 control-label" },
-										"Name"
+										"Title"
 									),
 									React.createElement(
 										"div",
 										{ className: "col-sm-10" },
 										React.createElement("input", { type: "text", className: "form-control",
 											id: "inputTitle",
-											placeholder: "Name",
-											value: this.state.name,
-											onChange: this.handleNameChange })
+											placeholder: "Title",
+											value: this.state.title,
+											onChange: this.handleTitleChange })
 									)
 								),
 								React.createElement(
@@ -1960,7 +1966,7 @@ webpackJsonp([1],{
 											"button",
 											{ className: "btn btn-default",
 												type: "submit",
-												disabled: !this.state.name || !this.state.subject || !this.state.dueDate || !this.state.expDate,
+												disabled: !this.state.title || !this.state.subject || !this.state.dueDate || !this.state.expDate,
 												onClick: this.createAssignment },
 											"Create"
 										)
