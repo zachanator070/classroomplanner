@@ -1753,17 +1753,21 @@ webpackJsonp([1],{
 		displayName: "AddStudent",
 	
 		getInitialState: function () {
-			return { value: '' };
+			return { name: '' }; // Clears text box
 		},
 		handleChange: function (event) {
-			this.setState({ value: event.target.value });
+			this.setState({ name: event.target.name });
 		},
-	
+		generatePassword: function () {
+			return "xyz123abc";
+		},
 		createStudent: function () {
-			if (this.state.value) {
+			if (this.state.name) {
+	
+				var pwd = this.generatePassword();
 				// <--- api function call goes here!!!
-				console.log("Student \"" + this.state.value + "\" was created"); //TEMP
-				this.setState({ value: '' });
+				console.log("Student \"" + this.state.name + "\" was created"); //TEMP
+				this.setState({ name: '' }); // Clears text box
 			}
 		},
 	
@@ -1798,13 +1802,13 @@ webpackJsonp([1],{
 							React.createElement("input", { className: "form-control",
 								type: "text",
 								placeholder: "Student Name",
-								value: this.state.value,
+								value: this.state.name,
 								onChange: this.handleChange }),
 							React.createElement(
 								"button",
 								{ className: "btn btn-default",
 									type: "submit",
-									disabled: !this.state.value,
+									disabled: !this.state.name,
 									onClick: this.createStudent },
 								"Create"
 							)
@@ -1816,8 +1820,6 @@ webpackJsonp([1],{
 	});
 	
 	module.exports = AddStudent;
-	
-	//{(this.state.value === '') ? 'true' : 'false'}
 
 /***/ },
 
@@ -2657,4 +2659,5 @@ webpackJsonp([1],{
 /***/ }
 
 });
+//# sourceMappingURL=app.js.map
 //# sourceMappingURL=app.js.map
