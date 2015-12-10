@@ -42,7 +42,7 @@ var Login = React.createClass({
       if(auth.getType()=="instructor"){
         this.history.pushState(null, '/studentassignments/late');
       }else{
-
+        this.history.pushState(null, '/studentassignments/late');
       }
     }.bind(this));
   },

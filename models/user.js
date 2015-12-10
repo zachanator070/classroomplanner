@@ -18,7 +18,7 @@ var userSchema = new Schema({
   password: String,
   type: String,
   subjects:[],
-  students:[]
+  instructor: String
 });
 
 // check the password

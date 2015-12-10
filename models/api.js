@@ -24,6 +24,7 @@ app.post('/api/users/register', function (req, res) {
         user.name = req.body.name;
         user.password = req.body.password;
         user.type = "instructor";
+
         user.save(function(err) {
         	if (err) {
         	  res.sendStatus("403");
@@ -75,34 +76,35 @@ app.put('/api/users/:userName',function(req,res){
         user.password = req.body.password;
         user.type = "student";
         user.subjects = [];
-        User.findOne({name:instructor}, function(err,instructor){
-          instructor.students.appedn(user.name);
-          instructor.save(function(err) {
-        	  if (err) {
-        	    res.sendStatus(403);
-        	    return;
-        	  });
-        });
+        user.instructor = req.body.instructor; //TODO change hardcoded "jesse"
+        console.log("req.body.instructor: " +  req.body.instructor);
+
         user.save(function(err) {
           if (err) {
+            console.log('failed to save user (student)');
             res.sendStatus("403");
             return;
           }
-          });
+        });
     } else {
       // return an error if the username is taken
+      console.log('created == false');
       res.sendStatus("403");
     }
   });
 });
 
 // return a list of users with the given subject
-app.post('/api/users/:subject', function (req, res) {
+//app.get('/api/users/:subject', function (req, res) {
+app.get('/api/users/:instructor', function (req, res) {
   // validate the supplied token
   user = User.verifyToken(req.headers.authorization, function(user) {
     if (user) {
       // if the token is valid, then find the requested item
-      User.find({subject:req.params.subject}, function(err, users) {
+      //User.find({subject:req.params.instructor}, function(err, users) {
+      console.log()
+      User.find({instructor: req.params.instructor}, function(err, users) {
+
         if (err) {
           res.sendStatus(403);
           return;
@@ -110,6 +112,28 @@ app.post('/api/users/:subject', function (req, res) {
         // return value is the list of users as JSON
         res.json({users: users});
         });
+    } else {
+      res.sendStatus(403);
+    }
+  });
+});
+
+
+// delete a student
+app.delete('/api/users/:student_name', function (req,res) {
+  // validate the supplied token
+  user = User.verifyToken(req.headers.authorization, function(user) {
+    if (user) {
+      // if the token is valid, then find the requested item
+      //User.findByIdAndRemove(req.params.student_name, function(err,student) {
+      User.find({ name: req.params.student_name }).remove( function(err,student) {
+        console.log("Error???? " + err); //TEMP
+        if (err) {
+          res.sendStatus(403);
+          return;
+        }
+        res.sendStatus(200);
+      });
     } else {
       res.sendStatus(403);
     }
@@ -368,6 +392,7 @@ app.delete('/api/subjects/:subject_id', function (req,res) {
   user = User.verifyToken(req.headers.authorization, function(user) {
     if (user) {
       // if the token is valid, then find the requested subject and remove it
+
       Subject.findByIdAndRemove(req.params.subject_id, function(err,subject) {
       	if (err) {
       	  res.sendStatus(403);

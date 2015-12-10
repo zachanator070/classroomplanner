@@ -1,25 +1,38 @@
 var React = require('react');
 var ReactRouter = require("react-router");
 
+var api = require("./api.js");
+//var auth = require("./auth.js");
+
 var TabBar = require('./tab-bar');
 var SortableTable = require('./sortable-table.js');
 
 var ViewStudents = React.createClass({
 
 	getInitialState: function () {
+
+		this.reloadStudents();
 		return {
-		    	data: [
-		        	{ name: "Billy Bob", password: "xz8c7v3z64c" },
-		        	{ name: "Tina Turner", password: "f2ghqj3fd47s" },
-		        	{ name: "Ken Doll", password: "98x7c6v7bs9d" },
-		        	{ name: "Mary Joseph", password: "kjabh2hjb3112" }
-		    	]
+		    	data: []
 		};
 	},
 
-	removeStudent: function(item) {
-		// < -- insert api call here!!
-		console.log("Removing student: " + item.name); //TEMP
+	reloadStudents: function() {
+		api.getStudents("instructor", function(success, res) {
+
+			var studData = res.users.map(function(student) {
+				return { name: student.name, password: student.password };
+			});
+			this.setState({data: studData});
+			return;
+		}.bind(this));
+	},
+
+	removeStudent: function(student) {
+
+		api.deleteStudent(student.name, this.reloadStudents);
+
+		console.log("Removing student: " + student.name); //TEMP
 	},
 
 	render: function() {

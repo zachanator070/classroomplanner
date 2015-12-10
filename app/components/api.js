@@ -6,9 +6,9 @@ var api = {
   //student functions
   //
 
-  // get the list of all students by subject, call the callback when complete
-  getStudents: function(subject, cb) {
-    var url = "/api/users/"+subject;
+  // get the list of all students by instructor, call the callback when complete
+  getStudents: function(instructor, cb) {
+    var url = "/api/users/"+instructor;
     $.ajax({
       url: url,
       dataType: 'json',
@@ -30,21 +30,45 @@ var api = {
   // adds a student for a particular instructor
   addStudent: function(studentName,password, cb) {
     var url = "/api/users/"+studentName;
+    
+    console.log('localStorage.name: ' + localStorage.name); //TEMP
+    var instructorName = localStorage.name;
     $.ajax({
       url: url,
-      dataType: 'json',
+      dataType: 'application/json',
       type: 'PUT',
       headers: {'Authorization': localStorage.token},
-      data:{
-        name:studentName,
-        password:password
-      },
+      data: JSON.stringify({
+          name:studentName,
+          password:password,
+          instructor: instructorName
+      }),
       success: function(res) {
         if (cb)
           cb(true, res);
       },
       error: function(xhr, status, err) {
         // if there is an error, remove the login token
+        delete localStorage.token;
+        if (cb)
+          cb(false, status);
+      }
+    });
+  },
+
+  // delete a student, call the callback when complete
+  deleteStudent: function(name, cb) {
+    var url = "/api/users/"+ name; //Not sure what this should be...
+    $.ajax({
+      url: url,
+      type: 'DELETE',
+      headers: {'Authorization': localStorage.token},
+      success: function(res) {
+        if (cb)
+          cb(true, res);
+      },
+      error: function(xhr, status, err) {
+        // if there is an error, remove any login token
         delete localStorage.token;
         if (cb)
           cb(false, status);

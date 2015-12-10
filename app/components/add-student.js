@@ -2,7 +2,7 @@ var React = require('react');
 var ReactRouter = require("react-router");
 
 var api = require("./api.js");
-var auth = require("./auth.js");
+//var auth = require("./auth.js");
 
 var TabBar = require('./tab-bar');
 
@@ -15,7 +15,14 @@ var AddStudent = React.createClass({
 		this.setState({name: event.target.value});
 	},
 	generatePassword: function() {
-		return "xyz123abc";
+		var password = "";
+		var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+		for( var i=0; i < 8; i++ ) {
+			password += possible.charAt(Math.floor(Math.random() * possible.length));
+		}
+
+		return password;
 	},
 	createStudent: function() {
 		if(this.state.name) {
@@ -24,7 +31,6 @@ var AddStudent = React.createClass({
 			api.addStudent(this.state.name, pwd, function() {
 				return;
 			});
-			console.log("Student \"" + this.state.name + "\" was created"); //TEMP
 			this.setState({name: ''}); // Clears text box
 		}
 	},

@@ -601,9 +601,9 @@ webpackJsonp([1],{
 	  //student functions
 	  //
 	
-	  // get the list of all students by subject, call the callback when complete
-	  getStudents: function (subject, cb) {
-	    var url = "/api/users/" + subject;
+	  // get the list of all students by instructor, call the callback when complete
+	  getStudents: function (instructor, cb) {
+	    var url = "/api/users/" + instructor;
 	    $.ajax({
 	      url: url,
 	      dataType: 'json',
@@ -623,20 +623,42 @@ webpackJsonp([1],{
 	  // adds a student for a particular instructor
 	  addStudent: function (studentName, password, cb) {
 	    var url = "/api/users/" + studentName;
+	
+	    console.log('localStorage.name: ' + localStorage.name); //TEMP
+	    var instructorName = localStorage.name;
 	    $.ajax({
 	      url: url,
-	      dataType: 'json',
+	      dataType: 'application/json',
 	      type: 'PUT',
 	      headers: { 'Authorization': localStorage.token },
-	      data: {
+	      data: JSON.stringify({
 	        name: studentName,
-	        password: password
-	      },
+	        password: password,
+	        instructor: instructorName
+	      }),
 	      success: function (res) {
 	        if (cb) cb(true, res);
 	      },
 	      error: function (xhr, status, err) {
 	        // if there is an error, remove the login token
+	        delete localStorage.token;
+	        if (cb) cb(false, status);
+	      }
+	    });
+	  },
+	
+	  // delete a student, call the callback when complete
+	  deleteStudent: function (name, cb) {
+	    var url = "/api/users/" + name; //Not sure what this should be...
+	    $.ajax({
+	      url: url,
+	      type: 'DELETE',
+	      headers: { 'Authorization': localStorage.token },
+	      success: function (res) {
+	        if (cb) cb(true, res);
+	      },
+	      error: function (xhr, status, err) {
+	        // if there is an error, remove any login token
 	        delete localStorage.token;
 	        if (cb) cb(false, status);
 	      }
@@ -1161,7 +1183,9 @@ webpackJsonp([1],{
 	
 	      if (auth.getType() == "instructor") {
 	        this.history.pushState(null, '/studentassignments/late');
-	      } else {}
+	      } else {
+	        this.history.pushState(null, '/studentassignments/late');
+	      }
 	    }).bind(this));
 	  },
 	
@@ -1288,21 +1312,39 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
+	var api = __webpack_require__(/*! ./api.js */ 214);
+	//var auth = require("./auth.js");
+	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
 	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
 	
 	var ViewStudents = React.createClass({
-		displayName: 'ViewStudents',
+		displayName: "ViewStudents",
 	
 		getInitialState: function () {
+	
+			this.reloadStudents();
 			return {
-				data: [{ name: "Billy Bob", password: "xz8c7v3z64c" }, { name: "Tina Turner", password: "f2ghqj3fd47s" }, { name: "Ken Doll", password: "98x7c6v7bs9d" }, { name: "Mary Joseph", password: "kjabh2hjb3112" }]
+				data: []
 			};
 		},
 	
-		removeStudent: function (item) {
-			// < -- insert api call here!!
-			console.log("Removing student: " + item.name); //TEMP
+		reloadStudents: function () {
+			api.getStudents("instructor", (function (success, res) {
+	
+				var studData = res.users.map(function (student) {
+					return { name: student.name, password: student.password };
+				});
+				this.setState({ data: studData });
+				return;
+			}).bind(this));
+		},
+	
+		removeStudent: function (student) {
+	
+			api.deleteStudent(student.name, this.reloadStudents);
+	
+			console.log("Removing student: " + student.name); //TEMP
 		},
 	
 		render: function () {
@@ -1315,7 +1357,7 @@ webpackJsonp([1],{
 			];
 	
 			return React.createElement(
-				'div',
+				"div",
 				null,
 				React.createElement(TabBar, { data: tabs }),
 				React.createElement(SortableTable, { data: this.state.data, columns: columns, removeRow: this.removeStudent })
@@ -1745,7 +1787,7 @@ webpackJsonp([1],{
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
 	var api = __webpack_require__(/*! ./api.js */ 214);
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
+	//var auth = require("./auth.js");
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
 	
@@ -1759,7 +1801,14 @@ webpackJsonp([1],{
 			this.setState({ name: event.target.value });
 		},
 		generatePassword: function () {
-			return "xyz123abc";
+			var password = "";
+			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	
+			for (var i = 0; i < 8; i++) {
+				password += possible.charAt(Math.floor(Math.random() * possible.length));
+			}
+	
+			return password;
 		},
 		createStudent: function () {
 			if (this.state.name) {
@@ -1768,7 +1817,6 @@ webpackJsonp([1],{
 				api.addStudent(this.state.name, pwd, function () {
 					return;
 				});
-				console.log("Student \"" + this.state.name + "\" was created"); //TEMP
 				this.setState({ name: '' }); // Clears text box
 			}
 		},
@@ -2661,4 +2709,5 @@ webpackJsonp([1],{
 /***/ }
 
 });
+//# sourceMappingURL=app.js.map
 //# sourceMappingURL=app.js.map
