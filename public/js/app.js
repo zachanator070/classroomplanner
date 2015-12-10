@@ -626,7 +626,7 @@ webpackJsonp([1],{
 	    $.ajax({
 	      url: url,
 	      dataType: 'json',
-	      type: 'POST',
+	      type: 'PUT',
 	      headers: { 'Authorization': localStorage.token },
 	      data: {
 	        name: studentName,

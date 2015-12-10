@@ -65,31 +65,33 @@ app.post('/api/users/login', function (req, res) {
 });
 
 //adds a student to the database
-app.put('/api/users/:userName',function(){
-  // validate the supplied token
-  user = User.verifyToken(req.headers.authorization, function(user) {
-    if (user) {
-      // if the token is valid, then find the requested user
-      User.findOne({name:userName}, function(err,user) {
-        if (err) {
-          res.sendStatus(403);
-          return;
-        }
+app.put('/api/users/:userName',function(req,res){
 
+  User.findOrCreate({name: req.body.name}, function(err, user, created) {
+
+    if (created) {
+        // if this username is not taken, then create a user record
         user.name = req.body.name;
-        user.type = "student";
         user.password = req.body.password;
+        user.type = "student";
         user.subjects = [];
-
+        User.findOne({name:instructor}, function(err,instructor){
+          instructor.students.appedn(user.name);
+          instructor.save(function(err) {
+        	  if (err) {
+        	    res.sendStatus(403);
+        	    return;
+        	  });
+        });
         user.save(function(err) {
           if (err) {
-            res.sendStatus(403);
+            res.sendStatus("403");
             return;
           }
-        });
-      });
+          });
     } else {
-      res.sendStatus(403);
+      // return an error if the username is taken
+      res.sendStatus("403");
     }
   });
 });
