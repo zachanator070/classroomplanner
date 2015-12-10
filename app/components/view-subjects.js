@@ -1,24 +1,36 @@
 var React = require('react');
 var ReactRouter = require("react-router");
 
+var api = require("./api.js");
+
 var TabBar = require('./tab-bar.js');
 var SortableTable = require('./sortable-table.js');
 
 var ViewSubjects = React.createClass({
 
 	getInitialState: function () {
+
+		this.reloadSubjects();
 		return {
-		    	data: [
-		        	{ subject: 'English 7' },
-		        	{ subject: 'Math 8' },
-		        	{ subject: 'Reading 7' },
-		        	{ subject: 'Spanish 7' }
-		    	]
+		    	data: []
 		};
+	},
+	reloadSubjects: function() {
+		api.getSubjects(localStorage.name, function(success, res) {
+			console.log('succes in reloadSubjects? ' + success);
+			var subjectData = res.subjects.map(function(subject) {
+				return { subject: subject.name };
+			});
+			console.log("SubjectData: " + subjectData); //TEMP
+			this.setState({data: subjectData});
+			return;
+		}.bind(this));
 	},
 
 	removeSubject: function(item) {
-		// < -- insert api call here!!
+
+		api.deleteSubject(item.subject, this.reloadSubjects);
+
 		console.log("Removing subject: " + item.subject); //TEMP
 	},
 

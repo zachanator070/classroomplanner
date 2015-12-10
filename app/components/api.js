@@ -288,13 +288,15 @@ var api = {
   //
 
   // get the list of subjects by instructor, call the callback when complete
-  getSubjects: function(name, cb) {
-    var url = "/api/subjects";
+  getSubjects: function(instructor, cb) {
+
+    console.log('inside getSubjects instructor: ' + instructor);
+    var url = "/api/subjects/"+instructor;
     $.ajax({
       url: url,
       dataType: 'json',
       type: 'GET',
-      headers: {'Authorization': localStorage.token, 'Instructor':instructor},
+      headers: {'Authorization': localStorage.token},
       success: function(res) {
         if (cb)
           cb(true, res);
@@ -336,9 +338,9 @@ var api = {
 
   },
 
-  // delete a subject, call the callback when complete
-  deleteSubject: function(subject, cb) {
-    var url = "/api/subjects/"+subject._id;
+  // deleteSubject, call the callback when complete
+  deleteSubject: function(name, cb) {
+    var url = "/api/subjects/"+name;
     $.ajax({
       url: url,
       type: 'DELETE',

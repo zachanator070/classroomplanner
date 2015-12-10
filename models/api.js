@@ -1,5 +1,6 @@
 var app = require('./express.js');
 var User = require('./user.js');
+var Subject = require('./subject.js');
 var Assignment = require('./assignment.js');
 var StudentAssignment = require('./studentAssignment.js');
 
@@ -69,7 +70,7 @@ app.post('/api/users/login', function (req, res) {
   });
 });
 
-//adds a student to the database
+// addStudent
 app.put('/api/users/:userName',function(req,res){
 
   User.findOrCreate({name: req.body.name}, function(err, user, created) {
@@ -84,28 +85,23 @@ app.put('/api/users/:userName',function(req,res){
 
         user.save(function(err) {
           if (err) {
-            console.log('failed to save user (student)');
             res.sendStatus("403");
             return;
           }
         });
     } else {
       // return an error if the username is taken
-      console.log('created == false');
       res.sendStatus("403");
     }
   });
 });
 
-// return a list of users with the given subject
-//app.get('/api/users/:subject', function (req, res) {
+// getStudents
 app.get('/api/users/:instructor', function (req, res) {
   // validate the supplied token
   user = User.verifyToken(req.headers.authorization, function(user) {
     if (user) {
       // if the token is valid, then find the requested item
-      //User.find({subject:req.params.instructor}, function(err, users) {
-      console.log()
       User.find({instructor: req.params.instructor}, function(err, users) {
 
         if (err) {
@@ -122,15 +118,14 @@ app.get('/api/users/:instructor', function (req, res) {
 });
 
 
-// delete a student
+// deleteStudent
 app.delete('/api/users/:student_name', function (req,res) {
   // validate the supplied token
   user = User.verifyToken(req.headers.authorization, function(user) {
     if (user) {
       // if the token is valid, then find the requested item
-      //User.findByIdAndRemove(req.params.student_name, function(err,student) {
       User.find({ name: req.params.student_name }).remove( function(err,student) {
-        console.log("Error???? " + err); //TEMP
+
         if (err) {
           res.sendStatus(403);
           return;
@@ -168,7 +163,7 @@ app.get('/api/assignments', function (req,res) {
   });
 });
 
-// add an assignment
+// addAssignment
 app.post('/api/assignments', function (req,res) {
   // validate the supplied token
   // get indexes
@@ -358,13 +353,13 @@ app.delete('/api/studentAssignments/:assignment_id', function (req,res) {
 // Subject Urls
 //
 
-// get all subjects for the user
-app.get('/api/subjects', function (req,res) {
+// getSubjects by instructor
+app.get('/api/subjects/:instructor', function (req,res) {
   // validate the supplied token
   user = User.verifyToken(req.headers.authorization, function(user) {
     if (user) {
       // if the token is valid, then find the requested item
-      Subject.find({instructor:req.headers.Instructor}, function(err, subjects) {
+      Subject.find({instructor:req.params.instructor}, function(err, subjects) {
         if (err) {
           res.sendStatus(403);
           return;
@@ -379,7 +374,7 @@ app.get('/api/subjects', function (req,res) {
   });
 });
 
-// add a subject
+// addSubject
 app.post('/api/subjects', function (req,res) {
   // validate the supplied token
   user = User.verifyToken(req.headers.authorization, function(user) {
@@ -400,14 +395,13 @@ app.post('/api/subjects', function (req,res) {
   });
 });
 
-// delete a subject
-app.delete('/api/subjects/:subject_id', function (req,res) {
+// deleteSubject
+app.delete('/api/subjects/:subject_name', function (req,res) {
   // validate the supplied token
   user = User.verifyToken(req.headers.authorization, function(user) {
     if (user) {
       // if the token is valid, then find the requested subject and remove it
-
-      Subject.findByIdAndRemove(req.params.subject_id, function(err,subject) {
+      Subject.find({ name: req.params.subject_name }).remove( function(err,subject) {  
       	if (err) {
       	  res.sendStatus(403);
       	  return;

@@ -2,17 +2,16 @@ var React = require('react');
 var ReactRouter = require("react-router");
 
 var api = require("./api.js");
-var auth = require("./auth.js");
 
 var TabBar = require('./tab-bar');
 
 var AddAssignment = React.createClass({
 
 	getInitialState: function() {
-		return {name: '', subject: '', dueDate: '', expDate: ''};
+		return {title: '', subject: '', dueDate: '', expDate: ''};
 	},
-	handleNameChange: function(event) {
-		this.setState({name: event.target.value});
+	handleTitleChange: function(event) {
+		this.setState({title: event.target.value});
 	},
 	handleSubjectChange: function(event) {
 		this.setState({subject: event.target.value});
@@ -24,10 +23,16 @@ var AddAssignment = React.createClass({
 		this.setState({expDate: event.target.value});
 	},
 	createAssignment: function() {
-		if(this.state.name && this.state.subject && this.state.dueDate && this.state.expDate) {
-			// <--- api function call goes here!!!
-			console.log("Assignment \"" + this.state.value + "\" was created"); //TEMP
-			this.setState({value: ''});
+		if(this.state.title && this.state.subject && this.state.dueDate && this.state.expDate) {
+
+			api.addAssignment(this.state.subject, this.state.title, this.state.dueDate, this.state.expDate, function() {
+				return;
+			});
+			console.log("Assignment \"" + this.state.title + "\" was created"); //TEMP
+			this.setState({title: ''});
+			this.setState({subject: ''});
+			this.setState({dueDate: ''});
+			this.setState({expDate: ''});
 		}
 	},
 	render: function() {
@@ -50,13 +55,13 @@ var AddAssignment = React.createClass({
 				<div className="panel-body">
 					<form className="form-horizontal">
 						<div className="form-group">
-							<label htmlFor="inputTitle" className="col-sm-2 control-label">Name</label>
+							<label htmlFor="inputTitle" className="col-sm-2 control-label">Title</label>
 							<div className="col-sm-10">
 								<input type="text" className="form-control"
 									id="inputTitle"
-									placeholder="Name"
-									value={this.state.name}
-									onChange={this.handleNameChange} />
+									placeholder="Title"
+									value={this.state.title}
+									onChange={this.handleTitleChange} />
 							</div>
 						</div>
 						<div className="form-group">
@@ -91,7 +96,7 @@ var AddAssignment = React.createClass({
 							<div className="col-sm-offset-2 col-sm-10">
 								<button className="btn btn-default"
 									type="submit"
-									disabled={!this.state.name || !this.state.subject || !this.state.dueDate || !this.state.expDate}
+									disabled={!this.state.title || !this.state.subject || !this.state.dueDate || !this.state.expDate}
 									onClick={this.createAssignment} >
 									Create
 								</button>
