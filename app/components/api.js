@@ -28,12 +28,12 @@ var api = {
   },
 
   // adds a student for a particular instructor
-  addStudents: function(studentName,password, cb) {
+  addStudent: function(studentName,password, cb) {
     var url = "/api/users/"+studentName;
     $.ajax({
       url: url,
       dataType: 'json',
-      type: 'GET',
+      type: 'POST',
       headers: {'Authorization': localStorage.token},
       data:{
         name:studentName,
