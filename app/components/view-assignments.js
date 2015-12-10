@@ -22,13 +22,13 @@ var ViewAssignments = React.createClass({
         api.getSubjects(localStorage.name, function(succ, res) {
 
             res.subjects.map(function(subject) {
-                    
+
                     api.getAssignments(subject.name, function(success, response) {
                         var singleAssignment = response.assignments.map(function(assignment) {
                             return { title: assignment.title, subject: assignment.subject, dueDate: assignment.dueDate, expDate: assignment.expDate };
                         });
                         this.state.allAssignments.push(singleAssignment);
-                        this.setState({data: this.state.allAssignments});
+                        this.setState({data: this.state.allAssignments, allAssignments: []});
                         console.log(this.state.data);
                     }.bind(this));
 
