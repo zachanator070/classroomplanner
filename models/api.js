@@ -3,6 +3,10 @@ var User = require('./user.js');
 var Assignment = require('./assignment.js');
 var StudentAssignment = require('./studentAssignment.js');
 
+var toType = function(obj) {
+  return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+}
+
 // setup body parser
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -245,17 +249,28 @@ app.delete('/api/assignments/:assignment_id', function (req,res) {
 
 // get all assignments for the user
 app.get('/api/studentAssignments', function (req,res) {
+
+  var studentName = req.headers.name;
+
   // validate the supplied token
   user = User.verifyToken(req.headers.authorization, function(user) {
     if (user) {
+
+      console.log("getting asignments for header:"+req.headers.name);
+      console.log("getting asignments for user:"+user.name);
+
       // if the token is valid, then find the requested item
-      StudentAssignment.find({student:req.headers.name}, function(err, assignments) {
+      StudentAssignment.find({"student":user.name}, function(err, assignments) {
         if (err) {
           res.sendStatus(403);
           return;
         }
+
+        console.log("we found: "+assignments.length);
+        console.log("assignments:"+toType(assignments));
+
         // return value is the list of assignments as JSON
-        res.json({assignments: assignments});
+        res.json({assignment: assignments});
       });
     }
     else {

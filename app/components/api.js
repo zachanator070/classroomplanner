@@ -30,9 +30,9 @@ var api = {
   // adds a student for a particular instructor
   addStudent: function(studentName,password, cb) {
     var url = "/api/users/"+studentName;
-    
+
     console.log('localStorage.name: ' + localStorage.name); //TEMP
- 
+
     $.ajax({
       url: url,
       dataType: 'application/json',
@@ -190,7 +190,7 @@ var api = {
       url: url,
       dataType: 'json',
       type: 'GET',
-      headers: {'Authorization': localStorage.token, 'Name':name},
+      headers: {'Authorization': localStorage.token},
       success: function(res) {
         if (cb)
           cb(true, res);

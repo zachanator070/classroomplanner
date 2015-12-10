@@ -499,7 +499,7 @@ webpackJsonp([1],{
 	      console.log("Type of user:" + auth.getType());
 	
 	      if (auth.getType() == "instructor") {
-	        this.history.pushState(null, '/studentassignments/late');
+	        this.history.pushState(null, '/instructorassignments/late');
 	      } else {
 	        this.history.pushState(null, '/studentassignments/late');
 	      }
@@ -874,7 +874,7 @@ webpackJsonp([1],{
 	      url: url,
 	      dataType: 'json',
 	      type: 'GET',
-	      headers: { 'Authorization': localStorage.token, 'Name': name },
+	      headers: { 'Authorization': localStorage.token },
 	      success: function (res) {
 	        if (cb) cb(true, res);
 	      },
@@ -2497,9 +2497,9 @@ webpackJsonp([1],{
 	
 		getInitialState: function () {
 			// var assignments will be replaced with api call
-			var assignments = [{ title: "Read pg 12, ex 1-10", subject: "English 7", student: "Billy Bob", dueDate: "11/12/15", expDate: "11/22/2015", submissions: '0', done: 'false' }, { title: "Read pg 18, ex 91-100", subject: "Math 7", student: "Billy Bob", dueDate: "11/13/15", expDate: "11/23/2015", submissions: '1', done: 'true' }, { title: "Read pg 98, ex 4-8", subject: "Reading 7", student: "Sally Sue", dueDate: "11/14/15", expDate: "11/24/2015", submissions: '0', done: 'false' }, { title: "Read pg 33, ex 1-5", subject: "English 7", student: "Sally Sue", dueDate: "11/15/15", expDate: "11/25/2015", submissions: '1', done: 'true' }];
+			var assignments = api.getStudentAssignments(localStorage.name);
+	
 			return {
-				data: assignments,
 				displayedData: assignments
 			};
 		},

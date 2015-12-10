@@ -40,7 +40,7 @@ var Login = React.createClass({
         console.log("Type of user:"+auth.getType());
 
       if(auth.getType()=="instructor"){
-        this.history.pushState(null, '/studentassignments/late');
+        this.history.pushState(null, '/instructorassignments/late');
       }else{
         this.history.pushState(null, '/studentassignments/late');
       }
