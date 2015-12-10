@@ -7,7 +7,7 @@ var SortableTable = require('./sortable-table.js');
 // SORTING FUNCTIONS CAN BE PLACED HERE - SEE CODE BELOW COMPONENT
 
 var ViewAssignments = React.createClass({
-    
+
     getInitialState: function () {
         // var assignments will be replaced with api call
         var assignments =  [
@@ -46,7 +46,9 @@ var ViewAssignments = React.createClass({
         return (
             <div>
                 <TabBar  data={tabs} />
-                <SortableTable data={this.state.data} columns={columns} removeRow={this.removeAssignment} deleteCol='true' />
+                <div className="tabContent">
+                  <SortableTable data={this.state.data} columns={columns} removeRow={this.removeAssignment} deleteCol='true' />
+                </div>
             </div>
         );
     }

@@ -46,26 +46,28 @@ var AddStudent = React.createClass({
 
 		return <div>
 			<TabBar data={tabs} />
+			<div className="tabContent">
 			<div className="panel panel-default">
 				<div className="panel-heading">
 					<h3 className="panel-title">Create Student Account</h3>
 				</div>
 				<div className="panel-body">
 					<form className="form-inline">
-						<input className="form-control" 
+						<input className="form-control"
 							type="text"
 							placeholder="Student Name"
-							value={this.state.name} 
+							value={this.state.name}
 							onChange={this.handleChange} />
 						<button className="btn btn-default"
 							type="submit"
-							disabled={!this.state.name} 
+							disabled={!this.state.name}
 							onClick={this.createStudent} >
 							Create
 						</button>
 					</form>
 				</div>
 			</div>
+		</div>
 		</div>
 	}
 });

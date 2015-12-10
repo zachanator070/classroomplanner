@@ -40,7 +40,9 @@ var AddAssignment = React.createClass({
 		};
 
 		return <div>
+
 			<TabBar data={tabs} />
+			<div className="tabContent">
 			<div className="panel panel-default">
 				<div className="panel-heading">
 					<h3 className="panel-title">Create New Assignment</h3>
@@ -51,7 +53,7 @@ var AddAssignment = React.createClass({
 							<label htmlFor="inputTitle" className="col-sm-2 control-label">Name</label>
 							<div className="col-sm-10">
 								<input type="text" className="form-control"
-									id="inputTitle" 
+									id="inputTitle"
 									placeholder="Name"
 									value={this.state.name}
 									onChange={this.handleNameChange} />
@@ -61,7 +63,7 @@ var AddAssignment = React.createClass({
 							<label htmlFor="inputSubject" className="col-sm-2 control-label">Subject</label>
 							<div className="col-sm-10">
 								<input type="text" className="form-control"
-									id="inputSubject" 
+									id="inputSubject"
 									placeholder="Subject"
 									value={this.state.subject}
 									onChange={this.handleSubjectChange} />
@@ -70,8 +72,8 @@ var AddAssignment = React.createClass({
 						<div className="form-group">
 							<label htmlFor="inputDueDate" className="col-sm-2 control-label">Due Date</label>
 							<div className="col-sm-10">
-								<input type="date" className="form-control" 
-									id="inputDueDate" 
+								<input type="date" className="form-control"
+									id="inputDueDate"
 									value={this.state.dueDate}
 									onChange={this.handleDueDateChange} />
 							</div>
@@ -79,8 +81,8 @@ var AddAssignment = React.createClass({
 						<div className="form-group">
 							<label htmlFor="inputExpDate" className="col-sm-2 control-label">Expiration Date</label>
 							<div className="col-sm-10">
-								<input type="date" className="form-control" 
-									id="inputExpDate" 
+								<input type="date" className="form-control"
+									id="inputExpDate"
 									value={this.state.expDate}
 									onChange={this.handleExpDateChange} />
 							</div>
@@ -89,7 +91,7 @@ var AddAssignment = React.createClass({
 							<div className="col-sm-offset-2 col-sm-10">
 								<button className="btn btn-default"
 									type="submit"
-									disabled={!this.state.name || !this.state.subject || !this.state.dueDate || !this.state.expDate} 
+									disabled={!this.state.name || !this.state.subject || !this.state.dueDate || !this.state.expDate}
 									onClick={this.createAssignment} >
 									Create
 								</button>
@@ -98,6 +100,7 @@ var AddAssignment = React.createClass({
 					</form>
 				</div>
 			</div>
+		</div>
 		</div>
 	}
 });

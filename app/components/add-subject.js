@@ -36,13 +36,14 @@ var AddSubject = React.createClass({
 
 		return <div>
 			<TabBar data={tabs} />
+			<div className="tabContent">
 			<div className="panel panel-default">
 				<div className="panel-heading">
 					<h3 className="panel-title">Create New Subject</h3>
 				</div>
 				<div className="panel-body">
 					<form className="form-inline">
-						<input className="form-control" 
+						<input className="form-control"
 							type="text"
 							placeholder="Subject Name"
 							value={this.state.name}
@@ -55,6 +56,7 @@ var AddSubject = React.createClass({
 						</button>
 					</form>
 				</div>
+			</div>
 			</div>
 		</div>
 	}

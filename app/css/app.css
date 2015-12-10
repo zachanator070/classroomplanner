@@ -82,6 +82,7 @@ body {
   border-right: thin solid gray;
   border-bottom: thin solid gray;
   padding: 0px 15px;
+  padding-top:10px;
 }
 
 .filterBy{

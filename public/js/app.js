@@ -16,19 +16,26 @@ webpackJsonp([1],{
 	
 	var App = __webpack_require__(/*! ./app.js */ 208);
 	var Home = __webpack_require__(/*! ./home.js */ 211);
-	var List = __webpack_require__(/*! ./list.js */ 212);
+	
 	var Login = __webpack_require__(/*! ./login.js */ 218);
 	var Register = __webpack_require__(/*! ./register.js */ 219);
 	
 	var ViewStudents = __webpack_require__(/*! ./view-students.js */ 220);
 	var AddStudent = __webpack_require__(/*! ./add-student.js */ 226);
+	
 	var ViewSubjects = __webpack_require__(/*! ./view-subjects.js */ 227);
 	var AddSubject = __webpack_require__(/*! ./add-subject.js */ 228);
+	
 	var ViewAssignments = __webpack_require__(/*! ./view-assignments.js */ 229);
 	var AddAssignment = __webpack_require__(/*! ./add-assignment.js */ 230);
-	var CurrentAssignments = __webpack_require__(/*! ./current-assignments.js */ 231);
-	var LateAssignments = __webpack_require__(/*! ./late-assignments.js */ 234);
-	var ExpiredAssignments = __webpack_require__(/*! ./expired-assignments.js */ 235);
+	
+	var InstructorCurrentAssignments = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./instructor-current-assignments.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var InstructorLateAssignments = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./instructor-late-assignments.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var InstructorExpiredAssignments = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./instructor-expired-assignments.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	
+	var StudentCompletedAssignments = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./student-completed-assignments.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var StudentLateAssignments = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./student-late-assignments.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var StudentCurrentAssignments = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./student-current-assignments.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	
 	__webpack_require__(/*! ../../~/bootstrap/dist/css/bootstrap.min.css */ 236);
 	__webpack_require__(/*! ../css/app.css */ 245);
@@ -49,9 +56,12 @@ webpackJsonp([1],{
 	    React.createElement(Route, { path: "/subjectmanager/add", component: AddSubject }),
 	    React.createElement(Route, { path: "/assignmentmanager/viewall", component: ViewAssignments }),
 	    React.createElement(Route, { path: "/assignmentmanager/add", component: AddAssignment }),
-	    React.createElement(Route, { path: "/studentassignments/current", component: CurrentAssignments }),
-	    React.createElement(Route, { path: "/studentassignments/late", component: LateAssignments }),
-	    React.createElement(Route, { path: "/studentassignments/expired", component: ExpiredAssignments })
+	    React.createElement(Route, { path: "/instructorassignments/current", component: InstructorCurrentAssignments }),
+	    React.createElement(Route, { path: "/instructorassignments/late", component: InstructorLateAssignments }),
+	    React.createElement(Route, { path: "/instructorassignments/expired", component: InstructorExpiredAssignments }),
+	    React.createElement(Route, { path: "/studentassignments/current", component: StudentCurrentAssignments }),
+	    React.createElement(Route, { path: "/studentassignments/late", component: StudentLateAssignments }),
+	    React.createElement(Route, { path: "/studentassignments/completed", component: StudentCompletedAssignments })
 	  )
 	);
 	
@@ -159,7 +169,7 @@ webpackJsonp([1],{
 	            null,
 	            React.createElement(
 	              "a",
-	              { href: "#/studentassignments/late" },
+	              { href: "#/instructorassignments/late" },
 	              "Student Assignments"
 	            )
 	          ),
@@ -182,8 +192,35 @@ webpackJsonp([1],{
 	            null,
 	            React.createElement(
 	              "a",
-	              { href: "/" },
-	              "A link for a student"
+	              { href: "#/studentassignments/current" },
+	              "Current Assignments"
+	            )
+	          ),
+	          React.createElement(
+	            "li",
+	            null,
+	            React.createElement(
+	              "a",
+	              { href: "#/studentassignments/late" },
+	              "Late Assignments"
+	            )
+	          ),
+	          React.createElement(
+	            "li",
+	            null,
+	            React.createElement(
+	              "a",
+	              { href: "#/studentassignments/completed" },
+	              "Completed Assignments"
+	            )
+	          ),
+	          React.createElement(
+	            "li",
+	            null,
+	            React.createElement(
+	              "a",
+	              { href: "#", onClick: this.logout },
+	              "Logout"
 	            )
 	          )
 	        );
@@ -411,179 +448,6 @@ webpackJsonp([1],{
 	});
 	
 	module.exports = Home;
-
-/***/ },
-
-/***/ 212:
-/*!****************************!*\
-  !*** ./components/list.js ***!
-  \****************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactRouter = __webpack_require__(/*! react-router */ 159);
-	
-	var ListHeader = __webpack_require__(/*! ./listheader.js */ 213);
-	var ListEntry = __webpack_require__(/*! ./listentry.js */ 215);
-	var ListItems = __webpack_require__(/*! ./listitems.js */ 216);
-	
-	var api = __webpack_require__(/*! ./api.js */ 214);
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
-	
-	// List page, shows the todo list of items
-	var List = React.createClass({
-	  displayName: "List",
-	
-	  // context so the component can access the router
-	  contextTypes: {
-	    location: React.PropTypes.object
-	  },
-	
-	  // initial state
-	  getInitialState: function () {
-	    return {
-	      // list of items in the todo list
-	      items: []
-	    };
-	  },
-	
-	  // when the component loads, get the list items
-	  componentDidMount: function () {
-	    api.getItems(this.listSet);
-	  },
-	
-	  // reload the list of items
-	  reload: function () {
-	    api.getItems(this.listSet);
-	  },
-	
-	  // callback for getting the list of items, sets the list state
-	  listSet: function (status, data) {
-	    if (status) {
-	      // set the state for the list of items
-	      this.setState({
-	        items: data.items
-	      });
-	    } else {
-	      // if the API call fails, redirect to the login page
-	      this.context.router.transitionTo('/login');
-	    }
-	  },
-	
-	  // Show the list of items. This component has the following children: ListHeader, ListEntry and ListItems
-	  render: function () {
-	    var name = auth.getName();
-	    return React.createElement(
-	      "section",
-	      { id: "todoapp" },
-	      React.createElement(ListHeader, { name: name, items: this.state.items, reload: this.reload }),
-	      React.createElement(
-	        "section",
-	        { id: "main" },
-	        React.createElement(ListEntry, { reload: this.reload }),
-	        React.createElement(ListItems, { items: this.state.items, reload: this.reload })
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = List;
-
-/***/ },
-
-/***/ 213:
-/*!**********************************!*\
-  !*** ./components/listheader.js ***!
-  \**********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	
-	var api = __webpack_require__(/*! ./api.js */ 214);
-	
-	// List header, which shows who the list is for, the number of items in the list, and a button to clear completed items
-	var ListHeader = React.createClass({
-	  displayName: "ListHeader",
-	
-	  // handle the clear completed button submit   
-	  clearCompleted: function (event) {
-	    // loop through the items, and delete any that are complete
-	    this.props.items.forEach(function (item) {
-	      if (item.completed) {
-	        api.deleteItem(item, null);
-	      }
-	    });
-	    // XXX race condition because the API call to delete is async
-	    // reload the list
-	    this.props.reload();
-	  },
-	
-	  // render the list header
-	  render: function () {
-	    // true if there are any completed items
-	    var completed = this.props.items.filter(function (item) {
-	      return item.completed;
-	    });
-	    return React.createElement(
-	      "header",
-	      { id: "header" },
-	      React.createElement(
-	        "div",
-	        { className: "row" },
-	        React.createElement(
-	          "div",
-	          { className: "col-md-6" },
-	          React.createElement(
-	            "p",
-	            null,
-	            React.createElement(
-	              "i",
-	              null,
-	              "Lovingly created for ",
-	              this.props.name
-	            )
-	          ),
-	          React.createElement(
-	            "p",
-	            null,
-	            React.createElement(
-	              "span",
-	              { id: "list-count", className: "label label-default" },
-	              React.createElement(
-	                "strong",
-	                null,
-	                this.props.items.length
-	              ),
-	              " item(s)"
-	            )
-	          ),
-	          React.createElement(
-	            "p",
-	            null,
-	            React.createElement(
-	              "i",
-	              null,
-	              "Double-click to edit an item"
-	            )
-	          )
-	        ),
-	        completed.length > 0 ? React.createElement(
-	          "div",
-	          { className: "col-md-6 right" },
-	          React.createElement(
-	            "button",
-	            { className: "btn btn-warning btn-md", id: "clear-completed", onClick: this.clearCompleted },
-	            "Clear completed (",
-	            completed.length,
-	            ")"
-	          )
-	        ) : null
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = ListHeader;
 
 /***/ },
 
@@ -928,213 +792,6 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 215:
-/*!*********************************!*\
-  !*** ./components/listentry.js ***!
-  \*********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	
-	var api = __webpack_require__(/*! ./api.js */ 214);
-	
-	// List entry component, handles adding new items to the list
-	var ListEntry = React.createClass({
-	  displayName: "ListEntry",
-	
-	  // handles submit event for adding a new item
-	  addItem: function (event) {
-	    // prevent default browser submit
-	    event.preventDefault();
-	    // get data from form
-	    var title = this.refs.title.value;
-	    if (!title) {
-	      return;
-	    }
-	    // call API to add item, and reload once added
-	    api.addItem(title, this.props.reload);
-	    this.refs.title.value = '';
-	  },
-	
-	  // render the item entry area
-	  render: function () {
-	    return React.createElement(
-	      "header",
-	      { id: "input" },
-	      React.createElement(
-	        "form",
-	        { id: "item-form", name: "itemForm", onSubmit: this.addItem },
-	        React.createElement("input", { type: "text", id: "new-item", ref: "title", placeholder: "Enter a new item", autoFocus: true })
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = ListEntry;
-
-/***/ },
-
-/***/ 216:
-/*!*********************************!*\
-  !*** ./components/listitems.js ***!
-  \*********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactRouter = __webpack_require__(/*! react-router */ 159);
-	
-	var Item = __webpack_require__(/*! ./item.js */ 217);
-	
-	// List items component, shows the list of items
-	var ListItems = React.createClass({
-	  displayName: "ListItems",
-	
-	  // context so the component can access the router
-	  contextTypes: {
-	    location: React.PropTypes.object
-	  },
-	  // render the list of items
-	  render: function () {
-	    // get list of items to show, using the path to the current page
-	    var shown = this.props.items.filter(function (item) {
-	      switch (this.context.location.pathname) {
-	        case '/list/active':
-	          return !item.completed;
-	        case '/list/completed':
-	          return item.completed;
-	        default:
-	          return true;
-	      }
-	    }, this);
-	
-	    // using the list of items, generate an Item element for each one
-	    var list = shown.map((function (item) {
-	      return React.createElement(Item, { key: item.id, item: item, reload: this.props.reload });
-	    }).bind(this));
-	
-	    // render the list
-	    return React.createElement(
-	      "ul",
-	      { id: "todo-list" },
-	      list
-	    );
-	  }
-	});
-	
-	module.exports = ListItems;
-
-/***/ },
-
-/***/ 217:
-/*!****************************!*\
-  !*** ./components/item.js ***!
-  \****************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	
-	var api = __webpack_require__(/*! ./api.js */ 214);
-	
-	// Item shown in the todo list
-	var Item = React.createClass({
-	  displayName: "Item",
-	
-	  // initial state
-	  getInitialState: function () {
-	    return {
-	      // editing this item
-	      editing: false,
-	      // text saved before editing started
-	      editText: this.props.item.title
-	    };
-	  },
-	  // set the focus and selection range when this item is updated
-	  componentDidUpdate: function (prevProps, prevState) {
-	    if (!prevState.editing && this.state.editing) {
-	      var node = this.refs.editField.getDOMNode();
-	      node.focus();
-	      node.setSelectionRange(0, node.value.length);
-	    }
-	  },
-	  // when the item is completed, toggle its state and update it
-	  toggleCompleted: function () {
-	    this.props.item.completed = !this.props.item.completed;
-	    api.updateItem(this.props.item, this.props.reload);
-	  },
-	  // called when the delete button is clicked for this item
-	  deleteItem: function () {
-	    api.deleteItem(this.props.item, this.props.reload);
-	  },
-	  // called when the item is double-clicked
-	  editItem: function () {
-	    this.setState({ editing: true, editText: this.props.item.title });
-	  },
-	  // called when the item is changed
-	  changeItem: function (event) {
-	    this.setState({ editText: event.target.value });
-	  },
-	  // called when the enter key is entered after the item is edited
-	  saveItem: function (event) {
-	    if (!this.state.editing) {
-	      return;
-	    }
-	    var val = this.state.editText.trim();
-	    if (val) {
-	      this.setState({ editing: false, editText: val });
-	      this.props.item.title = this.state.editText;
-	      // save the item
-	      api.updateItem(this.props.item, this.props.reload);
-	    } else {
-	      // delete the item if there is no text left any more
-	      api.deleteItem(this.props.item, this.props.reload);
-	    }
-	  },
-	  // called when a key is pressed
-	  handleKeyDown: function (event) {
-	    var ESCAPE_KEY = 27;
-	    var ENTER_KEY = 13;
-	    // if the ESC key is pressed, then cancel editing
-	    // if the ENTER key is pressed, then save edited text
-	    if (event.which === ESCAPE_KEY) {
-	      this.setState({ editing: false, editText: this.props.item.title });
-	    } else if (event.which === ENTER_KEY) {
-	      this.saveItem(event);
-	    }
-	  },
-	  // render the Item
-	  render: function () {
-	    // construct a list of classes for the item CSS
-	    var classes = "";
-	    if (this.props.item.completed) {
-	      classes += 'completed';
-	    }
-	    if (this.state.editing) {
-	      classes += ' editing';
-	    }
-	    return React.createElement(
-	      "li",
-	      { className: classes },
-	      React.createElement(
-	        "div",
-	        { className: "view" },
-	        React.createElement("input", { id: this.props.item.id, className: "toggle", type: "checkbox", onChange: this.toggleCompleted.bind(this, this.props.item), checked: this.props.item.completed }),
-	        React.createElement("label", { className: "check", htmlFor: this.props.item.id }),
-	        React.createElement(
-	          "label",
-	          { onDoubleClick: this.editItem },
-	          this.props.item.title
-	        ),
-	        React.createElement("button", { className: "destroy", onClick: this.deleteItem })
-	      ),
-	      React.createElement("input", { ref: "editField", className: "edit", onKeyDown: this.handleKeyDown, onChange: this.changeItem, onSubmit: this.saveItem, onBlur: this.saveItem, value: this.state.editText })
-	    );
-	  }
-	});
-	
-	module.exports = Item;
-
-/***/ },
-
 /***/ 218:
 /*!*****************************!*\
   !*** ./components/login.js ***!
@@ -1361,7 +1018,11 @@ webpackJsonp([1],{
 				"div",
 				null,
 				React.createElement(TabBar, { data: tabs }),
-				React.createElement(SortableTable, { data: this.state.data, columns: columns, removeRow: this.removeStudent })
+				React.createElement(
+					"div",
+					{ className: "tabContent" },
+					React.createElement(SortableTable, { data: this.state.data, columns: columns, removeRow: this.removeStudent })
+				)
 			);
 		}
 	});
@@ -1834,34 +1495,38 @@ webpackJsonp([1],{
 				React.createElement(TabBar, { data: tabs }),
 				React.createElement(
 					"div",
-					{ className: "panel panel-default" },
+					{ className: "tabContent" },
 					React.createElement(
 						"div",
-						{ className: "panel-heading" },
+						{ className: "panel panel-default" },
 						React.createElement(
-							"h3",
-							{ className: "panel-title" },
-							"Create Student Account"
-						)
-					),
-					React.createElement(
-						"div",
-						{ className: "panel-body" },
-						React.createElement(
-							"form",
-							{ className: "form-inline" },
-							React.createElement("input", { className: "form-control",
-								type: "text",
-								placeholder: "Student Name",
-								value: this.state.name,
-								onChange: this.handleChange }),
+							"div",
+							{ className: "panel-heading" },
 							React.createElement(
-								"button",
-								{ className: "btn btn-default",
-									type: "submit",
-									disabled: !this.state.name,
-									onClick: this.createStudent },
-								"Create"
+								"h3",
+								{ className: "panel-title" },
+								"Create Student Account"
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "panel-body" },
+							React.createElement(
+								"form",
+								{ className: "form-inline" },
+								React.createElement("input", { className: "form-control",
+									type: "text",
+									placeholder: "Student Name",
+									value: this.state.name,
+									onChange: this.handleChange }),
+								React.createElement(
+									"button",
+									{ className: "btn btn-default",
+										type: "submit",
+										disabled: !this.state.name,
+										onClick: this.createStudent },
+									"Create"
+								)
 							)
 						)
 					)
@@ -1930,7 +1595,11 @@ webpackJsonp([1],{
 				"div",
 				null,
 				React.createElement(TabBar, { data: tabs }),
-				React.createElement(SortableTable, { data: this.state.data, columns: columns, removeRow: this.removeSubject })
+				React.createElement(
+					"div",
+					{ className: "tabContent" },
+					React.createElement(SortableTable, { data: this.state.data, columns: columns, removeRow: this.removeSubject })
+				)
 			);
 		}
 	});
@@ -1985,34 +1654,38 @@ webpackJsonp([1],{
 				React.createElement(TabBar, { data: tabs }),
 				React.createElement(
 					"div",
-					{ className: "panel panel-default" },
+					{ className: "tabContent" },
 					React.createElement(
 						"div",
-						{ className: "panel-heading" },
+						{ className: "panel panel-default" },
 						React.createElement(
-							"h3",
-							{ className: "panel-title" },
-							"Create New Subject"
-						)
-					),
-					React.createElement(
-						"div",
-						{ className: "panel-body" },
-						React.createElement(
-							"form",
-							{ className: "form-inline" },
-							React.createElement("input", { className: "form-control",
-								type: "text",
-								placeholder: "Subject Name",
-								value: this.state.name,
-								onChange: this.handleChange }),
+							"div",
+							{ className: "panel-heading" },
 							React.createElement(
-								"button",
-								{ className: "btn btn-default",
-									type: "submit",
-									disabled: !this.state.name,
-									onClick: this.createSubject },
-								"Create"
+								"h3",
+								{ className: "panel-title" },
+								"Create New Subject"
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "panel-body" },
+							React.createElement(
+								"form",
+								{ className: "form-inline" },
+								React.createElement("input", { className: "form-control",
+									type: "text",
+									placeholder: "Subject Name",
+									value: this.state.name,
+									onChange: this.handleChange }),
+								React.createElement(
+									"button",
+									{ className: "btn btn-default",
+										type: "submit",
+										disabled: !this.state.name,
+										onClick: this.createSubject },
+									"Create"
+								)
 							)
 						)
 					)
@@ -2069,7 +1742,11 @@ webpackJsonp([1],{
 	            "div",
 	            null,
 	            React.createElement(TabBar, { data: tabs }),
-	            React.createElement(SortableTable, { data: this.state.data, columns: columns, removeRow: this.removeAssignment, deleteCol: "true" })
+	            React.createElement(
+	                "div",
+	                { className: "tabContent" },
+	                React.createElement(SortableTable, { data: this.state.data, columns: columns, removeRow: this.removeAssignment, deleteCol: "true" })
+	            )
 	        );
 	    }
 	});
@@ -2184,105 +1861,109 @@ webpackJsonp([1],{
 				React.createElement(TabBar, { data: tabs }),
 				React.createElement(
 					"div",
-					{ className: "panel panel-default" },
+					{ className: "tabContent" },
 					React.createElement(
 						"div",
-						{ className: "panel-heading" },
+						{ className: "panel panel-default" },
 						React.createElement(
-							"h3",
-							{ className: "panel-title" },
-							"Create New Assignment"
-						)
-					),
-					React.createElement(
-						"div",
-						{ className: "panel-body" },
+							"div",
+							{ className: "panel-heading" },
+							React.createElement(
+								"h3",
+								{ className: "panel-title" },
+								"Create New Assignment"
+							)
+						),
 						React.createElement(
-							"form",
-							{ className: "form-horizontal" },
+							"div",
+							{ className: "panel-body" },
 							React.createElement(
-								"div",
-								{ className: "form-group" },
-								React.createElement(
-									"label",
-									{ htmlFor: "inputTitle", className: "col-sm-2 control-label" },
-									"Name"
-								),
+								"form",
+								{ className: "form-horizontal" },
 								React.createElement(
 									"div",
-									{ className: "col-sm-10" },
-									React.createElement("input", { type: "text", className: "form-control",
-										id: "inputTitle",
-										placeholder: "Name",
-										value: this.state.name,
-										onChange: this.handleNameChange })
-								)
-							),
-							React.createElement(
-								"div",
-								{ className: "form-group" },
-								React.createElement(
-									"label",
-									{ htmlFor: "inputSubject", className: "col-sm-2 control-label" },
-									"Subject"
-								),
-								React.createElement(
-									"div",
-									{ className: "col-sm-10" },
-									React.createElement("input", { type: "text", className: "form-control",
-										id: "inputSubject",
-										placeholder: "Subject",
-										value: this.state.subject,
-										onChange: this.handleSubjectChange })
-								)
-							),
-							React.createElement(
-								"div",
-								{ className: "form-group" },
-								React.createElement(
-									"label",
-									{ htmlFor: "inputDueDate", className: "col-sm-2 control-label" },
-									"Due Date"
-								),
-								React.createElement(
-									"div",
-									{ className: "col-sm-10" },
-									React.createElement("input", { type: "date", className: "form-control",
-										id: "inputDueDate",
-										value: this.state.dueDate,
-										onChange: this.handleDueDateChange })
-								)
-							),
-							React.createElement(
-								"div",
-								{ className: "form-group" },
-								React.createElement(
-									"label",
-									{ htmlFor: "inputExpDate", className: "col-sm-2 control-label" },
-									"Expiration Date"
-								),
-								React.createElement(
-									"div",
-									{ className: "col-sm-10" },
-									React.createElement("input", { type: "date", className: "form-control",
-										id: "inputExpDate",
-										value: this.state.expDate,
-										onChange: this.handleExpDateChange })
-								)
-							),
-							React.createElement(
-								"div",
-								{ className: "form-group" },
-								React.createElement(
-									"div",
-									{ className: "col-sm-offset-2 col-sm-10" },
+									{ className: "form-group" },
 									React.createElement(
-										"button",
-										{ className: "btn btn-default",
-											type: "submit",
-											disabled: !this.state.name || !this.state.subject || !this.state.dueDate || !this.state.expDate,
-											onClick: this.createAssignment },
-										"Create"
+										"label",
+										{ htmlFor: "inputTitle", className: "col-sm-2 control-label" },
+										"Name"
+									),
+									React.createElement(
+										"div",
+										{ className: "col-sm-10" },
+										React.createElement("input", { type: "text", className: "form-control",
+											id: "inputTitle",
+											placeholder: "Name",
+											value: this.state.name,
+											onChange: this.handleNameChange })
+									)
+								),
+								React.createElement(
+									"div",
+									{ className: "form-group" },
+									React.createElement(
+										"label",
+										{ htmlFor: "inputSubject", className: "col-sm-2 control-label" },
+										"Subject"
+									),
+									React.createElement(
+										"div",
+										{ className: "col-sm-10" },
+										React.createElement("input", { type: "text", className: "form-control",
+											id: "inputSubject",
+											placeholder: "Subject",
+											value: this.state.subject,
+											onChange: this.handleSubjectChange })
+									)
+								),
+								React.createElement(
+									"div",
+									{ className: "form-group" },
+									React.createElement(
+										"label",
+										{ htmlFor: "inputDueDate", className: "col-sm-2 control-label" },
+										"Due Date"
+									),
+									React.createElement(
+										"div",
+										{ className: "col-sm-10" },
+										React.createElement("input", { type: "date", className: "form-control",
+											id: "inputDueDate",
+											value: this.state.dueDate,
+											onChange: this.handleDueDateChange })
+									)
+								),
+								React.createElement(
+									"div",
+									{ className: "form-group" },
+									React.createElement(
+										"label",
+										{ htmlFor: "inputExpDate", className: "col-sm-2 control-label" },
+										"Expiration Date"
+									),
+									React.createElement(
+										"div",
+										{ className: "col-sm-10" },
+										React.createElement("input", { type: "date", className: "form-control",
+											id: "inputExpDate",
+											value: this.state.expDate,
+											onChange: this.handleExpDateChange })
+									)
+								),
+								React.createElement(
+									"div",
+									{ className: "form-group" },
+									React.createElement(
+										"div",
+										{ className: "col-sm-offset-2 col-sm-10" },
+										React.createElement(
+											"button",
+											{ className: "btn btn-default",
+												type: "submit",
+												disabled: !this.state.name || !this.state.subject || !this.state.dueDate || !this.state.expDate,
+												onClick: this.createAssignment },
+											"Create"
+										)
 									)
 								)
 							)
@@ -2294,416 +1975,6 @@ webpackJsonp([1],{
 	});
 	
 	module.exports = AddAssignment;
-
-/***/ },
-
-/***/ 231:
-/*!*******************************************!*\
-  !*** ./components/current-assignments.js ***!
-  \*******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactRouter = __webpack_require__(/*! react-router */ 159);
-	
-	var api = __webpack_require__(/*! ./api.js */ 214);
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
-	
-	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
-	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 232);
-	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
-	
-	var CurrentAssignments = React.createClass({
-		displayName: "CurrentAssignments",
-	
-		getInitialState: function () {
-			// var assignments will be replaced with api call
-			var assignments = [{ title: "Read pg 12, ex 1-10", subject: "English 7", student: "Billy Bob", dueDate: "11/12/15", expDate: "11/22/2015", submissions: '0', done: 'false' }, { title: "Read pg 18, ex 91-100", subject: "Math 7", student: "Billy Bob", dueDate: "11/13/15", expDate: "11/23/2015", submissions: '1', done: 'true' }, { title: "Read pg 98, ex 4-8", subject: "Reading 7", student: "Sally Sue", dueDate: "11/14/15", expDate: "11/24/2015", submissions: '0', done: 'false' }, { title: "Read pg 33, ex 1-5", subject: "English 7", student: "Sally Sue", dueDate: "11/15/15", expDate: "11/25/2015", submissions: '1', done: 'true' }];
-			return {
-				data: assignments,
-				displayedData: assignments,
-				studentSelected: '--Student--',
-				subjectSelected: '--Subject--'
-			};
-		},
-		filterData: function (studentSelected, subjectSelected) {
-			var filtered = this.state.data;
-			if (subjectSelected !== '--Subject--') {
-				var filtered = filtered.filter(function (item) {
-					return item.subject == subjectSelected;
-				});
-			};
-			if (studentSelected !== '--Student--') {
-				var filtered = filtered.filter(function (item) {
-					return item.student == studentSelected;
-				});
-			};
-			this.setState({
-				displayedData: filtered,
-				studentSelected: studentSelected,
-				subjectSelected: subjectSelected
-			});
-		},
-		handleSubjectDropdown: function (selected) {
-			console.log(selected);
-			this.filterData(this.state.studentSelected, selected);
-		},
-		handleStudentDropdown: function (selected) {
-			console.log(selected);
-			this.filterData(selected, this.state.subjectSelected);
-		},
-	
-		render: function () {
-	
-			var tabs = {
-				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: true }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: false }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false }]
-			};
-	
-			var columns = [{ header: "Title", key: "title" }, { header: "Subject", key: "subject" }, { header: "Student", key: "student" }, { header: "Due Date", key: "dueDate" }, { header: "Expiration Date", key: "expDate" }, { header: "Submissions", key: "submissions" }, { header: "Done", key: "done" }];
-	
-			var subjectDropdown = {
-				title: '--Subject--', //What should show up on the button to open/close the dropdown
-				items: [// List of items to show in the dropdown
-				'--Subject--', 'Math 7', 'English 7', 'Reading 7']
-			};
-	
-			var studentDropdown = {
-				title: '--Student--', //What should show up on the button to open/close the dropdown
-				items: [// List of items to show in the dropdown
-				'--Student--', 'Billy Bob', 'Sally Sue']
-			};
-	
-			return React.createElement(
-				"div",
-				null,
-				React.createElement(TabBar, { data: tabs }),
-				React.createElement(
-					"div",
-					{ className: "tabContent" },
-					React.createElement(
-						"div",
-						{ className: "col-md-2 filterBy" },
-						"Filter by:"
-					),
-					React.createElement(
-						"div",
-						{ className: "col-md-2 " },
-						React.createElement(Dropdown, { title: subjectDropdown.title, items: subjectDropdown.items, itemSelected: this.handleSubjectDropdown })
-					),
-					React.createElement(
-						"div",
-						{ className: "col-md-2 " },
-						React.createElement(Dropdown, { title: studentDropdown.title, items: studentDropdown.items, itemSelected: this.handleStudentDropdown })
-					),
-					React.createElement(SortableTable, { data: this.state.displayedData, columns: columns })
-				)
-			);
-		}
-	});
-	
-	module.exports = CurrentAssignments;
-
-/***/ },
-
-/***/ 232:
-/*!********************************!*\
-  !*** ./components/dropdown.js ***!
-  \********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ListItem = __webpack_require__(/*! ./list-item */ 233);
-	
-	module.exports = React.createClass({
-		displayName: 'exports',
-	
-		handleClick: function () {
-			this.setState({
-				open: !this.state.open
-			});
-		},
-		getInitialState: function () {
-			return { open: false };
-		},
-		handleItemClick: function (item) {
-			this.props.itemSelected(item);
-			this.setState({
-				open: false,
-				itemTitle: item
-			});
-		},
-		render: function () {
-			var list = this.props.items.map((function (item, i) {
-				return React.createElement(ListItem, { key: i,
-					item: item,
-					whenItemClicked: this.handleItemClick,
-					className: this.state.itemTitle === item ? "active" : "" });
-			}).bind(this));
-	
-			return React.createElement(
-				'div',
-				{ className: 'dropdown' },
-				React.createElement(
-					'button',
-					{ className: 'btn btn-default dropdown-toggle', onClick: this.handleClick },
-					(this.state.itemTitle || this.props.title) + " ",
-					React.createElement('span', { className: 'caret' })
-				),
-				React.createElement(
-					'ul',
-					{ className: "dropdown-menu " + (this.state.open ? "show" : "") },
-					list
-				)
-			);
-		}
-	});
-
-/***/ },
-
-/***/ 233:
-/*!*********************************!*\
-  !*** ./components/list-item.js ***!
-  \*********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	
-	var ListItem = React.createClass({
-		displayName: 'ListItem',
-	
-		handleClick: function () {
-			this.props.whenItemClicked(this.props.item);
-		},
-		render: function () {
-			return React.createElement(
-				'li',
-				{ className: this.props.className },
-				React.createElement(
-					'a',
-					{ onClick: this.handleClick },
-					this.props.item
-				)
-			);
-		}
-	});
-	
-	module.exports = ListItem;
-
-/***/ },
-
-/***/ 234:
-/*!****************************************!*\
-  !*** ./components/late-assignments.js ***!
-  \****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactRouter = __webpack_require__(/*! react-router */ 159);
-	
-	var api = __webpack_require__(/*! ./api.js */ 214);
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
-	
-	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
-	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 232);
-	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
-	
-	var LateAssignments = React.createClass({
-		displayName: "LateAssignments",
-	
-		getInitialState: function () {
-			// var assignments will be replaced with api call
-			var assignments = [{ title: "Read pg 12, ex 1-10", subject: "English 7", student: "Billy Bob", dueDate: "11/12/15", expDate: "11/22/2015", submissions: '0', done: 'false' }, { title: "Read pg 18, ex 91-100", subject: "Math 7", student: "Billy Bob", dueDate: "11/13/15", expDate: "11/23/2015", submissions: '1', done: 'true' }, { title: "Read pg 98, ex 4-8", subject: "Reading 7", student: "Sally Sue", dueDate: "11/14/15", expDate: "11/24/2015", submissions: '0', done: 'false' }, { title: "Read pg 33, ex 1-5", subject: "English 7", student: "Sally Sue", dueDate: "11/15/15", expDate: "11/25/2015", submissions: '1', done: 'true' }];
-			return {
-				data: assignments,
-				displayedData: assignments,
-				studentSelected: '--Student--',
-				subjectSelected: '--Subject--'
-			};
-		},
-		filterData: function (studentSelected, subjectSelected) {
-			var filtered = this.state.data;
-			if (subjectSelected !== '--Subject--') {
-				var filtered = filtered.filter(function (item) {
-					return item.subject == subjectSelected;
-				});
-			};
-			if (studentSelected !== '--Student--') {
-				var filtered = filtered.filter(function (item) {
-					return item.student == studentSelected;
-				});
-			};
-			this.setState({
-				displayedData: filtered,
-				studentSelected: studentSelected,
-				subjectSelected: subjectSelected
-			});
-		},
-		handleSubjectDropdown: function (selected) {
-			console.log(selected);
-			this.filterData(this.state.studentSelected, selected);
-		},
-		handleStudentDropdown: function (selected) {
-			console.log(selected);
-			this.filterData(selected, this.state.subjectSelected);
-		},
-	
-		render: function () {
-	
-			var tabs = {
-				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: true }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false }]
-			};
-	
-			var columns = [{ header: "Title", key: "title" }, { header: "Subject", key: "subject" }, { header: "Student", key: "student" }, { header: "Due Date", key: "dueDate" }, { header: "Expiration Date", key: "expDate" }, { header: "Submissions", key: "submissions" }, { header: "Done", key: "done" }];
-	
-			var subjectDropdown = {
-				title: '--Subject--', //What should show up on the button to open/close the dropdown
-				items: [// List of items to show in the dropdown
-				'--Subject--', 'Math 7', 'English 7', 'Reading 7']
-			};
-	
-			var studentDropdown = {
-				title: '--Student--', //What should show up on the button to open/close the dropdown
-				items: [// List of items to show in the dropdown
-				'--Student--', 'Billy Bob', 'Sally Sue']
-			};
-	
-			return React.createElement(
-				"div",
-				null,
-				React.createElement(TabBar, { data: tabs }),
-				React.createElement(
-					"div",
-					{ className: "tabContent" },
-					React.createElement(
-						"div",
-						{ className: "col-md-2 filterBy" },
-						"Filter by:"
-					),
-					React.createElement(
-						"div",
-						{ className: "col-md-2 " },
-						React.createElement(Dropdown, { title: subjectDropdown.title, items: subjectDropdown.items, itemSelected: this.handleSubjectDropdown })
-					),
-					React.createElement(
-						"div",
-						{ className: "col-md-2 " },
-						React.createElement(Dropdown, { title: studentDropdown.title, items: studentDropdown.items, itemSelected: this.handleStudentDropdown })
-					),
-					React.createElement(SortableTable, { data: this.state.displayedData, columns: columns })
-				)
-			);
-		}
-	});
-	
-	module.exports = LateAssignments;
-
-/***/ },
-
-/***/ 235:
-/*!*******************************************!*\
-  !*** ./components/expired-assignments.js ***!
-  \*******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactRouter = __webpack_require__(/*! react-router */ 159);
-	
-	var api = __webpack_require__(/*! ./api.js */ 214);
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
-	
-	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
-	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 232);
-	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
-	
-	var ExpiredAssignments = React.createClass({
-		displayName: "ExpiredAssignments",
-	
-		getInitialState: function () {
-			// var assignments will be replaced with api call
-			var assignments = [{ title: "Read pg 12, ex 1-10", subject: "English 7", student: "Billy Bob", dueDate: "11/12/15", expDate: "11/22/2015", submissions: '0', done: 'false' }, { title: "Read pg 18, ex 91-100", subject: "Math 7", student: "Billy Bob", dueDate: "11/13/15", expDate: "11/23/2015", submissions: '1', done: 'true' }, { title: "Read pg 98, ex 4-8", subject: "Reading 7", student: "Sally Sue", dueDate: "11/14/15", expDate: "11/24/2015", submissions: '0', done: 'false' }, { title: "Read pg 33, ex 1-5", subject: "English 7", student: "Sally Sue", dueDate: "11/15/15", expDate: "11/25/2015", submissions: '1', done: 'true' }];
-			return {
-				data: assignments,
-				displayedData: assignments,
-				studentSelected: '--Student--',
-				subjectSelected: '--Subject--'
-			};
-		},
-		filterData: function (studentSelected, subjectSelected) {
-			var filtered = this.state.data;
-			if (subjectSelected !== '--Subject--') {
-				var filtered = filtered.filter(function (item) {
-					return item.subject == subjectSelected;
-				});
-			};
-			if (studentSelected !== '--Student--') {
-				var filtered = filtered.filter(function (item) {
-					return item.student == studentSelected;
-				});
-			};
-			this.setState({
-				displayedData: filtered,
-				studentSelected: studentSelected,
-				subjectSelected: subjectSelected
-			});
-		},
-		handleSubjectDropdown: function (selected) {
-			console.log(selected);
-			this.filterData(this.state.studentSelected, selected);
-		},
-		handleStudentDropdown: function (selected) {
-			console.log(selected);
-			this.filterData(selected, this.state.subjectSelected);
-		},
-	
-		render: function () {
-	
-			var tabs = {
-				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: false }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: true }]
-			};
-	
-			var columns = [{ header: "Title", key: "title" }, { header: "Subject", key: "subject" }, { header: "Student", key: "student" }, { header: "Due Date", key: "dueDate" }, { header: "Expiration Date", key: "expDate" }, { header: "Submissions", key: "submissions" }, { header: "Done", key: "done" }];
-	
-			var subjectDropdown = {
-				title: '--Subject--', //What should show up on the button to open/close the dropdown
-				items: [// List of items to show in the dropdown
-				'--Subject--', 'Math 7', 'English 7', 'Reading 7']
-			};
-	
-			var studentDropdown = {
-				title: '--Student--', //What should show up on the button to open/close the dropdown
-				items: [// List of items to show in the dropdown
-				'--Student--', 'Billy Bob', 'Sally Sue']
-			};
-	
-			return React.createElement(
-				"div",
-				null,
-				React.createElement(TabBar, { data: tabs }),
-				React.createElement(
-					"div",
-					{ className: "tabContent" },
-					React.createElement(
-						"div",
-						{ className: "col-md-2 filterBy" },
-						"Filter by:"
-					),
-					React.createElement(
-						"div",
-						{ className: "col-md-2 " },
-						React.createElement(Dropdown, { title: subjectDropdown.title, items: subjectDropdown.items, itemSelected: this.handleSubjectDropdown })
-					),
-					React.createElement(
-						"div",
-						{ className: "col-md-2 " },
-						React.createElement(Dropdown, { title: studentDropdown.title, items: studentDropdown.items, itemSelected: this.handleStudentDropdown })
-					),
-					React.createElement(SortableTable, { data: this.state.displayedData, columns: columns })
-				)
-			);
-		}
-	});
-	
-	module.exports = ExpiredAssignments;
 
 /***/ },
 
