@@ -86,8 +86,6 @@ app.put('/api/users/:userName',function(){
             res.sendStatus(403);
             return;
           }
-          // return value is the assignment as JSON
-          res.json({assignment:assignment});
         });
       });
     } else {
