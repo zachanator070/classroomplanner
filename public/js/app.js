@@ -16,22 +16,29 @@ webpackJsonp([1],{
 	
 	var App = __webpack_require__(/*! ./app.js */ 208);
 	var Home = __webpack_require__(/*! ./home.js */ 211);
-	var List = __webpack_require__(/*! ./list.js */ 212);
-	var Login = __webpack_require__(/*! ./login.js */ 218);
-	var Register = __webpack_require__(/*! ./register.js */ 219);
 	
-	var ViewStudents = __webpack_require__(/*! ./view-students.js */ 220);
-	var AddStudent = __webpack_require__(/*! ./add-student.js */ 226);
-	var ViewSubjects = __webpack_require__(/*! ./view-subjects.js */ 227);
-	var AddSubject = __webpack_require__(/*! ./add-subject.js */ 228);
-	var ViewAssignments = __webpack_require__(/*! ./view-assignments.js */ 229);
-	var AddAssignment = __webpack_require__(/*! ./add-assignment.js */ 230);
-	var CurrentAssignments = __webpack_require__(/*! ./current-assignments.js */ 231);
-	var LateAssignments = __webpack_require__(/*! ./late-assignments.js */ 234);
-	var ExpiredAssignments = __webpack_require__(/*! ./expired-assignments.js */ 235);
+	var Login = __webpack_require__(/*! ./login.js */ 212);
+	var Register = __webpack_require__(/*! ./register.js */ 213);
 	
-	__webpack_require__(/*! ../../~/bootstrap/dist/css/bootstrap.min.css */ 236);
-	__webpack_require__(/*! ../css/app.css */ 245);
+	var ViewStudents = __webpack_require__(/*! ./view-students.js */ 214);
+	var AddStudent = __webpack_require__(/*! ./add-student.js */ 221);
+	
+	var ViewSubjects = __webpack_require__(/*! ./view-subjects.js */ 222);
+	var AddSubject = __webpack_require__(/*! ./add-subject.js */ 223);
+	
+	var ViewAssignments = __webpack_require__(/*! ./view-assignments.js */ 224);
+	var AddAssignment = __webpack_require__(/*! ./add-assignment.js */ 225);
+	
+	var InstructorCurrentAssignments = __webpack_require__(/*! ./instructor-current-assignments.js */ 226);
+	var InstructorLateAssignments = __webpack_require__(/*! ./instructor-late-assignments.js */ 229);
+	var InstructorExpiredAssignments = __webpack_require__(/*! ./instructor-expired-assignments.js */ 230);
+	
+	var StudentCompletedAssignments = __webpack_require__(/*! ./student-completed-assignments.js */ 231);
+	var StudentLateAssignments = __webpack_require__(/*! ./student-late-assignments.js */ 232);
+	var StudentCurrentAssignments = __webpack_require__(/*! ./student-current-assignments.js */ 233);
+	
+	__webpack_require__(/*! ../../~/bootstrap/dist/css/bootstrap.min.css */ 234);
+	__webpack_require__(/*! ../css/app.css */ 243);
 	
 	var routes = React.createElement(
 	  Router,
@@ -49,9 +56,12 @@ webpackJsonp([1],{
 	    React.createElement(Route, { path: "/subjectmanager/add", component: AddSubject }),
 	    React.createElement(Route, { path: "/assignmentmanager/viewall", component: ViewAssignments }),
 	    React.createElement(Route, { path: "/assignmentmanager/add", component: AddAssignment }),
-	    React.createElement(Route, { path: "/studentassignments/current", component: CurrentAssignments }),
-	    React.createElement(Route, { path: "/studentassignments/late", component: LateAssignments }),
-	    React.createElement(Route, { path: "/studentassignments/expired", component: ExpiredAssignments })
+	    React.createElement(Route, { path: "/instructorassignments/current", component: InstructorCurrentAssignments }),
+	    React.createElement(Route, { path: "/instructorassignments/late", component: InstructorLateAssignments }),
+	    React.createElement(Route, { path: "/instructorassignments/expired", component: InstructorExpiredAssignments }),
+	    React.createElement(Route, { path: "/studentassignments/current", component: StudentCurrentAssignments }),
+	    React.createElement(Route, { path: "/studentassignments/late", component: StudentLateAssignments }),
+	    React.createElement(Route, { path: "/studentassignments/completed", component: StudentCompletedAssignments })
 	  )
 	);
 	
@@ -159,7 +169,7 @@ webpackJsonp([1],{
 	            null,
 	            React.createElement(
 	              "a",
-	              { href: "#/studentassignments/late" },
+	              { href: "#/instructorassignments/late" },
 	              "Student Assignments"
 	            )
 	          ),
@@ -182,8 +192,35 @@ webpackJsonp([1],{
 	            null,
 	            React.createElement(
 	              "a",
-	              { href: "/" },
-	              "A link for a student"
+	              { href: "#/studentassignments/current" },
+	              "Current Assignments"
+	            )
+	          ),
+	          React.createElement(
+	            "li",
+	            null,
+	            React.createElement(
+	              "a",
+	              { href: "#/studentassignments/late" },
+	              "Late Assignments"
+	            )
+	          ),
+	          React.createElement(
+	            "li",
+	            null,
+	            React.createElement(
+	              "a",
+	              { href: "#/studentassignments/completed" },
+	              "Completed Assignments"
+	            )
+	          ),
+	          React.createElement(
+	            "li",
+	            null,
+	            React.createElement(
+	              "a",
+	              { href: "#", onClick: this.logout },
+	              "Logout"
 	            )
 	          )
 	        );
@@ -415,179 +452,242 @@ webpackJsonp([1],{
 /***/ },
 
 /***/ 212:
-/*!****************************!*\
-  !*** ./components/list.js ***!
-  \****************************/
+/*!*****************************!*\
+  !*** ./components/login.js ***!
+  \*****************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	var History = ReactRouter.History;
 	
-	var ListHeader = __webpack_require__(/*! ./listheader.js */ 213);
-	var ListEntry = __webpack_require__(/*! ./listentry.js */ 215);
-	var ListItems = __webpack_require__(/*! ./listitems.js */ 216);
-	
-	var api = __webpack_require__(/*! ./api.js */ 214);
 	var auth = __webpack_require__(/*! ./auth.js */ 209);
 	
-	// List page, shows the todo list of items
-	var List = React.createClass({
-	  displayName: "List",
+	// Login page, shows the login form and redirects to the list if login is successful
+	var Login = React.createClass({
+	  displayName: "Login",
 	
-	  // context so the component can access the router
-	  contextTypes: {
-	    location: React.PropTypes.object
-	  },
+	  // mixin for navigation
+	  mixins: [History],
 	
 	  // initial state
 	  getInitialState: function () {
 	    return {
-	      // list of items in the todo list
-	      items: []
+	      // there was an error on logging in
+	      error: false
 	    };
 	  },
 	
-	  // when the component loads, get the list items
-	  componentDidMount: function () {
-	    api.getItems(this.listSet);
-	  },
-	
-	  // reload the list of items
-	  reload: function () {
-	    api.getItems(this.listSet);
-	  },
-	
-	  // callback for getting the list of items, sets the list state
-	  listSet: function (status, data) {
-	    if (status) {
-	      // set the state for the list of items
-	      this.setState({
-	        items: data.items
-	      });
-	    } else {
-	      // if the API call fails, redirect to the login page
-	      this.context.router.transitionTo('/login');
+	  // handle login button submit
+	  login: function (event) {
+	    // prevent default browser submit
+	    event.preventDefault();
+	    // get data from form
+	    var name = this.refs.name.value;
+	    var password = this.refs.password.value;
+	    if (!name || !password) {
+	      return;
 	    }
-	  },
 	
-	  // Show the list of items. This component has the following children: ListHeader, ListEntry and ListItems
-	  render: function () {
-	    var name = auth.getName();
-	    return React.createElement(
-	      "section",
-	      { id: "todoapp" },
-	      React.createElement(ListHeader, { name: name, items: this.state.items, reload: this.reload }),
-	      React.createElement(
-	        "section",
-	        { id: "main" },
-	        React.createElement(ListEntry, { reload: this.reload }),
-	        React.createElement(ListItems, { items: this.state.items, reload: this.reload })
-	      )
-	    );
-	  }
-	});
+	    // login via API
+	    auth.login(name, password, (function (loggedIn) {
+	      // login callback
+	      if (!loggedIn) return this.setState({
+	        error: true
+	      });
 	
-	module.exports = List;
-
-/***/ },
-
-/***/ 213:
-/*!**********************************!*\
-  !*** ./components/listheader.js ***!
-  \**********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
+	      console.log("Type of user:" + auth.getType());
 	
-	var api = __webpack_require__(/*! ./api.js */ 214);
-	
-	// List header, which shows who the list is for, the number of items in the list, and a button to clear completed items
-	var ListHeader = React.createClass({
-	  displayName: "ListHeader",
-	
-	  // handle the clear completed button submit   
-	  clearCompleted: function (event) {
-	    // loop through the items, and delete any that are complete
-	    this.props.items.forEach(function (item) {
-	      if (item.completed) {
-	        api.deleteItem(item, null);
+	      if (auth.getType() == "instructor") {
+	        this.history.pushState(null, '/studentassignments/late');
+	      } else {
+	        this.history.pushState(null, '/studentassignments/late');
 	      }
-	    });
-	    // XXX race condition because the API call to delete is async
-	    // reload the list
-	    this.props.reload();
+	    }).bind(this));
 	  },
 	
-	  // render the list header
+	  // show the login form
 	  render: function () {
-	    // true if there are any completed items
-	    var completed = this.props.items.filter(function (item) {
-	      return item.completed;
-	    });
 	    return React.createElement(
-	      "header",
-	      { id: "header" },
+	      "div",
+	      { className: "content" },
 	      React.createElement(
-	        "div",
-	        { className: "row" },
-	        React.createElement(
+	        "h2",
+	        null,
+	        "Login"
+	      ),
+	      React.createElement(
+	        "form",
+	        { className: "form-vertical", onSubmit: this.login },
+	        React.createElement("input", { type: "text", className: "shortInput form-control", placeholder: "Name", ref: "name", autoFocus: true }),
+	        React.createElement("br", null),
+	        React.createElement("input", { type: "password", className: "shortInput form-control", placeholder: "Password", ref: "password" }),
+	        React.createElement("br", null),
+	        React.createElement("input", { className: "btn btn-primary btn-padding", type: "submit", value: "Login" }),
+	        React.createElement("br", null),
+	        this.state.error ? React.createElement(
 	          "div",
-	          { className: "col-md-6" },
-	          React.createElement(
-	            "p",
-	            null,
-	            React.createElement(
-	              "i",
-	              null,
-	              "Lovingly created for ",
-	              this.props.name
-	            )
-	          ),
-	          React.createElement(
-	            "p",
-	            null,
-	            React.createElement(
-	              "span",
-	              { id: "list-count", className: "label label-default" },
-	              React.createElement(
-	                "strong",
-	                null,
-	                this.props.items.length
-	              ),
-	              " item(s)"
-	            )
-	          ),
-	          React.createElement(
-	            "p",
-	            null,
-	            React.createElement(
-	              "i",
-	              null,
-	              "Double-click to edit an item"
-	            )
-	          )
-	        ),
-	        completed.length > 0 ? React.createElement(
-	          "div",
-	          { className: "col-md-6 right" },
-	          React.createElement(
-	            "button",
-	            { className: "btn btn-warning btn-md", id: "clear-completed", onClick: this.clearCompleted },
-	            "Clear completed (",
-	            completed.length,
-	            ")"
-	          )
+	          { className: "alert" },
+	          "Invalid username or password."
 	        ) : null
 	      )
 	    );
 	  }
 	});
 	
-	module.exports = ListHeader;
+	module.exports = Login;
+
+/***/ },
+
+/***/ 213:
+/*!********************************!*\
+  !*** ./components/register.js ***!
+  \********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	var History = ReactRouter.History;
+	
+	var auth = __webpack_require__(/*! ./auth.js */ 209);
+	
+	// Register page, shows the registration form and redirects to the list if login is successful
+	var Register = React.createClass({
+	  displayName: "Register",
+	
+	  // mixin for navigation
+	  mixins: [History],
+	
+	  // initial state
+	  getInitialState: function () {
+	    return {
+	      // there was an error registering
+	      error: false
+	    };
+	  },
+	
+	  // handle regiser button submit
+	  register: function (event) {
+	    // prevent default browser submit
+	    event.preventDefault();
+	    // get data from form
+	    var name = this.refs.name.value;
+	    var password = this.refs.password.value;
+	    if (!name || !password) {
+	      return;
+	    }
+	    // register via the API
+	    auth.register(name, password, (function (loggedIn) {
+	      // register callback
+	      if (!loggedIn) return this.setState({
+	        error: true
+	      });
+	      this.history.pushState(null, '/studentassignments/late');
+	    }).bind(this));
+	  },
+	
+	  // show the registration form
+	  render: function () {
+	
+	    return React.createElement(
+	      "div",
+	      { className: "content" },
+	      React.createElement(
+	        "h2",
+	        null,
+	        "Register"
+	      ),
+	      React.createElement(
+	        "form",
+	        { className: "form-vertical", onSubmit: this.register },
+	        React.createElement("input", { type: "text", className: "shortInput form-control", placeholder: "Name", ref: "name", autoFocus: true }),
+	        React.createElement("br", null),
+	        React.createElement("input", { type: "password", className: "shortInput form-control", placeholder: "Password", ref: "password" }),
+	        React.createElement("br", null),
+	        React.createElement("input", { className: "btn btn-primary btn-padding", type: "submit", value: "Register" }),
+	        React.createElement("br", null),
+	        this.state.error ? React.createElement(
+	          "div",
+	          { className: "alert" },
+	          "Invalid username or password."
+	        ) : null
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Register;
 
 /***/ },
 
 /***/ 214:
+/*!*************************************!*\
+  !*** ./components/view-students.js ***!
+  \*************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 215);
+	//var auth = require("./auth.js");
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 216);
+	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 217);
+	
+	var ViewStudents = React.createClass({
+		displayName: "ViewStudents",
+	
+		getInitialState: function () {
+	
+			this.reloadStudents();
+			return {
+				data: []
+			};
+		},
+	
+		reloadStudents: function () {
+			console.log("Local storage in view: " + localStorage.name); //TEMP
+			api.getStudents(localStorage.name, (function (success, res) {
+	
+				var studData = res.users.map(function (student) {
+					return { name: student.name, password: student.password };
+				});
+				this.setState({ data: studData });
+				return;
+			}).bind(this));
+		},
+	
+		removeStudent: function (student) {
+	
+			api.deleteStudent(student.name, this.reloadStudents);
+	
+			console.log("Removing student: " + student.name); //TEMP
+		},
+	
+		render: function () {
+	
+			var tabs = {
+				tabData: [{ tabName: "View Students", tabLink: "#/studentmanager/viewall", active: true }, { tabName: "Add Students", tabLink: "#/studentmanager/add", active: false }]
+			};
+	
+			var columns = [{ header: "Name", key: "name" }, { header: "Password", key: "password" }, {} //Delete Button Column
+			];
+	
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(TabBar, { data: tabs }),
+				React.createElement(SortableTable, { data: this.state.data, columns: columns, removeRow: this.removeStudent })
+			);
+		}
+	});
+	
+	module.exports = ViewStudents;
+
+/***/ },
+
+/***/ 215:
 /*!***************************!*\
   !*** ./components/api.js ***!
   \***************************/
@@ -926,450 +1026,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 215:
-/*!*********************************!*\
-  !*** ./components/listentry.js ***!
-  \*********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	
-	var api = __webpack_require__(/*! ./api.js */ 214);
-	
-	// List entry component, handles adding new items to the list
-	var ListEntry = React.createClass({
-	  displayName: "ListEntry",
-	
-	  // handles submit event for adding a new item
-	  addItem: function (event) {
-	    // prevent default browser submit
-	    event.preventDefault();
-	    // get data from form
-	    var title = this.refs.title.value;
-	    if (!title) {
-	      return;
-	    }
-	    // call API to add item, and reload once added
-	    api.addItem(title, this.props.reload);
-	    this.refs.title.value = '';
-	  },
-	
-	  // render the item entry area
-	  render: function () {
-	    return React.createElement(
-	      "header",
-	      { id: "input" },
-	      React.createElement(
-	        "form",
-	        { id: "item-form", name: "itemForm", onSubmit: this.addItem },
-	        React.createElement("input", { type: "text", id: "new-item", ref: "title", placeholder: "Enter a new item", autoFocus: true })
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = ListEntry;
-
-/***/ },
-
 /***/ 216:
-/*!*********************************!*\
-  !*** ./components/listitems.js ***!
-  \*********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactRouter = __webpack_require__(/*! react-router */ 159);
-	
-	var Item = __webpack_require__(/*! ./item.js */ 217);
-	
-	// List items component, shows the list of items
-	var ListItems = React.createClass({
-	  displayName: "ListItems",
-	
-	  // context so the component can access the router
-	  contextTypes: {
-	    location: React.PropTypes.object
-	  },
-	  // render the list of items
-	  render: function () {
-	    // get list of items to show, using the path to the current page
-	    var shown = this.props.items.filter(function (item) {
-	      switch (this.context.location.pathname) {
-	        case '/list/active':
-	          return !item.completed;
-	        case '/list/completed':
-	          return item.completed;
-	        default:
-	          return true;
-	      }
-	    }, this);
-	
-	    // using the list of items, generate an Item element for each one
-	    var list = shown.map((function (item) {
-	      return React.createElement(Item, { key: item.id, item: item, reload: this.props.reload });
-	    }).bind(this));
-	
-	    // render the list
-	    return React.createElement(
-	      "ul",
-	      { id: "todo-list" },
-	      list
-	    );
-	  }
-	});
-	
-	module.exports = ListItems;
-
-/***/ },
-
-/***/ 217:
-/*!****************************!*\
-  !*** ./components/item.js ***!
-  \****************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	
-	var api = __webpack_require__(/*! ./api.js */ 214);
-	
-	// Item shown in the todo list
-	var Item = React.createClass({
-	  displayName: "Item",
-	
-	  // initial state
-	  getInitialState: function () {
-	    return {
-	      // editing this item
-	      editing: false,
-	      // text saved before editing started
-	      editText: this.props.item.title
-	    };
-	  },
-	  // set the focus and selection range when this item is updated
-	  componentDidUpdate: function (prevProps, prevState) {
-	    if (!prevState.editing && this.state.editing) {
-	      var node = this.refs.editField.getDOMNode();
-	      node.focus();
-	      node.setSelectionRange(0, node.value.length);
-	    }
-	  },
-	  // when the item is completed, toggle its state and update it
-	  toggleCompleted: function () {
-	    this.props.item.completed = !this.props.item.completed;
-	    api.updateItem(this.props.item, this.props.reload);
-	  },
-	  // called when the delete button is clicked for this item
-	  deleteItem: function () {
-	    api.deleteItem(this.props.item, this.props.reload);
-	  },
-	  // called when the item is double-clicked
-	  editItem: function () {
-	    this.setState({ editing: true, editText: this.props.item.title });
-	  },
-	  // called when the item is changed
-	  changeItem: function (event) {
-	    this.setState({ editText: event.target.value });
-	  },
-	  // called when the enter key is entered after the item is edited
-	  saveItem: function (event) {
-	    if (!this.state.editing) {
-	      return;
-	    }
-	    var val = this.state.editText.trim();
-	    if (val) {
-	      this.setState({ editing: false, editText: val });
-	      this.props.item.title = this.state.editText;
-	      // save the item
-	      api.updateItem(this.props.item, this.props.reload);
-	    } else {
-	      // delete the item if there is no text left any more
-	      api.deleteItem(this.props.item, this.props.reload);
-	    }
-	  },
-	  // called when a key is pressed
-	  handleKeyDown: function (event) {
-	    var ESCAPE_KEY = 27;
-	    var ENTER_KEY = 13;
-	    // if the ESC key is pressed, then cancel editing
-	    // if the ENTER key is pressed, then save edited text
-	    if (event.which === ESCAPE_KEY) {
-	      this.setState({ editing: false, editText: this.props.item.title });
-	    } else if (event.which === ENTER_KEY) {
-	      this.saveItem(event);
-	    }
-	  },
-	  // render the Item
-	  render: function () {
-	    // construct a list of classes for the item CSS
-	    var classes = "";
-	    if (this.props.item.completed) {
-	      classes += 'completed';
-	    }
-	    if (this.state.editing) {
-	      classes += ' editing';
-	    }
-	    return React.createElement(
-	      "li",
-	      { className: classes },
-	      React.createElement(
-	        "div",
-	        { className: "view" },
-	        React.createElement("input", { id: this.props.item.id, className: "toggle", type: "checkbox", onChange: this.toggleCompleted.bind(this, this.props.item), checked: this.props.item.completed }),
-	        React.createElement("label", { className: "check", htmlFor: this.props.item.id }),
-	        React.createElement(
-	          "label",
-	          { onDoubleClick: this.editItem },
-	          this.props.item.title
-	        ),
-	        React.createElement("button", { className: "destroy", onClick: this.deleteItem })
-	      ),
-	      React.createElement("input", { ref: "editField", className: "edit", onKeyDown: this.handleKeyDown, onChange: this.changeItem, onSubmit: this.saveItem, onBlur: this.saveItem, value: this.state.editText })
-	    );
-	  }
-	});
-	
-	module.exports = Item;
-
-/***/ },
-
-/***/ 218:
-/*!*****************************!*\
-  !*** ./components/login.js ***!
-  \*****************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactRouter = __webpack_require__(/*! react-router */ 159);
-	var History = ReactRouter.History;
-	
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
-	
-	// Login page, shows the login form and redirects to the list if login is successful
-	var Login = React.createClass({
-	  displayName: "Login",
-	
-	  // mixin for navigation
-	  mixins: [History],
-	
-	  // initial state
-	  getInitialState: function () {
-	    return {
-	      // there was an error on logging in
-	      error: false
-	    };
-	  },
-	
-	  // handle login button submit
-	  login: function (event) {
-	    // prevent default browser submit
-	    event.preventDefault();
-	    // get data from form
-	    var name = this.refs.name.value;
-	    var password = this.refs.password.value;
-	    if (!name || !password) {
-	      return;
-	    }
-	
-	    // login via API
-	    auth.login(name, password, (function (loggedIn) {
-	      // login callback
-	      if (!loggedIn) return this.setState({
-	        error: true
-	      });
-	
-	      console.log("Type of user:" + auth.getType());
-	
-	      if (auth.getType() == "instructor") {
-	        this.history.pushState(null, '/studentassignments/late');
-	      } else {
-	        this.history.pushState(null, '/studentassignments/late');
-	      }
-	    }).bind(this));
-	  },
-	
-	  // show the login form
-	  render: function () {
-	    return React.createElement(
-	      "div",
-	      { className: "content" },
-	      React.createElement(
-	        "h2",
-	        null,
-	        "Login"
-	      ),
-	      React.createElement(
-	        "form",
-	        { className: "form-vertical", onSubmit: this.login },
-	        React.createElement("input", { type: "text", className: "shortInput form-control", placeholder: "Name", ref: "name", autoFocus: true }),
-	        React.createElement("br", null),
-	        React.createElement("input", { type: "password", className: "shortInput form-control", placeholder: "Password", ref: "password" }),
-	        React.createElement("br", null),
-	        React.createElement("input", { className: "btn btn-primary btn-padding", type: "submit", value: "Login" }),
-	        React.createElement("br", null),
-	        this.state.error ? React.createElement(
-	          "div",
-	          { className: "alert" },
-	          "Invalid username or password."
-	        ) : null
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Login;
-
-/***/ },
-
-/***/ 219:
-/*!********************************!*\
-  !*** ./components/register.js ***!
-  \********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactRouter = __webpack_require__(/*! react-router */ 159);
-	var History = ReactRouter.History;
-	
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
-	
-	// Register page, shows the registration form and redirects to the list if login is successful
-	var Register = React.createClass({
-	  displayName: "Register",
-	
-	  // mixin for navigation
-	  mixins: [History],
-	
-	  // initial state
-	  getInitialState: function () {
-	    return {
-	      // there was an error registering
-	      error: false
-	    };
-	  },
-	
-	  // handle regiser button submit
-	  register: function (event) {
-	    // prevent default browser submit
-	    event.preventDefault();
-	    // get data from form
-	    var name = this.refs.name.value;
-	    var password = this.refs.password.value;
-	    if (!name || !password) {
-	      return;
-	    }
-	    // register via the API
-	    auth.register(name, password, (function (loggedIn) {
-	      // register callback
-	      if (!loggedIn) return this.setState({
-	        error: true
-	      });
-	      this.history.pushState(null, '/studentassignments/late');
-	    }).bind(this));
-	  },
-	
-	  // show the registration form
-	  render: function () {
-	
-	    return React.createElement(
-	      "div",
-	      { className: "content" },
-	      React.createElement(
-	        "h2",
-	        null,
-	        "Register"
-	      ),
-	      React.createElement(
-	        "form",
-	        { className: "form-vertical", onSubmit: this.register },
-	        React.createElement("input", { type: "text", className: "shortInput form-control", placeholder: "Name", ref: "name", autoFocus: true }),
-	        React.createElement("br", null),
-	        React.createElement("input", { type: "password", className: "shortInput form-control", placeholder: "Password", ref: "password" }),
-	        React.createElement("br", null),
-	        React.createElement("input", { className: "btn btn-primary btn-padding", type: "submit", value: "Register" }),
-	        React.createElement("br", null),
-	        this.state.error ? React.createElement(
-	          "div",
-	          { className: "alert" },
-	          "Invalid username or password."
-	        ) : null
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Register;
-
-/***/ },
-
-/***/ 220:
-/*!*************************************!*\
-  !*** ./components/view-students.js ***!
-  \*************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactRouter = __webpack_require__(/*! react-router */ 159);
-	
-	var api = __webpack_require__(/*! ./api.js */ 214);
-	//var auth = require("./auth.js");
-	
-	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
-	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
-	
-	var ViewStudents = React.createClass({
-		displayName: "ViewStudents",
-	
-		getInitialState: function () {
-	
-			this.reloadStudents();
-			return {
-				data: []
-			};
-		},
-	
-		reloadStudents: function () {
-			console.log("Local storage in view: " + localStorage.name); //TEMP
-			api.getStudents(localStorage.name, (function (success, res) {
-	
-				var studData = res.users.map(function (student) {
-					return { name: student.name, password: student.password };
-				});
-				this.setState({ data: studData });
-				return;
-			}).bind(this));
-		},
-	
-		removeStudent: function (student) {
-	
-			api.deleteStudent(student.name, this.reloadStudents);
-	
-			console.log("Removing student: " + student.name); //TEMP
-		},
-	
-		render: function () {
-	
-			var tabs = {
-				tabData: [{ tabName: "View Students", tabLink: "#/studentmanager/viewall", active: true }, { tabName: "Add Students", tabLink: "#/studentmanager/add", active: false }]
-			};
-	
-			var columns = [{ header: "Name", key: "name" }, { header: "Password", key: "password" }, {} //Delete Button Column
-			];
-	
-			return React.createElement(
-				"div",
-				null,
-				React.createElement(TabBar, { data: tabs }),
-				React.createElement(SortableTable, { data: this.state.data, columns: columns, removeRow: this.removeStudent })
-			);
-		}
-	});
-	
-	module.exports = ViewStudents;
-
-/***/ },
-
-/***/ 221:
 /*!*******************************!*\
   !*** ./components/tab-bar.js ***!
   \*******************************/
@@ -1378,7 +1035,7 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var api = __webpack_require__(/*! ./api.js */ 214);
+	var api = __webpack_require__(/*! ./api.js */ 215);
 	var auth = __webpack_require__(/*! ./auth.js */ 209);
 	
 	var TabBar = React.createClass({
@@ -1414,7 +1071,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 222:
+/***/ 217:
 /*!**************************************!*\
   !*** ./components/sortable-table.js ***!
   \**************************************/
@@ -1422,8 +1079,8 @@ webpackJsonp([1],{
 
 	var React = __webpack_require__(/*! react */ 1);
 	
-	var SortableTableHeader = __webpack_require__(/*! ./sortable-table-header.js */ 223);
-	var SortableTableBody = __webpack_require__(/*! ./sortable-table-body.js */ 225);
+	var SortableTableHeader = __webpack_require__(/*! ./sortable-table-header.js */ 218);
+	var SortableTableBody = __webpack_require__(/*! ./sortable-table-body.js */ 220);
 	
 	var SortableTable = React.createClass({
 	    displayName: "SortableTable",
@@ -1573,7 +1230,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 223:
+/***/ 218:
 /*!*********************************************!*\
   !*** ./components/sortable-table-header.js ***!
   \*********************************************/
@@ -1582,7 +1239,7 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var icons = __webpack_require__(/*! ./icons.js */ 224);
+	var icons = __webpack_require__(/*! ./icons.js */ 219);
 	var SortIconBoth = icons.SortIconBoth;
 	var SortIconDesc = icons.SortIconDesc;
 	var SortIconAsc = icons.SortIconAsc;
@@ -1656,7 +1313,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 224:
+/***/ 219:
 /*!*****************************!*\
   !*** ./components/icons.js ***!
   \*****************************/
@@ -1705,7 +1362,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 225:
+/***/ 220:
 /*!*******************************************!*\
   !*** ./components/sortable-table-body.js ***!
   \*******************************************/
@@ -1777,7 +1434,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 226:
+/***/ 221:
 /*!***********************************!*\
   !*** ./components/add-student.js ***!
   \***********************************/
@@ -1786,10 +1443,10 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var api = __webpack_require__(/*! ./api.js */ 214);
+	var api = __webpack_require__(/*! ./api.js */ 215);
 	//var auth = require("./auth.js");
 	
-	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 216);
 	
 	var AddStudent = React.createClass({
 		displayName: "AddStudent",
@@ -1873,7 +1530,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 227:
+/***/ 222:
 /*!*************************************!*\
   !*** ./components/view-subjects.js ***!
   \*************************************/
@@ -1882,8 +1539,8 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var TabBar = __webpack_require__(/*! ./tab-bar.js */ 221);
-	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
+	var TabBar = __webpack_require__(/*! ./tab-bar.js */ 216);
+	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 217);
 	
 	var ViewSubjects = React.createClass({
 		displayName: 'ViewSubjects',
@@ -1921,7 +1578,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 228:
+/***/ 223:
 /*!***********************************!*\
   !*** ./components/add-subject.js ***!
   \***********************************/
@@ -1930,10 +1587,10 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var api = __webpack_require__(/*! ./api.js */ 214);
+	var api = __webpack_require__(/*! ./api.js */ 215);
 	var auth = __webpack_require__(/*! ./auth.js */ 209);
 	
-	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 216);
 	
 	var AddSubject = React.createClass({
 		displayName: "AddSubject",
@@ -2006,7 +1663,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 229:
+/***/ 224:
 /*!****************************************!*\
   !*** ./components/view-assignments.js ***!
   \****************************************/
@@ -2015,8 +1672,8 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var TabBar = __webpack_require__(/*! ./tab-bar.js */ 221);
-	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
+	var TabBar = __webpack_require__(/*! ./tab-bar.js */ 216);
+	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 217);
 	
 	// SORTING FUNCTIONS CAN BE PLACED HERE - SEE CODE BELOW COMPONENT
 	
@@ -2114,7 +1771,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 230:
+/***/ 225:
 /*!**************************************!*\
   !*** ./components/add-assignment.js ***!
   \**************************************/
@@ -2123,10 +1780,10 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var api = __webpack_require__(/*! ./api.js */ 214);
+	var api = __webpack_require__(/*! ./api.js */ 215);
 	var auth = __webpack_require__(/*! ./auth.js */ 209);
 	
-	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 216);
 	
 	var AddAssignment = React.createClass({
 		displayName: "AddAssignment",
@@ -2278,24 +1935,24 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 231:
-/*!*******************************************!*\
-  !*** ./components/current-assignments.js ***!
-  \*******************************************/
+/***/ 226:
+/*!******************************************************!*\
+  !*** ./components/instructor-current-assignments.js ***!
+  \******************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
-	var api = __webpack_require__(/*! ./api.js */ 214);
+	var api = __webpack_require__(/*! ./api.js */ 215);
 	var auth = __webpack_require__(/*! ./auth.js */ 209);
 	
-	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
-	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 232);
-	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 216);
+	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 227);
+	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 217);
 	
-	var CurrentAssignments = React.createClass({
-		displayName: "CurrentAssignments",
+	var InstructorCurrentAssignments = React.createClass({
+		displayName: "InstructorCurrentAssignments",
 	
 		getInitialState: function () {
 			// var assignments will be replaced with api call
@@ -2337,7 +1994,7 @@ webpackJsonp([1],{
 		render: function () {
 	
 			var tabs = {
-				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: true }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: false }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false }]
+				tabData: [{ tabName: "Current Assignments", tabLink: "#/instructorassignments/current", active: true }, { tabName: "Late Assignments", tabLink: "#/instructorassignments/late", active: false }, { tabName: "Expired Assignments", tabLink: "#/instructorassignments/expired", active: false }]
 			};
 	
 			var columns = [{ header: "Title", key: "title" }, { header: "Subject", key: "subject" }, { header: "Student", key: "student" }, { header: "Due Date", key: "dueDate" }, { header: "Expiration Date", key: "expDate" }, { header: "Submissions", key: "submissions" }, { header: "Done", key: "done" }];
@@ -2382,18 +2039,18 @@ webpackJsonp([1],{
 		}
 	});
 	
-	module.exports = CurrentAssignments;
+	module.exports = InstructorCurrentAssignments;
 
 /***/ },
 
-/***/ 232:
+/***/ 227:
 /*!********************************!*\
   !*** ./components/dropdown.js ***!
   \********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(/*! react */ 1);
-	var ListItem = __webpack_require__(/*! ./list-item */ 233);
+	var ListItem = __webpack_require__(/*! ./list-item */ 228);
 	
 	module.exports = React.createClass({
 		displayName: 'exports',
@@ -2441,7 +2098,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 233:
+/***/ 228:
 /*!*********************************!*\
   !*** ./components/list-item.js ***!
   \*********************************/
@@ -2472,223 +2129,382 @@ webpackJsonp([1],{
 
 /***/ },
 
+/***/ 229:
+/*!***************************************************!*\
+  !*** ./components/instructor-late-assignments.js ***!
+  \***************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 215);
+	var auth = __webpack_require__(/*! ./auth.js */ 209);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 216);
+	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 227);
+	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 217);
+	
+	var InstructorLateAssignments = React.createClass({
+		displayName: "InstructorLateAssignments",
+	
+		getInitialState: function () {
+			// var assignments will be replaced with api call
+			var assignments = [{ title: "Read pg 12, ex 1-10", subject: "English 7", student: "Billy Bob", dueDate: "11/12/15", expDate: "11/22/2015", submissions: '0', done: 'false' }, { title: "Read pg 18, ex 91-100", subject: "Math 7", student: "Billy Bob", dueDate: "11/13/15", expDate: "11/23/2015", submissions: '1', done: 'true' }, { title: "Read pg 98, ex 4-8", subject: "Reading 7", student: "Sally Sue", dueDate: "11/14/15", expDate: "11/24/2015", submissions: '0', done: 'false' }, { title: "Read pg 33, ex 1-5", subject: "English 7", student: "Sally Sue", dueDate: "11/15/15", expDate: "11/25/2015", submissions: '1', done: 'true' }];
+			return {
+				data: assignments,
+				displayedData: assignments,
+				studentSelected: '--Student--',
+				subjectSelected: '--Subject--'
+			};
+		},
+		filterData: function (studentSelected, subjectSelected) {
+			var filtered = this.state.data;
+			if (subjectSelected !== '--Subject--') {
+				var filtered = filtered.filter(function (item) {
+					return item.subject == subjectSelected;
+				});
+			};
+			if (studentSelected !== '--Student--') {
+				var filtered = filtered.filter(function (item) {
+					return item.student == studentSelected;
+				});
+			};
+			this.setState({
+				displayedData: filtered,
+				studentSelected: studentSelected,
+				subjectSelected: subjectSelected
+			});
+		},
+		handleSubjectDropdown: function (selected) {
+			console.log(selected);
+			this.filterData(this.state.studentSelected, selected);
+		},
+		handleStudentDropdown: function (selected) {
+			console.log(selected);
+			this.filterData(selected, this.state.subjectSelected);
+		},
+	
+		render: function () {
+	
+			var tabs = {
+				tabData: [{ tabName: "Current Assignments", tabLink: "#/instructorassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/instructorassignments/late", active: true }, { tabName: "Expired Assignments", tabLink: "#/instructorassignments/expired", active: false }]
+			};
+	
+			var columns = [{ header: "Title", key: "title" }, { header: "Subject", key: "subject" }, { header: "Student", key: "student" }, { header: "Due Date", key: "dueDate" }, { header: "Expiration Date", key: "expDate" }, { header: "Submissions", key: "submissions" }, { header: "Done", key: "done" }];
+	
+			var subjectDropdown = {
+				title: '--Subject--', //What should show up on the button to open/close the dropdown
+				items: [// List of items to show in the dropdown
+				'--Subject--', 'Math 7', 'English 7', 'Reading 7']
+			};
+	
+			var studentDropdown = {
+				title: '--Student--', //What should show up on the button to open/close the dropdown
+				items: [// List of items to show in the dropdown
+				'--Student--', 'Billy Bob', 'Sally Sue']
+			};
+	
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(TabBar, { data: tabs }),
+				React.createElement(
+					"div",
+					{ className: "tabContent" },
+					React.createElement(
+						"div",
+						{ className: "col-md-2 filterBy" },
+						"Filter by:"
+					),
+					React.createElement(
+						"div",
+						{ className: "col-md-2 " },
+						React.createElement(Dropdown, { title: subjectDropdown.title, items: subjectDropdown.items, itemSelected: this.handleSubjectDropdown })
+					),
+					React.createElement(
+						"div",
+						{ className: "col-md-2 " },
+						React.createElement(Dropdown, { title: studentDropdown.title, items: studentDropdown.items, itemSelected: this.handleStudentDropdown })
+					),
+					React.createElement(SortableTable, { data: this.state.displayedData, columns: columns })
+				)
+			);
+		}
+	});
+	
+	module.exports = InstructorLateAssignments;
+
+/***/ },
+
+/***/ 230:
+/*!******************************************************!*\
+  !*** ./components/instructor-expired-assignments.js ***!
+  \******************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 215);
+	var auth = __webpack_require__(/*! ./auth.js */ 209);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 216);
+	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 227);
+	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 217);
+	
+	var InstructorExpiredAssignments = React.createClass({
+		displayName: "InstructorExpiredAssignments",
+	
+		getInitialState: function () {
+			// var assignments will be replaced with api call
+			var assignments = [{ title: "Read pg 12, ex 1-10", subject: "English 7", student: "Billy Bob", dueDate: "11/12/15", expDate: "11/22/2015", submissions: '0', done: 'false' }, { title: "Read pg 18, ex 91-100", subject: "Math 7", student: "Billy Bob", dueDate: "11/13/15", expDate: "11/23/2015", submissions: '1', done: 'true' }, { title: "Read pg 98, ex 4-8", subject: "Reading 7", student: "Sally Sue", dueDate: "11/14/15", expDate: "11/24/2015", submissions: '0', done: 'false' }, { title: "Read pg 33, ex 1-5", subject: "English 7", student: "Sally Sue", dueDate: "11/15/15", expDate: "11/25/2015", submissions: '1', done: 'true' }];
+			return {
+				data: assignments,
+				displayedData: assignments,
+				studentSelected: '--Student--',
+				subjectSelected: '--Subject--'
+			};
+		},
+		filterData: function (studentSelected, subjectSelected) {
+			var filtered = this.state.data;
+			if (subjectSelected !== '--Subject--') {
+				var filtered = filtered.filter(function (item) {
+					return item.subject == subjectSelected;
+				});
+			};
+			if (studentSelected !== '--Student--') {
+				var filtered = filtered.filter(function (item) {
+					return item.student == studentSelected;
+				});
+			};
+			this.setState({
+				displayedData: filtered,
+				studentSelected: studentSelected,
+				subjectSelected: subjectSelected
+			});
+		},
+		handleSubjectDropdown: function (selected) {
+			console.log(selected);
+			this.filterData(this.state.studentSelected, selected);
+		},
+		handleStudentDropdown: function (selected) {
+			console.log(selected);
+			this.filterData(selected, this.state.subjectSelected);
+		},
+	
+		render: function () {
+	
+			var tabs = {
+				tabData: [{ tabName: "Current Assignments", tabLink: "#/instructorassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/instructorassignments/late", active: false }, { tabName: "Expired Assignments", tabLink: "#/instructorassignments/expired", active: true }]
+			};
+	
+			var columns = [{ header: "Title", key: "title" }, { header: "Subject", key: "subject" }, { header: "Student", key: "student" }, { header: "Due Date", key: "dueDate" }, { header: "Expiration Date", key: "expDate" }, { header: "Submissions", key: "submissions" }, { header: "Done", key: "done" }];
+	
+			var subjectDropdown = {
+				title: '--Subject--', //What should show up on the button to open/close the dropdown
+				items: [// List of items to show in the dropdown
+				'--Subject--', 'Math 7', 'English 7', 'Reading 7']
+			};
+	
+			var studentDropdown = {
+				title: '--Student--', //What should show up on the button to open/close the dropdown
+				items: [// List of items to show in the dropdown
+				'--Student--', 'Billy Bob', 'Sally Sue']
+			};
+	
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(TabBar, { data: tabs }),
+				React.createElement(
+					"div",
+					{ className: "tabContent" },
+					React.createElement(
+						"div",
+						{ className: "col-md-2 filterBy" },
+						"Filter by:"
+					),
+					React.createElement(
+						"div",
+						{ className: "col-md-2 " },
+						React.createElement(Dropdown, { title: subjectDropdown.title, items: subjectDropdown.items, itemSelected: this.handleSubjectDropdown })
+					),
+					React.createElement(
+						"div",
+						{ className: "col-md-2 " },
+						React.createElement(Dropdown, { title: studentDropdown.title, items: studentDropdown.items, itemSelected: this.handleStudentDropdown })
+					),
+					React.createElement(SortableTable, { data: this.state.displayedData, columns: columns })
+				)
+			);
+		}
+	});
+	
+	module.exports = InstructorExpiredAssignments;
+
+/***/ },
+
+/***/ 231:
+/*!*****************************************************!*\
+  !*** ./components/student-completed-assignments.js ***!
+  \*****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 215);
+	var auth = __webpack_require__(/*! ./auth.js */ 209);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 216);
+	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 227);
+	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 217);
+	
+	var StudentCompletedAssignments = React.createClass({
+		displayName: "StudentCompletedAssignments",
+	
+		getInitialState: function () {
+			// var assignments will be replaced with api call
+			var assignments = [{ title: "Read pg 12, ex 1-10", subject: "English 7", student: "Billy Bob", dueDate: "11/12/15", expDate: "11/22/2015", submissions: '0', done: 'false' }, { title: "Read pg 18, ex 91-100", subject: "Math 7", student: "Billy Bob", dueDate: "11/13/15", expDate: "11/23/2015", submissions: '1', done: 'true' }, { title: "Read pg 98, ex 4-8", subject: "Reading 7", student: "Sally Sue", dueDate: "11/14/15", expDate: "11/24/2015", submissions: '0', done: 'false' }, { title: "Read pg 33, ex 1-5", subject: "English 7", student: "Sally Sue", dueDate: "11/15/15", expDate: "11/25/2015", submissions: '1', done: 'true' }];
+			return {
+				data: assignments,
+				displayedData: assignments
+			};
+		},
+		render: function () {
+	
+			var columns = [{ header: "Title", key: "title" }, { header: "Subject", key: "subject" }, { header: "Student", key: "student" }, { header: "Due Date", key: "dueDate" }, { header: "Expiration Date", key: "expDate" }, { header: "Submissions", key: "submissions" }, { header: "Done", key: "done" }];
+	
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(
+					"div",
+					{ className: "tabContent" },
+					React.createElement(
+						"h1",
+						null,
+						"Completed Assignments"
+					),
+					React.createElement(SortableTable, { data: this.state.displayedData, columns: columns })
+				)
+			);
+		}
+	});
+	
+	module.exports = StudentCompletedAssignments;
+
+/***/ },
+
+/***/ 232:
+/*!************************************************!*\
+  !*** ./components/student-late-assignments.js ***!
+  \************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 215);
+	var auth = __webpack_require__(/*! ./auth.js */ 209);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 216);
+	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 227);
+	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 217);
+	
+	var StudentLateAssignments = React.createClass({
+		displayName: "StudentLateAssignments",
+	
+		getInitialState: function () {
+			// var assignments will be replaced with api call
+			var assignments = [{ title: "Read pg 12, ex 1-10", subject: "English 7", student: "Billy Bob", dueDate: "11/12/15", expDate: "11/22/2015", submissions: '0', done: 'false' }, { title: "Read pg 18, ex 91-100", subject: "Math 7", student: "Billy Bob", dueDate: "11/13/15", expDate: "11/23/2015", submissions: '1', done: 'true' }, { title: "Read pg 98, ex 4-8", subject: "Reading 7", student: "Sally Sue", dueDate: "11/14/15", expDate: "11/24/2015", submissions: '0', done: 'false' }, { title: "Read pg 33, ex 1-5", subject: "English 7", student: "Sally Sue", dueDate: "11/15/15", expDate: "11/25/2015", submissions: '1', done: 'true' }];
+			return {
+				data: assignments,
+				displayedData: assignments,
+				studentSelected: '--Student--',
+				subjectSelected: '--Subject--'
+			};
+		},
+	
+		render: function () {
+	
+			var columns = [{ header: "Title", key: "title" }, { header: "Subject", key: "subject" }, { header: "Student", key: "student" }, { header: "Due Date", key: "dueDate" }, { header: "Expiration Date", key: "expDate" }, { header: "Submissions", key: "submissions" }, { header: "Done", key: "done" }];
+	
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(
+					"div",
+					{ className: "tabContent" },
+					React.createElement(
+						"h1",
+						null,
+						"Late Assignments"
+					),
+					React.createElement(SortableTable, { data: this.state.displayedData, columns: columns })
+				)
+			);
+		}
+	});
+	
+	module.exports = StudentLateAssignments;
+
+/***/ },
+
+/***/ 233:
+/*!***************************************************!*\
+  !*** ./components/student-current-assignments.js ***!
+  \***************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactRouter = __webpack_require__(/*! react-router */ 159);
+	
+	var api = __webpack_require__(/*! ./api.js */ 215);
+	var auth = __webpack_require__(/*! ./auth.js */ 209);
+	
+	var TabBar = __webpack_require__(/*! ./tab-bar */ 216);
+	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 227);
+	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 217);
+	
+	var StudentCurrentAssignments = React.createClass({
+		displayName: "StudentCurrentAssignments",
+	
+		getInitialState: function () {
+			// var assignments will be replaced with api call
+			var assignments = [{ title: "Read pg 12, ex 1-10", subject: "English 7", student: "Billy Bob", dueDate: "11/12/15", expDate: "11/22/2015", submissions: '0', done: 'false' }, { title: "Read pg 18, ex 91-100", subject: "Math 7", student: "Billy Bob", dueDate: "11/13/15", expDate: "11/23/2015", submissions: '1', done: 'true' }, { title: "Read pg 98, ex 4-8", subject: "Reading 7", student: "Sally Sue", dueDate: "11/14/15", expDate: "11/24/2015", submissions: '0', done: 'false' }, { title: "Read pg 33, ex 1-5", subject: "English 7", student: "Sally Sue", dueDate: "11/15/15", expDate: "11/25/2015", submissions: '1', done: 'true' }];
+			return {
+				data: assignments,
+				displayedData: assignments
+			};
+		},
+	
+		render: function () {
+	
+			var columns = [{ header: "Title", key: "title" }, { header: "Subject", key: "subject" }, { header: "Student", key: "student" }, { header: "Due Date", key: "dueDate" }, { header: "Expiration Date", key: "expDate" }, { header: "Submissions", key: "submissions" }, { header: "Done", key: "done" }];
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(
+					"div",
+					{ className: "tabContent" },
+					React.createElement(
+						"h1",
+						null,
+						"Current Assignments"
+					),
+					React.createElement(SortableTable, { data: this.state.displayedData, columns: columns })
+				)
+			);
+		}
+	});
+	
+	module.exports = StudentCurrentAssignments;
+
+/***/ },
+
 /***/ 234:
-/*!****************************************!*\
-  !*** ./components/late-assignments.js ***!
-  \****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactRouter = __webpack_require__(/*! react-router */ 159);
-	
-	var api = __webpack_require__(/*! ./api.js */ 214);
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
-	
-	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
-	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 232);
-	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
-	
-	var LateAssignments = React.createClass({
-		displayName: "LateAssignments",
-	
-		getInitialState: function () {
-			// var assignments will be replaced with api call
-			var assignments = [{ title: "Read pg 12, ex 1-10", subject: "English 7", student: "Billy Bob", dueDate: "11/12/15", expDate: "11/22/2015", submissions: '0', done: 'false' }, { title: "Read pg 18, ex 91-100", subject: "Math 7", student: "Billy Bob", dueDate: "11/13/15", expDate: "11/23/2015", submissions: '1', done: 'true' }, { title: "Read pg 98, ex 4-8", subject: "Reading 7", student: "Sally Sue", dueDate: "11/14/15", expDate: "11/24/2015", submissions: '0', done: 'false' }, { title: "Read pg 33, ex 1-5", subject: "English 7", student: "Sally Sue", dueDate: "11/15/15", expDate: "11/25/2015", submissions: '1', done: 'true' }];
-			return {
-				data: assignments,
-				displayedData: assignments,
-				studentSelected: '--Student--',
-				subjectSelected: '--Subject--'
-			};
-		},
-		filterData: function (studentSelected, subjectSelected) {
-			var filtered = this.state.data;
-			if (subjectSelected !== '--Subject--') {
-				var filtered = filtered.filter(function (item) {
-					return item.subject == subjectSelected;
-				});
-			};
-			if (studentSelected !== '--Student--') {
-				var filtered = filtered.filter(function (item) {
-					return item.student == studentSelected;
-				});
-			};
-			this.setState({
-				displayedData: filtered,
-				studentSelected: studentSelected,
-				subjectSelected: subjectSelected
-			});
-		},
-		handleSubjectDropdown: function (selected) {
-			console.log(selected);
-			this.filterData(this.state.studentSelected, selected);
-		},
-		handleStudentDropdown: function (selected) {
-			console.log(selected);
-			this.filterData(selected, this.state.subjectSelected);
-		},
-	
-		render: function () {
-	
-			var tabs = {
-				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: true }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: false }]
-			};
-	
-			var columns = [{ header: "Title", key: "title" }, { header: "Subject", key: "subject" }, { header: "Student", key: "student" }, { header: "Due Date", key: "dueDate" }, { header: "Expiration Date", key: "expDate" }, { header: "Submissions", key: "submissions" }, { header: "Done", key: "done" }];
-	
-			var subjectDropdown = {
-				title: '--Subject--', //What should show up on the button to open/close the dropdown
-				items: [// List of items to show in the dropdown
-				'--Subject--', 'Math 7', 'English 7', 'Reading 7']
-			};
-	
-			var studentDropdown = {
-				title: '--Student--', //What should show up on the button to open/close the dropdown
-				items: [// List of items to show in the dropdown
-				'--Student--', 'Billy Bob', 'Sally Sue']
-			};
-	
-			return React.createElement(
-				"div",
-				null,
-				React.createElement(TabBar, { data: tabs }),
-				React.createElement(
-					"div",
-					{ className: "tabContent" },
-					React.createElement(
-						"div",
-						{ className: "col-md-2 filterBy" },
-						"Filter by:"
-					),
-					React.createElement(
-						"div",
-						{ className: "col-md-2 " },
-						React.createElement(Dropdown, { title: subjectDropdown.title, items: subjectDropdown.items, itemSelected: this.handleSubjectDropdown })
-					),
-					React.createElement(
-						"div",
-						{ className: "col-md-2 " },
-						React.createElement(Dropdown, { title: studentDropdown.title, items: studentDropdown.items, itemSelected: this.handleStudentDropdown })
-					),
-					React.createElement(SortableTable, { data: this.state.displayedData, columns: columns })
-				)
-			);
-		}
-	});
-	
-	module.exports = LateAssignments;
-
-/***/ },
-
-/***/ 235:
-/*!*******************************************!*\
-  !*** ./components/expired-assignments.js ***!
-  \*******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactRouter = __webpack_require__(/*! react-router */ 159);
-	
-	var api = __webpack_require__(/*! ./api.js */ 214);
-	var auth = __webpack_require__(/*! ./auth.js */ 209);
-	
-	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
-	var Dropdown = __webpack_require__(/*! ./dropdown.js */ 232);
-	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
-	
-	var ExpiredAssignments = React.createClass({
-		displayName: "ExpiredAssignments",
-	
-		getInitialState: function () {
-			// var assignments will be replaced with api call
-			var assignments = [{ title: "Read pg 12, ex 1-10", subject: "English 7", student: "Billy Bob", dueDate: "11/12/15", expDate: "11/22/2015", submissions: '0', done: 'false' }, { title: "Read pg 18, ex 91-100", subject: "Math 7", student: "Billy Bob", dueDate: "11/13/15", expDate: "11/23/2015", submissions: '1', done: 'true' }, { title: "Read pg 98, ex 4-8", subject: "Reading 7", student: "Sally Sue", dueDate: "11/14/15", expDate: "11/24/2015", submissions: '0', done: 'false' }, { title: "Read pg 33, ex 1-5", subject: "English 7", student: "Sally Sue", dueDate: "11/15/15", expDate: "11/25/2015", submissions: '1', done: 'true' }];
-			return {
-				data: assignments,
-				displayedData: assignments,
-				studentSelected: '--Student--',
-				subjectSelected: '--Subject--'
-			};
-		},
-		filterData: function (studentSelected, subjectSelected) {
-			var filtered = this.state.data;
-			if (subjectSelected !== '--Subject--') {
-				var filtered = filtered.filter(function (item) {
-					return item.subject == subjectSelected;
-				});
-			};
-			if (studentSelected !== '--Student--') {
-				var filtered = filtered.filter(function (item) {
-					return item.student == studentSelected;
-				});
-			};
-			this.setState({
-				displayedData: filtered,
-				studentSelected: studentSelected,
-				subjectSelected: subjectSelected
-			});
-		},
-		handleSubjectDropdown: function (selected) {
-			console.log(selected);
-			this.filterData(this.state.studentSelected, selected);
-		},
-		handleStudentDropdown: function (selected) {
-			console.log(selected);
-			this.filterData(selected, this.state.subjectSelected);
-		},
-	
-		render: function () {
-	
-			var tabs = {
-				tabData: [{ tabName: "Current Assignments", tabLink: "#/studentassignments/current", active: false }, { tabName: "Late Assignments", tabLink: "#/studentassignments/late", active: false }, { tabName: "Expired Assignments", tabLink: "#/studentassignments/expired", active: true }]
-			};
-	
-			var columns = [{ header: "Title", key: "title" }, { header: "Subject", key: "subject" }, { header: "Student", key: "student" }, { header: "Due Date", key: "dueDate" }, { header: "Expiration Date", key: "expDate" }, { header: "Submissions", key: "submissions" }, { header: "Done", key: "done" }];
-	
-			var subjectDropdown = {
-				title: '--Subject--', //What should show up on the button to open/close the dropdown
-				items: [// List of items to show in the dropdown
-				'--Subject--', 'Math 7', 'English 7', 'Reading 7']
-			};
-	
-			var studentDropdown = {
-				title: '--Student--', //What should show up on the button to open/close the dropdown
-				items: [// List of items to show in the dropdown
-				'--Student--', 'Billy Bob', 'Sally Sue']
-			};
-	
-			return React.createElement(
-				"div",
-				null,
-				React.createElement(TabBar, { data: tabs }),
-				React.createElement(
-					"div",
-					{ className: "tabContent" },
-					React.createElement(
-						"div",
-						{ className: "col-md-2 filterBy" },
-						"Filter by:"
-					),
-					React.createElement(
-						"div",
-						{ className: "col-md-2 " },
-						React.createElement(Dropdown, { title: subjectDropdown.title, items: subjectDropdown.items, itemSelected: this.handleSubjectDropdown })
-					),
-					React.createElement(
-						"div",
-						{ className: "col-md-2 " },
-						React.createElement(Dropdown, { title: studentDropdown.title, items: studentDropdown.items, itemSelected: this.handleStudentDropdown })
-					),
-					React.createElement(SortableTable, { data: this.state.displayedData, columns: columns })
-				)
-			);
-		}
-	});
-	
-	module.exports = ExpiredAssignments;
-
-/***/ },
-
-/***/ 236:
 /*!*************************************************!*\
   !*** ../~/bootstrap/dist/css/bootstrap.min.css ***!
   \*************************************************/
@@ -2698,7 +2514,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 245:
+/***/ 243:
 /*!*********************!*\
   !*** ./css/app.css ***!
   \*********************/
