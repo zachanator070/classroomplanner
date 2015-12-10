@@ -625,17 +625,16 @@ webpackJsonp([1],{
 	    var url = "/api/users/" + studentName;
 	
 	    console.log('localStorage.name: ' + localStorage.name); //TEMP
-	    var instructorName = localStorage.name;
+	
 	    $.ajax({
 	      url: url,
 	      dataType: 'application/json',
 	      type: 'PUT',
-	      headers: { 'Authorization': localStorage.token },
-	      data: JSON.stringify({
+	      headers: { 'Authorization': localStorage.token, 'Instructor': localStorage.name },
+	      data: {
 	        name: studentName,
-	        password: password,
-	        instructor: instructorName
-	      }),
+	        password: password
+	      },
 	      success: function (res) {
 	        if (cb) cb(true, res);
 	      },
@@ -1330,7 +1329,7 @@ webpackJsonp([1],{
 		},
 	
 		reloadStudents: function () {
-			api.getStudents("instructor", (function (success, res) {
+			api.getStudents(localStorage.name, (function (success, res) {
 	
 				var studData = res.users.map(function (student) {
 					return { name: student.name, password: student.password };

@@ -18,7 +18,7 @@ var ViewStudents = React.createClass({
 	},
 
 	reloadStudents: function() {
-		api.getStudents("instructor", function(success, res) {
+		api.getStudents(localStorage.name, function(success, res) {
 
 			var studData = res.users.map(function(student) {
 				return { name: student.name, password: student.password };

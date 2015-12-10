@@ -76,8 +76,7 @@ app.put('/api/users/:userName',function(req,res){
         user.password = req.body.password;
         user.type = "student";
         user.subjects = [];
-        user.instructor = req.body.instructor; //TODO change hardcoded "jesse"
-        console.log("req.body.instructor: " +  req.body.instructor);
+        user.instructor = req.headers.instructor;
 
         user.save(function(err) {
           if (err) {
