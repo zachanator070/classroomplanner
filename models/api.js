@@ -142,7 +142,7 @@ app.delete('/api/users/:student_name', function (req,res) {
 // assignment urls
 //
 
-// get all assignments for the user
+// getAssignments
 app.get('/api/assignments', function (req,res) {
   // validate the supplied token
   user = User.verifyToken(req.headers.authorization, function(user) {
@@ -169,19 +169,22 @@ app.post('/api/assignments', function (req,res) {
   // get indexes
   user = User.verifyToken(req.headers.authorization, function(user) {
     if (user) {
+      console.log('User token was valid :)'); //TEMP
       // if the token is valid, create the assignment for the user
-      Assignement.create({subject:req.body.assignment.subject,
+      Assignment.create({subject:req.body.assignment.subject,
                           title:req.body.assignment.title,
                           dueDate:req.body.assignment.dueDate,
                           expirationDate:req.body.assignment.expirationDate},
                            function(err,assignment) {
                             	if (err) {
+                                  console.log('error here!!!'); //TEMP
                             	  res.sendStatus(403);
                             	  return;
                             	}
                             	res.json({assignment:assignment});
                             });
     } else {
+      console.log('error, user token was not valid!!'); //TEMP
       res.sendStatus(403);
     }
   });

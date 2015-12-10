@@ -6,25 +6,74 @@ var api = require("./api.js");
 var TabBar = require('./tab-bar.js');
 var SortableTable = require('./sortable-table.js');
 
-// SORTING FUNCTIONS CAN BE PLACED HERE - SEE CODE BELOW COMPONENT
-
 var ViewAssignments = React.createClass({
 
     getInitialState: function () {
-        // var assignments will be replaced with api call
-        var assignments =  [
-                    { name: "Read pg 18, ex 1-10", subject: "English 7" , dueDate: "11/12/15"},
-                    { name: "Read pg 4, ex 20-36", subject: "Math 7" , dueDate: "12/1/15"},
-                    { name: "Read pg 75, ex 1-4", subject: "Reading 7" , dueDate: "12/8/15"},
-                    { name: "Read pg 13, ex 2-6", subject: "English 7" , dueDate: "12/5/15"},
-                ];
+
+
+        this.reloadAssignments();
         return {
-                data: assignments,
+                data: [],
+                allAssignments: []
         };
     },
-    removeAssignment: function(item) {
+    reloadAssignments: function() {
+
+        api.getSubjects(localStorage.name, function(succ, res) {
+
+            res.subjects.map(function(subject) {
+                    
+                    api.getAssignments(subject.name, function(success, response) {
+                        var singleAssignment = response.assignments.map(function(assignment) {
+                            return { title: assignment.title, subject: assignment.subject, dueDate: assignment.dueDate, expDate: assignment.expDate };
+                        });
+                        this.state.allAssignments.push(singleAssignment);
+                        this.setState({data: this.state.allAssignments});
+                        console.log(this.state.data);
+                    }.bind(this));
+
+            }.bind(this));
+
+        }.bind(this));
+
+    },
+    //  reloadAssignments: function() {
+
+    //     api.getSubjects(localStorage.name, function(succ, res) {
+    //         var subjectNames = res.subjects.map(function(subject) {
+    //             return subject.name;
+    //         });
+    //         //this.setState({subjects: subjectNames});
+    //         this.state.subjects = subjectNames;
+    //         console.log(this.state.subjects); //TEMP
+
+    //     }.bind(this));
+
+    //     api.getAssignments("Math 7", function(success, response) {
+    //         tester = response.assignments;
+    //         var assignmentData = response.assignments.map(function(assignment) {
+    //             return { title: assignment.title, subject: assignment.subject, dueDate: assignment.dueDate, expDate: assignment.expDate };
+    //         });
+    //         this.state.data = assignmentData;
+    //         console.log(this.state.data);
+    //     }.bind(this));
+
+    // },
+    // getInitialState: function () {
+    //     // var assignments will be replaced with api call
+    //     var assignments =  [
+    //                 { title: "Read pg 18, ex 1-10", subject: "English 7" , dueDate: "11/12/15"},
+    //                 { title: "Read pg 4, ex 20-36", subject: "Math 7" , dueDate: "12/1/15"},
+    //                 { title: "Read pg 75, ex 1-4", subject: "Reading 7" , dueDate: "12/8/15"},
+    //                 { title: "Read pg 13, ex 2-6", subject: "English 7" , dueDate: "12/5/15"},
+    //             ];
+    //     return {
+    //             data: assignments,
+    //     };
+    // },
+    removeAssignment: function(assignment) {
         // < -- insert api call here!!
-        console.log("Removing assignment: " + item.name); //TEMP
+        console.log("Removing assignment: " + assignment.title); //TEMP
     },
 
     render: function () {
@@ -39,9 +88,10 @@ var ViewAssignments = React.createClass({
         };
 
         var columns = [
-            { header: "Name", key: "name"},
+            { header: "Title", key: "title"},
             { header: "Subject", key: "subject"},
             { header: "Due Date", key: "dueDate"},
+            { header: "Expiration Date", key: "expDate"},
             { header: 'Delete', key: "xButton"} //Delete Button Column
         ];
 

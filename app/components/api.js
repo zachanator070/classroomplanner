@@ -117,6 +117,7 @@ var api = {
       type: 'POST',
       headers: {'Authorization': localStorage.token},
       success: function(res) {
+        console.log('succes in addAssignment in componentsAPI'); //TEMP
         if (cb)
           cb(true, res);
       },
