@@ -266,13 +266,18 @@ webpackJsonp([1],{
 	      success: (function (res) {
 	        localStorage.token = res.token;
 	        localStorage.name = res.name;
-	        this.onChange(true);
+	
+	        this.onChange(true, res.type);
+	        localStorage.type = res.type;
 	        if (cb) cb(true);
 	      }).bind(this),
 	      error: (function (xhr, status, err) {
 	        // if there is an error, remove any login token
+	        delete localStorage.name;
+	        delete localStorage.type;
 	        delete localStorage.token;
-	        this.onChange(false);
+	        this.onChange(false, null);
+	
 	        if (cb) cb(false);
 	      }).bind(this)
 	    });
