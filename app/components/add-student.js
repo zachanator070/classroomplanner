@@ -9,17 +9,21 @@ var TabBar = require('./tab-bar');
 var AddStudent = React.createClass({
 
 	getInitialState: function() {
-		return {value: ''};
+		return {name: ''}; // Clears text box
 	},
 	handleChange: function(event) {
-		this.setState({value: event.target.value});
+		this.setState({name: event.target.name});
 	},
-
+	generatePassword: function() {
+		return "xyz123abc";
+	},
 	createStudent: function() {
-		if(this.state.value) {
+		if(this.state.name) {
+
+			var pwd = this.generatePassword();
 			// <--- api function call goes here!!!
-			console.log("Student \"" + this.state.value + "\" was created"); //TEMP
-			this.setState({value: ''});
+			console.log("Student \"" + this.state.name + "\" was created"); //TEMP
+			this.setState({name: ''}); // Clears text box
 		}
 	},
 
@@ -43,11 +47,11 @@ var AddStudent = React.createClass({
 						<input className="form-control" 
 							type="text"
 							placeholder="Student Name"
-							value={this.state.value} 
+							value={this.state.name} 
 							onChange={this.handleChange} />
 						<button className="btn btn-default"
 							type="submit"
-							disabled={!this.state.value} 
+							disabled={!this.state.name} 
 							onClick={this.createStudent} >
 							Create
 						</button>
@@ -59,5 +63,3 @@ var AddStudent = React.createClass({
 });
 
 module.exports = AddStudent;
-
-//{(this.state.value === '') ? 'true' : 'false'}
