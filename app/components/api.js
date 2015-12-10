@@ -7,8 +7,8 @@ var api = {
   //
 
   // get the list of all students by instructor, call the callback when complete
-  getStudents: function(instructor, cb) {
-    var url = "/api/users/"+instructor;
+  getStudents: function(cb) {
+    var url = "/api/users/";
     $.ajax({
       url: url,
       dataType: 'json',
@@ -79,14 +79,14 @@ var api = {
   //assignment functions
   //
 
-  // get the list of assignments by subject, call the callback when complete
-  getAssignments: function(subject, cb) {
+  // get the list of assignments by instructor, call the callback when complete
+  getAssignments: function(cb) {
     var url = "/api/assignments";
     $.ajax({
       url: url,
       dataType: 'json',
       type: 'GET',
-      headers: {'Authorization': localStorage.token, 'Subject':subject},
+      headers: {'Authorization': localStorage.token},
       success: function(res) {
         if (cb)
           cb(true, res);
@@ -111,7 +111,8 @@ var api = {
           'subject':subject,
           'title': title,
           'dueDate':dueDate,
-          'expirationDate': expirationDate
+          'expirationDate': expirationDate,
+          'instructor': localStorage.name
         }
       }),
       type: 'POST',
@@ -162,11 +163,14 @@ var api = {
 
   // delete an assignment, call the callback when complete
   deleteAssignment: function(assignment, cb) {
-    var url = "/api/assignments/"+assignment._id;
+    var url = "/api/assignments/"+assignment.title;
     $.ajax({
       url: url,
       type: 'DELETE',
       headers: {'Authorization': localStorage.token},
+      data: {
+        subject: assignment.subject
+      },
       success: function(res) {
         if (cb)
           cb(true, res);

@@ -97,12 +97,12 @@ app.put('/api/users/:userName',function(req,res){
 });
 
 // getStudents
-app.get('/api/users/:instructor', function (req, res) {
+app.get('/api/users/', function (req, res) {
   // validate the supplied token
   user = User.verifyToken(req.headers.authorization, function(user) {
     if (user) {
       // if the token is valid, then find the requested item
-      User.find({instructor: req.params.instructor}, function(err, users) {
+      User.find({instructor: user.name}, function(err, users) {
 
         if (err) {
           res.sendStatus(403);
@@ -148,7 +148,7 @@ app.get('/api/assignments', function (req,res) {
   user = User.verifyToken(req.headers.authorization, function(user) {
     if (user) {
       // if the token is valid, then find the requested item
-      Assignment.find({subject:req.headers.subject}, function(err, assignments) {
+      Assignment.find({instructor:user.name}, function(err, assignments) {
         if (err) {
           res.sendStatus(403);
           return;
@@ -169,12 +169,13 @@ app.post('/api/assignments', function (req,res) {
   // get indexes
   user = User.verifyToken(req.headers.authorization, function(user) {
     if (user) {
-      console.log('User token was valid :)'); //TEMP
       // if the token is valid, create the assignment for the user
+      console.log("req.body.instruct: " + req.body.assignment.instructor);
       Assignment.create({subject:req.body.assignment.subject,
                           title:req.body.assignment.title,
                           dueDate:req.body.assignment.dueDate,
-                          expirationDate:req.body.assignment.expirationDate},
+                          expirationDate:req.body.assignment.expirationDate, 
+                          instructor: req.body.assignment.instructor},
                            function(err,assignment) {
                             	if (err) {
                                   console.log('error here!!!'); //TEMP
@@ -222,21 +223,21 @@ app.put('/api/assignments/:assignment_id', function (req,res) {
   });
 });
 
-// delete an assignment
-app.delete('/api/assignments/:assignment_id', function (req,res) {
+// deleteAssignment
+app.delete('/api/assignments/:assignment_title', function (req,res) {
   // validate the supplied token
   user = User.verifyToken(req.headers.authorization, function(user) {
     if (user) {
       // if the token is valid, then find the requested item
-      Assignment.findByIdAndRemove(req.params.assignment_id, function(err,assignement) {
-      	if (err) {
-      	  res.sendStatus(403);
-      	  return;
-      	}
+      	Assignment.find({ title: req.params.assignment_title, subject: req.body.subject}).remove( function(err, assignment) {
+        if (err) {
+        	res.sendStatus(403);
+            return;
+        }
         res.sendStatus(200);
       });
     } else {
-      res.sendStatus(403);
+        res.sendStatus(403);
     }
   });
 });
