@@ -27,6 +27,31 @@ var api = {
     });
   },
 
+  // adds a student for a particular instructor
+  addStudents: function(studentName,password, cb) {
+    var url = "/api/users/"+studentName;
+    $.ajax({
+      url: url,
+      dataType: 'json',
+      type: 'GET',
+      headers: {'Authorization': localStorage.token},
+      data:{
+        name:studentName,
+        password:password
+      },
+      success: function(res) {
+        if (cb)
+          cb(true, res);
+      },
+      error: function(xhr, status, err) {
+        // if there is an error, remove the login token
+        delete localStorage.token;
+        if (cb)
+          cb(false, status);
+      }
+    });
+  },
+
   //
   //assignment functions
   //

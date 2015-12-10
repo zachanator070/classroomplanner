@@ -64,30 +64,22 @@ app.post('/api/users/login', function (req, res) {
   });
 });
 
-app.put('/api/users/:user_id',function(){
+//adds a student to the database
+app.put('/api/users/:userName',function(){
   // validate the supplied token
   user = User.verifyToken(req.headers.authorization, function(user) {
     if (user) {
       // if the token is valid, then find the requested user
-      User.findById(req.params.user_id, function(err,user) {
+      User.findOne({name:userName}, function(err,user) {
         if (err) {
           res.sendStatus(403);
           return;
         }
 
-        if(user.type === "student"){
-          user.name = req.body.user.name;
-          user.type = req.body.user.type
-          user.password = req.body.user.password;
-          user.subjects = req.body.user.subjects;
-        }
-
-        else{
-          user.name = req.body.user.name;
-          user.type = req.body.user.type
-          user.password = req.body.user.password;
-          user.students = req.body.user.students;
-        }
+        user.name = req.body.name;
+        user.type = "student";
+        user.password = req.body.password;
+        user.subjects = [];
 
         user.save(function(err) {
           if (err) {
