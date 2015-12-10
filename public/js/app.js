@@ -678,7 +678,11 @@ webpackJsonp([1],{
 				"div",
 				null,
 				React.createElement(TabBar, { data: tabs }),
-				React.createElement(SortableTable, { data: this.state.data, columns: columns, removeRow: this.removeStudent })
+				React.createElement(
+					"div",
+					{ className: "tabContent" },
+					React.createElement(SortableTable, { data: this.state.data, columns: columns, removeRow: this.removeStudent })
+				)
 			);
 		}
 	});
@@ -1490,34 +1494,38 @@ webpackJsonp([1],{
 				React.createElement(TabBar, { data: tabs }),
 				React.createElement(
 					"div",
-					{ className: "panel panel-default" },
+					{ className: "tabContent" },
 					React.createElement(
 						"div",
-						{ className: "panel-heading" },
+						{ className: "panel panel-default" },
 						React.createElement(
-							"h3",
-							{ className: "panel-title" },
-							"Create Student Account"
-						)
-					),
-					React.createElement(
-						"div",
-						{ className: "panel-body" },
-						React.createElement(
-							"form",
-							{ className: "form-inline" },
-							React.createElement("input", { className: "form-control",
-								type: "text",
-								placeholder: "Student Name",
-								value: this.state.name,
-								onChange: this.handleChange }),
+							"div",
+							{ className: "panel-heading" },
 							React.createElement(
-								"button",
-								{ className: "btn btn-default",
-									type: "submit",
-									disabled: !this.state.name,
-									onClick: this.createStudent },
-								"Create"
+								"h3",
+								{ className: "panel-title" },
+								"Create Student Account"
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "panel-body" },
+							React.createElement(
+								"form",
+								{ className: "form-inline" },
+								React.createElement("input", { className: "form-control",
+									type: "text",
+									placeholder: "Student Name",
+									value: this.state.name,
+									onChange: this.handleChange }),
+								React.createElement(
+									"button",
+									{ className: "btn btn-default",
+										type: "submit",
+										disabled: !this.state.name,
+										onClick: this.createStudent },
+									"Create"
+								)
 							)
 						)
 					)
@@ -1569,7 +1577,11 @@ webpackJsonp([1],{
 				'div',
 				null,
 				React.createElement(TabBar, { data: tabs }),
-				React.createElement(SortableTable, { data: this.state.data, columns: columns, removeRow: this.removeSubject })
+				React.createElement(
+					'div',
+					{ className: 'tabContent' },
+					React.createElement(SortableTable, { data: this.state.data, columns: columns, removeRow: this.removeSubject })
+				)
 			);
 		}
 	});
@@ -1623,34 +1635,38 @@ webpackJsonp([1],{
 				React.createElement(TabBar, { data: tabs }),
 				React.createElement(
 					"div",
-					{ className: "panel panel-default" },
+					{ className: "tabContent" },
 					React.createElement(
 						"div",
-						{ className: "panel-heading" },
+						{ className: "panel panel-default" },
 						React.createElement(
-							"h3",
-							{ className: "panel-title" },
-							"Create New Subject"
-						)
-					),
-					React.createElement(
-						"div",
-						{ className: "panel-body" },
-						React.createElement(
-							"form",
-							{ className: "form-inline" },
-							React.createElement("input", { className: "form-control",
-								type: "text",
-								placeholder: "Subject Name",
-								value: this.state.value,
-								onChange: this.handleChange }),
+							"div",
+							{ className: "panel-heading" },
 							React.createElement(
-								"button",
-								{ className: "btn btn-default",
-									type: "submit",
-									disabled: !this.state.value,
-									onClick: this.createSubject },
-								"Create"
+								"h3",
+								{ className: "panel-title" },
+								"Create New Subject"
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "panel-body" },
+							React.createElement(
+								"form",
+								{ className: "form-inline" },
+								React.createElement("input", { className: "form-control",
+									type: "text",
+									placeholder: "Subject Name",
+									value: this.state.value,
+									onChange: this.handleChange }),
+								React.createElement(
+									"button",
+									{ className: "btn btn-default",
+										type: "submit",
+										disabled: !this.state.value,
+										onClick: this.createSubject },
+									"Create"
+								)
 							)
 						)
 					)
@@ -1707,7 +1723,11 @@ webpackJsonp([1],{
 	            "div",
 	            null,
 	            React.createElement(TabBar, { data: tabs }),
-	            React.createElement(SortableTable, { data: this.state.data, columns: columns, removeRow: this.removeAssignment, deleteCol: "true" })
+	            React.createElement(
+	                "div",
+	                { className: "tabContent" },
+	                React.createElement(SortableTable, { data: this.state.data, columns: columns, removeRow: this.removeAssignment, deleteCol: "true" })
+	            )
 	        );
 	    }
 	});
@@ -1822,105 +1842,109 @@ webpackJsonp([1],{
 				React.createElement(TabBar, { data: tabs }),
 				React.createElement(
 					"div",
-					{ className: "panel panel-default" },
+					{ className: "tabContent" },
 					React.createElement(
 						"div",
-						{ className: "panel-heading" },
+						{ className: "panel panel-default" },
 						React.createElement(
-							"h3",
-							{ className: "panel-title" },
-							"Create New Assignment"
-						)
-					),
-					React.createElement(
-						"div",
-						{ className: "panel-body" },
+							"div",
+							{ className: "panel-heading" },
+							React.createElement(
+								"h3",
+								{ className: "panel-title" },
+								"Create New Assignment"
+							)
+						),
 						React.createElement(
-							"form",
-							{ className: "form-horizontal" },
+							"div",
+							{ className: "panel-body" },
 							React.createElement(
-								"div",
-								{ className: "form-group" },
-								React.createElement(
-									"label",
-									{ htmlFor: "inputTitle", className: "col-sm-2 control-label" },
-									"Name"
-								),
+								"form",
+								{ className: "form-horizontal" },
 								React.createElement(
 									"div",
-									{ className: "col-sm-10" },
-									React.createElement("input", { type: "text", className: "form-control",
-										id: "inputTitle",
-										placeholder: "Name",
-										value: this.state.name,
-										onChange: this.handleNameChange })
-								)
-							),
-							React.createElement(
-								"div",
-								{ className: "form-group" },
-								React.createElement(
-									"label",
-									{ htmlFor: "inputSubject", className: "col-sm-2 control-label" },
-									"Subject"
-								),
-								React.createElement(
-									"div",
-									{ className: "col-sm-10" },
-									React.createElement("input", { type: "text", className: "form-control",
-										id: "inputSubject",
-										placeholder: "Subject",
-										value: this.state.subject,
-										onChange: this.handleSubjectChange })
-								)
-							),
-							React.createElement(
-								"div",
-								{ className: "form-group" },
-								React.createElement(
-									"label",
-									{ htmlFor: "inputDueDate", className: "col-sm-2 control-label" },
-									"Due Date"
-								),
-								React.createElement(
-									"div",
-									{ className: "col-sm-10" },
-									React.createElement("input", { type: "date", className: "form-control",
-										id: "inputDueDate",
-										value: this.state.dueDate,
-										onChange: this.handleDueDateChange })
-								)
-							),
-							React.createElement(
-								"div",
-								{ className: "form-group" },
-								React.createElement(
-									"label",
-									{ htmlFor: "inputExpDate", className: "col-sm-2 control-label" },
-									"Expiration Date"
-								),
-								React.createElement(
-									"div",
-									{ className: "col-sm-10" },
-									React.createElement("input", { type: "date", className: "form-control",
-										id: "inputExpDate",
-										value: this.state.expDate,
-										onChange: this.handleExpDateChange })
-								)
-							),
-							React.createElement(
-								"div",
-								{ className: "form-group" },
-								React.createElement(
-									"div",
-									{ className: "col-sm-offset-2 col-sm-10" },
+									{ className: "form-group" },
 									React.createElement(
-										"button",
-										{ className: "btn btn-default",
-											type: "submit",
-											disabled: !this.state.name || !this.state.subject || !this.state.dueDate || !this.state.expDate,
-											onClick: this.createAssignment },
-										"Create"
+										"label",
+										{ htmlFor: "inputTitle", className: "col-sm-2 control-label" },
+										"Name"
+									),
+									React.createElement(
+										"div",
+										{ className: "col-sm-10" },
+										React.createElement("input", { type: "text", className: "form-control",
+											id: "inputTitle",
+											placeholder: "Name",
+											value: this.state.name,
+											onChange: this.handleNameChange })
+									)
+								),
+								React.createElement(
+									"div",
+									{ className: "form-group" },
+									React.createElement(
+										"label",
+										{ htmlFor: "inputSubject", className: "col-sm-2 control-label" },
+										"Subject"
+									),
+									React.createElement(
+										"div",
+										{ className: "col-sm-10" },
+										React.createElement("input", { type: "text", className: "form-control",
+											id: "inputSubject",
+											placeholder: "Subject",
+											value: this.state.subject,
+											onChange: this.handleSubjectChange })
+									)
+								),
+								React.createElement(
+									"div",
+									{ className: "form-group" },
+									React.createElement(
+										"label",
+										{ htmlFor: "inputDueDate", className: "col-sm-2 control-label" },
+										"Due Date"
+									),
+									React.createElement(
+										"div",
+										{ className: "col-sm-10" },
+										React.createElement("input", { type: "date", className: "form-control",
+											id: "inputDueDate",
+											value: this.state.dueDate,
+											onChange: this.handleDueDateChange })
+									)
+								),
+								React.createElement(
+									"div",
+									{ className: "form-group" },
+									React.createElement(
+										"label",
+										{ htmlFor: "inputExpDate", className: "col-sm-2 control-label" },
+										"Expiration Date"
+									),
+									React.createElement(
+										"div",
+										{ className: "col-sm-10" },
+										React.createElement("input", { type: "date", className: "form-control",
+											id: "inputExpDate",
+											value: this.state.expDate,
+											onChange: this.handleExpDateChange })
+									)
+								),
+								React.createElement(
+									"div",
+									{ className: "form-group" },
+									React.createElement(
+										"div",
+										{ className: "col-sm-offset-2 col-sm-10" },
+										React.createElement(
+											"button",
+											{ className: "btn btn-default",
+												type: "submit",
+												disabled: !this.state.name || !this.state.subject || !this.state.dueDate || !this.state.expDate,
+												onClick: this.createAssignment },
+											"Create"
+										)
 									)
 								)
 							)

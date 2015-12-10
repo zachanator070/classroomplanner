@@ -47,13 +47,15 @@ var ViewStudents = React.createClass({
 
 		var columns = [
 	            { header: "Name", key: "name"},
-	            { header: "Password", key: "password" }, 
+	            { header: "Password", key: "password" },
 	            {} //Delete Button Column
         	];
 
 		return <div>
 			<TabBar  data={tabs} />
-			<SortableTable data={this.state.data} columns={columns} removeRow={this.removeStudent} />
+			<div className="tabContent">
+				<SortableTable data={this.state.data} columns={columns} removeRow={this.removeStudent} />
+			</div>
 		</div>
 	}
 });

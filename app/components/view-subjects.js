@@ -35,10 +35,12 @@ var ViewSubjects = React.createClass({
 	            { header: "Subject", key: "subject"},
 	            {} // Delete buttons column
         	];
-		
+
 		return <div>
 			<TabBar  data={tabs} />
-			<SortableTable data={this.state.data} columns={columns} removeRow={this.removeSubject}/>
+			<div className ="tabContent">
+				<SortableTable data={this.state.data} columns={columns} removeRow={this.removeSubject}/>
+			</div>
 		</div>
 	}
 });
