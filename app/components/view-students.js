@@ -18,6 +18,7 @@ var ViewStudents = React.createClass({
 	},
 
 	reloadStudents: function() {
+		console.log("Local storage in view: " + localStorage.name); //TEMP
 		api.getStudents(localStorage.name, function(success, res) {
 
 			var studData = res.users.map(function(student) {

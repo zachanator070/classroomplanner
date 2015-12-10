@@ -1329,6 +1329,7 @@ webpackJsonp([1],{
 		},
 	
 		reloadStudents: function () {
+			console.log("Local storage in view: " + localStorage.name); //TEMP
 			api.getStudents(localStorage.name, (function (success, res) {
 	
 				var studData = res.users.map(function (student) {
@@ -2708,5 +2709,4 @@ webpackJsonp([1],{
 /***/ }
 
 });
-//# sourceMappingURL=app.js.map
 //# sourceMappingURL=app.js.map
