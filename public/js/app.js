@@ -859,13 +859,15 @@ webpackJsonp([1],{
 	  //
 	
 	  // get the list of subjects by instructor, call the callback when complete
-	  getSubjects: function (name, cb) {
-	    var url = "/api/subjects";
+	  getSubjects: function (instructor, cb) {
+	
+	    console.log('inside getSubjects instructor: ' + instructor);
+	    var url = "/api/subjects/" + instructor;
 	    $.ajax({
 	      url: url,
 	      dataType: 'json',
 	      type: 'GET',
-	      headers: { 'Authorization': localStorage.token, 'Instructor': instructor },
+	      headers: { 'Authorization': localStorage.token },
 	      success: function (res) {
 	        if (cb) cb(true, res);
 	      },
@@ -902,9 +904,9 @@ webpackJsonp([1],{
 	    });
 	  },
 	
-	  // delete a subject, call the callback when complete
-	  deleteSubject: function (subject, cb) {
-	    var url = "/api/subjects/" + subject._id;
+	  // deleteSubject, call the callback when complete
+	  deleteSubject: function (name, cb) {
+	    var url = "/api/subjects/" + name;
 	    $.ajax({
 	      url: url,
 	      type: 'DELETE',
@@ -1312,7 +1314,6 @@ webpackJsonp([1],{
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
 	var api = __webpack_require__(/*! ./api.js */ 214);
-	//var auth = require("./auth.js");
 	
 	var TabBar = __webpack_require__(/*! ./tab-bar */ 221);
 	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
@@ -1804,7 +1805,7 @@ webpackJsonp([1],{
 			var password = "";
 			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 	
-			for (var i = 0; i < 8; i++) {
+			for (var i = 0; i < 7; i++) {
 				password += possible.charAt(Math.floor(Math.random() * possible.length));
 			}
 	
@@ -1882,20 +1883,37 @@ webpackJsonp([1],{
 	var React = __webpack_require__(/*! react */ 1);
 	var ReactRouter = __webpack_require__(/*! react-router */ 159);
 	
+	var api = __webpack_require__(/*! ./api.js */ 214);
+	
 	var TabBar = __webpack_require__(/*! ./tab-bar.js */ 221);
 	var SortableTable = __webpack_require__(/*! ./sortable-table.js */ 222);
 	
 	var ViewSubjects = React.createClass({
-		displayName: 'ViewSubjects',
+		displayName: "ViewSubjects",
 	
 		getInitialState: function () {
+	
+			this.reloadSubjects();
 			return {
-				data: [{ subject: 'English 7' }, { subject: 'Math 8' }, { subject: 'Reading 7' }, { subject: 'Spanish 7' }]
+				data: []
 			};
+		},
+		reloadSubjects: function () {
+			api.getSubjects(localStorage.name, (function (success, res) {
+				console.log('succes in reloadSubjects? ' + success);
+				var subjectData = res.subjects.map(function (subject) {
+					return { subject: subject.name };
+				});
+				console.log("SubjectData: " + subjectData); //TEMP
+				this.setState({ data: subjectData });
+				return;
+			}).bind(this));
 		},
 	
 		removeSubject: function (item) {
-			// < -- insert api call here!!
+	
+			api.deleteSubject(item.subject, this.reloadSubjects);
+	
 			console.log("Removing subject: " + item.subject); //TEMP
 		},
 	
@@ -1909,7 +1927,7 @@ webpackJsonp([1],{
 			];
 	
 			return React.createElement(
-				'div',
+				"div",
 				null,
 				React.createElement(TabBar, { data: tabs }),
 				React.createElement(SortableTable, { data: this.state.data, columns: columns, removeRow: this.removeSubject })
@@ -1939,18 +1957,19 @@ webpackJsonp([1],{
 		displayName: "AddSubject",
 	
 		getInitialState: function () {
-			return { value: '' };
+			return { name: '' };
 		},
-	
 		handleChange: function (event) {
-			this.setState({ value: event.target.value });
+			this.setState({ name: event.target.value });
 		},
-	
 		createSubject: function () {
-			if (this.state.value) {
-				// <--- api function call goes here!!!
-				console.log("Subject \"" + this.state.value + "\" was created"); //TEMP
-				this.setState({ value: '' });
+			if (this.state.name) {
+	
+				api.addSubject(this.state.name, localStorage.name, function () {
+					return;
+				});
+				console.log("Subject \"" + this.state.name + "\" was created"); //TEMP
+				this.setState({ name: '' });
 			}
 		},
 	
@@ -1985,13 +2004,13 @@ webpackJsonp([1],{
 							React.createElement("input", { className: "form-control",
 								type: "text",
 								placeholder: "Subject Name",
-								value: this.state.value,
+								value: this.state.name,
 								onChange: this.handleChange }),
 							React.createElement(
 								"button",
 								{ className: "btn btn-default",
 									type: "submit",
-									disabled: !this.state.value,
+									disabled: !this.state.name,
 									onClick: this.createSubject },
 								"Create"
 							)

@@ -9,18 +9,19 @@ var TabBar = require('./tab-bar');
 var AddSubject = React.createClass({
 
 	getInitialState: function() {
-		return {value: ''};
+		return {name: ''};
 	},
-
 	handleChange: function(event) {
-		this.setState({value: event.target.value});
+		this.setState({name: event.target.value});
 	},
-
 	createSubject: function() {
-		if(this.state.value) {
-			// <--- api function call goes here!!!
-			console.log("Subject \"" + this.state.value + "\" was created"); //TEMP
-			this.setState({value: ''});
+		if(this.state.name) {
+
+			api.addSubject(this.state.name, localStorage.name, function() {
+				return;
+			});
+			console.log("Subject \"" + this.state.name + "\" was created"); //TEMP
+			this.setState({name: ''});
 		}
 	},
 
@@ -44,11 +45,11 @@ var AddSubject = React.createClass({
 						<input className="form-control" 
 							type="text"
 							placeholder="Subject Name"
-							value={this.state.value}
+							value={this.state.name}
 							onChange={this.handleChange} />
 						<button className="btn btn-default"
 							type="submit"
-							disabled={!this.state.value} 
+							disabled={!this.state.name} 
 							onClick={this.createSubject} >
 							Create
 						</button>

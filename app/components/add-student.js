@@ -18,7 +18,7 @@ var AddStudent = React.createClass({
 		var password = "";
 		var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-		for( var i=0; i < 8; i++ ) {
+		for( var i=0; i < 7; i++ ) {
 			password += possible.charAt(Math.floor(Math.random() * possible.length));
 		}
 
