@@ -12,7 +12,7 @@ var AddStudent = React.createClass({
 		return {name: ''}; // Clears text box
 	},
 	handleChange: function(event) {
-		this.setState({name: event.target.name});
+		this.setState({name: event.target.value});
 	},
 	generatePassword: function() {
 		return "xyz123abc";
@@ -21,7 +21,9 @@ var AddStudent = React.createClass({
 		if(this.state.name) {
 
 			var pwd = this.generatePassword();
-			// <--- api function call goes here!!!
+			api.addStudent(this.state.name, pwd, function() {
+				return;
+			});
 			console.log("Student \"" + this.state.name + "\" was created"); //TEMP
 			this.setState({name: ''}); // Clears text box
 		}
