@@ -259,6 +259,27 @@ var api = {
     });
   },
 
+  // get the list of student assignmentss for instructor call the callback when complete
+  getStudentAssignmentsForInstructor: function( cb) {
+    var url = "/api/studentAssignmentsForInstructor";
+    $.ajax({
+      url: url,
+      dataType: 'json',
+      type: 'GET',
+      headers: {'Authorization': localStorage.token},
+      success: function(res) {
+        if (cb)
+          cb(true, res);
+      },
+      error: function(xhr, status, err) {
+        // if there is an error, remove the login token
+        delete localStorage.token;
+        if (cb)
+          cb(false, status);
+      }
+    });
+  },
+
   // add an assignment for a student, call the callback when complete
   addStudentAssignment: function(assignmentName, completed, timeSubmitted, student, cb) {
     var url = "/api/studentAssignments";

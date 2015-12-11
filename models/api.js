@@ -212,7 +212,7 @@ app.post('/api/assignments', function (req,res) {
       Assignment.create({subject:req.body.assignment.subject,
                           title:req.body.assignment.title,
                           dueDate:req.body.assignment.dueDate,
-                          expirationDate:req.body.assignment.expirationDate, 
+                          expirationDate:req.body.assignment.expirationDate,
                           instructor: req.body.assignment.instructor},
                            function(err,assignment) {
                             	if (err) {
@@ -225,10 +225,10 @@ app.post('/api/assignments', function (req,res) {
                               console.log(assignment.subject);
                                 User.find({instructor: assignment.instructor, subjects: assignment.subject}, function(err, users) {
                                     for(var i = 0; i < users.length ; i++ ){
-                                      StudentAssignment.findOrCreate({title: assignment.title, 
-                                        dueDate: assignment.dueDate, 
-                                        expDate: assignment.expirationDate, 
-                                        completed: 'false', dateSubmitted: '', 
+                                      StudentAssignment.findOrCreate({title: assignment.title,
+                                        dueDate: assignment.dueDate,
+                                        expDate: assignment.expirationDate,
+                                        completed: 'false', dateSubmitted: '',
                                         student: users[i].name}, function(err, studentAssignment) {
                                             return;
                                         });
@@ -322,6 +322,34 @@ app.get('/api/studentAssignments', function (req,res) {
 
         // return value is the list of assignments as JSON
         res.json({assignment: assignments});
+      });
+    }
+    else {
+      res.sendStatus(403);
+    }
+  });
+});
+
+// get all assignments for the user
+app.get('/api/studentAssignmentsForInstructor', function (req,res) {
+
+  // validate the supplied token
+  user = User.verifyToken(req.headers.authorization, function(user) {
+    if (user) {
+
+      User.find({instructor:user.name},function(err,users){
+
+        var allAssignments = [];
+
+        for(var i=0;i<users.length;i++){
+          StudentAssignment.find({name:users[i].name},function(err,assignments){
+            for(var j =0;j<assignments.length;j++){
+              allAssignments.push(assignments[j]);
+            }
+          });
+        }
+
+        res.json({assignments: allAssignments});
       });
     }
     else {
@@ -457,7 +485,7 @@ app.delete('/api/subjects/:subject_name', function (req,res) {
   user = User.verifyToken(req.headers.authorization, function(user) {
     if (user) {
       // if the token is valid, then find the requested subject and remove it
-      Subject.find({ name: req.params.subject_name }).remove( function(err,subject) {  
+      Subject.find({ name: req.params.subject_name }).remove( function(err,subject) {
       	if (err) {
       	  res.sendStatus(403);
       	  return;
