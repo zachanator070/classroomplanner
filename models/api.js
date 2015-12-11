@@ -300,8 +300,9 @@ app.delete('/api/assignments/:assignment_title', function (req,res) {
 //
 // Student Assignment urls
 //
-// get all assignments for the user
-app.get('/api/studentAssignmentsByInstructor', function (req,res) {
+
+// getStudentAssignments for the user
+app.get('/api/studentAssignmentsForInstructor', function (req,res) {
 
   // validate the supplied token
   user = User.verifyToken(req.headers.authorization, function(user) {
@@ -313,9 +314,8 @@ app.get('/api/studentAssignmentsByInstructor', function (req,res) {
           res.sendStatus(403);
           return;
         }
-
         // return value is the list of assignments as JSON
-        res.json({assignment: assignments});
+        res.json({assignments: assignments});
       });
     }
     else {
@@ -324,8 +324,7 @@ app.get('/api/studentAssignmentsByInstructor', function (req,res) {
   });
 });
 
-
-// get all assignments for the user
+// getStudentAssignments for the user
 app.get('/api/studentAssignments', function (req,res) {
 
   var studentName = req.headers.name;
@@ -349,34 +348,6 @@ app.get('/api/studentAssignments', function (req,res) {
 
         // return value is the list of assignments as JSON
         res.json({assignments: assignments});
-      });
-    }
-    else {
-      res.sendStatus(403);
-    }
-  });
-});
-
-// get all assignments for the user
-app.get('/api/studentAssignmentsForInstructor', function (req,res) {
-
-  // validate the supplied token
-  user = User.verifyToken(req.headers.authorization, function(user) {
-    if (user) {
-
-      User.find({instructor:user.name},function(err,users){
-
-        var allAssignments = [];
-
-        for(var i=0;i<users.length;i++){
-          StudentAssignment.find({name:users[i].name},function(err,assignments){
-            for(var j =0;j<assignments.length;j++){
-              allAssignments.push(assignments[j]);
-            }
-          });
-        }
-
-        res.json({assignments: allAssignments});
       });
     }
     else {
