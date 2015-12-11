@@ -34,7 +34,11 @@ var Register = React.createClass({
         return this.setState({
           error: true
         });
-      this.history.pushState(null, '/studentassignments/late');
+      if(auth.getType()=="instructor"){
+        this.history.pushState(null, '/instructorassignments/late');
+      }else{
+        this.history.pushState(null, '/studentassignments/late');
+      }
     }.bind(this));
   },
 
