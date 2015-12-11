@@ -30,7 +30,20 @@ var StudentLateAssignments = React.createClass({
 					return false;
 				}
 				else{
-					return true;
+					var today = new Date();
+					var dueDate = Date.parse(assignment.dueDate);
+					console.log("unformatted:");
+					console.log(dueDate);
+					if(dueDate < today.getUTCDate()){
+						console.log("today:");
+						console.log(today);
+						console.log("due:");
+						console.log(dueDate);
+						console.log("< compare");
+						console.log(dueDate<today);
+							return true;
+					}
+					return false;
 				}
 			});
 			this.setState({displayedData: assignmentData});
