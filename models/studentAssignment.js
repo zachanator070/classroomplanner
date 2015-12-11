@@ -13,6 +13,7 @@ subject: String,
   completed: Boolean,
   dateSubmitted: {type: Date, default: Date.now},
   student: String,
+  instructor: String
 });
 
 // ensure schemas use virtual IDs

@@ -231,7 +231,8 @@ app.post('/api/assignments', function (req,res) {
                                         dueDate: assignment.dueDate,
                                         expDate: assignment.expirationDate,
                                         completed: 'false', dateSubmitted: '',
-                                        student: users[i].name}, function(err, studentAssignment) {
+                                        student: users[i].name,
+                                        instructor: assignment.instructor}, function(err, studentAssignment) {
                                             return;
                                         });
                                     }
@@ -299,6 +300,30 @@ app.delete('/api/assignments/:assignment_title', function (req,res) {
 //
 // Student Assignment urls
 //
+// get all assignments for the user
+app.get('/api/studentAssignmentsByInstructor', function (req,res) {
+
+  // validate the supplied token
+  user = User.verifyToken(req.headers.authorization, function(user) {
+    if (user) {
+
+      // if the token is valid, then find the requested item
+      StudentAssignment.find({"instructor":user.name}, function(err, assignments) {
+        if (err) {
+          res.sendStatus(403);
+          return;
+        }
+
+        // return value is the list of assignments as JSON
+        res.json({assignment: assignments});
+      });
+    }
+    else {
+      res.sendStatus(403);
+    }
+  });
+});
+
 
 // get all assignments for the user
 app.get('/api/studentAssignments', function (req,res) {

@@ -11,19 +11,37 @@ var SortableTable = require('./sortable-table.js');
 var InstructorCurrentAssignments = React.createClass({
 
 	getInitialState: function() {
+		//this.reloadAssignments();
         // var assignments will be replaced with api call
-		var assignments =  [
-		      { title: "Read pg 12, ex 1-10", subject: "English 7" , student: "Billy Bob", dueDate: "11/12/15", expDate: "11/22/2015", submissions: '0', done: 'false'},
-		      { title: "Read pg 18, ex 91-100", subject: "Math 7" , student: "Billy Bob", dueDate: "11/13/15", expDate: "11/23/2015", submissions: '1', done: 'true'},
-		      { title: "Read pg 98, ex 4-8", subject: "Reading 7" , student: "Sally Sue", dueDate: "11/14/15", expDate: "11/24/2015", submissions: '0', done: 'false'},
-		      { title: "Read pg 33, ex 1-5", subject: "English 7" , student: "Sally Sue", dueDate: "11/15/15", expDate: "11/25/2015", submissions: '1', done: 'true'}
-		];
+        var assignments = api.getStudentAssignmentsByInstructor(localStorage.name);
+        console.log('here we go');
+        console.log(assignments);
+		// var assignments =  [
+		//       { title: "Read pg 12, ex 1-10", subject: "English 7" , student: "Billy Bob", dueDate: "11/12/15", expDate: "11/22/2015", submissions: '0', done: 'false'},
+		//       { title: "Read pg 18, ex 91-100", subject: "Math 7" , student: "Billy Bob", dueDate: "11/13/15", expDate: "11/23/2015", submissions: '1', done: 'true'},
+		//       { title: "Read pg 98, ex 4-8", subject: "Reading 7" , student: "Sally Sue", dueDate: "11/14/15", expDate: "11/24/2015", submissions: '0', done: 'false'},
+		//       { title: "Read pg 33, ex 1-5", subject: "English 7" , student: "Sally Sue", dueDate: "11/15/15", expDate: "11/25/2015", submissions: '1', done: 'true'}
+		// ];
+		// data and displayedData should be initialized to 
 		return {
-		      data: assignments,
-		      displayedData: assignments,
+		      data: [],
+		      displayedData: [],
 		      studentSelected: '--Student--',
-		      subjectSelected: '--Subject--'
+		      subjectSelected: '--Subject--',
+		      students: []
 		};
+	},
+	reloadAssignments: function() {
+
+		api.getStudents( function(success, res) {
+
+			var studData = res.users.map(function(student) {
+				return { name: student.name, password: student.password };
+			});
+			console.log(studData); //TEMP
+			this.setState({data: studData});
+			return;
+		}.bind(this));
 	},
 	filterData: function(studentSelected, subjectSelected) {
 		var filtered = this.state.data;
