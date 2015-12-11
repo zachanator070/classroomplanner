@@ -44,10 +44,10 @@ var App = React.createClass({
         if(this.state.type==="instructor"){
           links = (
             <ul className="nav navbar-nav">
-              <li><a href="#/subjectmanager/viewall">Subject Manager</a></li>
-              <li><a href="#/assignmentmanager/viewall">Assignment Manager</a></li>
-              <li><a href="#/studentmanager/viewall">Student Manager</a></li>
               <li><a href="#/instructorassignments/late">Student Assignments</a></li>
+              <li><a href="#/subjectmanager/viewall">Subject Manager</a></li>
+              <li><a href="#/studentmanager/viewall">Student Manager</a></li>
+              <li><a href="#/assignmentmanager/viewall">Assignment Manager</a></li>
               <li><a href="#" onClick={this.logout}>Logout</a></li>
             </ul>
           );

@@ -27,18 +27,21 @@ var InstructorCurrentAssignments = React.createClass({
 		api.getStudentAssignmentsForInstructor(function(success, res) {
 			var assignmentData = res.assignments.map(function(assignment) {
 
+				var complete = "no";
+				if(assignment.completed){
+					complete = "yes";
+				}
+
 				return {
 					title:assignment.title,
 					subject:assignment.subject,
 					student: assignment.student,
 					dueDate:assignment.dueDate,
 					expDate: assignment.expDate,
-					completed:assignment.completed };
+					completed:complete };
 			});
-			console.log('before we setSTate');
-			console.log(assignmentData);
+
 			this.setState({data: assignmentData, displayedData: assignmentData});
-			return;
 		}.bind(this));
 
 		api.getSubjects(localStorage.name, function(success, res) {
