@@ -35,7 +35,7 @@ var StudentCurrentAssignments = React.createClass({
 			});
 
 			assignmentData = assignmentData.filter(function(assignment){
-				if(assignment.completed){
+				if(assignment.completed == 'yes'){
 					return false;
 				}
 				else{

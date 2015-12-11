@@ -25,10 +25,13 @@ var StudentCompletedAssignments = React.createClass({
 						complete = "yes";
 					}
 
+					var dueDateStrings = assignment.dueDate.split("-");
+					var formatedDueDate = dueDateStrings[0]+"-"+dueDateStrings[1]+"-"+dueDateStrings[2].split("T")[0]; // year-month-day
+
 					return {
 						title:assignment.title,
 						subject:assignment.subject,
-						dueDate:assignment.dueDate,
+						dueDate:formatedDueDate,
 						completed:complete };
 				});
 

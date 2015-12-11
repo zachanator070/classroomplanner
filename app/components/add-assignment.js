@@ -40,9 +40,11 @@ var AddAssignment = React.createClass({
 		this.setState({subject: selected});
 	},
 	handleDueDateChange: function(event) {
+				
 		this.setState({dueDate: event.target.value});
 	},
 	handleExpDateChange: function(event) {
+
 		this.setState({expDate: event.target.value});
 	},
 	createAssignment: function() {
@@ -50,19 +52,11 @@ var AddAssignment = React.createClass({
 			console.log('what is it??');
 			console.log(this.state.subject); //TEMP
 			if(this.state.subject !== '--Choose Subject--') {
+				console.log('what is the exp date? ' + this.state.expDate);
 				api.addAssignment(this.state.subject, this.state.title, this.state.dueDate, this.state.expDate, function() {
 					return;
 				});
 				console.log("Assignment \"" + this.state.title + "\" was created"); //TEMP
-
-				// api.getStudents( function(success, res) {
-
-				// 	var studData = res.users.map(function(student) {
-				// 		return { name: student.name, password: student.password };
-				// 	});
-				// 	this.setState({data: studData});
-				// 	return;
-				// }.bind(this));
 
 				this.setState({title: '', subject: '--Choose Subject--', dueDate: '', expDate: ''});
 			}

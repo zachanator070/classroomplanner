@@ -32,13 +32,34 @@ var InstructorCurrentAssignments = React.createClass({
 					complete = "yes";
 				}
 
+				var dueDateStrings = assignment.dueDate.split("-");
+				var formatedDueDate = dueDateStrings[0]+"-"+dueDateStrings[1]+"-"+dueDateStrings[2].split("T")[0]; // year-month-day
+				var expDateStrings = assignment.expDate.split("-");
+				var formatedExpDate = expDateStrings[0]+"-"+expDateStrings[1]+"-"+expDateStrings[2].split("T")[0]; // year-month-day
+
 				return {
 					title:assignment.title,
 					subject:assignment.subject,
 					student: assignment.student,
-					dueDate:assignment.dueDate,
-					expDate: assignment.expDate,
+					dueDate:formatedDueDate,
+					expDate: formatedExpDate,
 					completed:complete };
+			});
+
+			assignmentData = assignmentData.filter(function(assignment){
+
+				var today = new Date();
+				var expDate = new Date(assignment.expDate);
+
+				if(assignment.completed == 'yes') {
+					console.log('assignment completed');
+					return false;
+				}
+				if(expDate > today) {
+					console.log('expiration hasnt date passed');
+					return false;
+				}
+				return true;
 			});
 
 			this.setState({data: assignmentData, displayedData: assignmentData});

@@ -21,7 +21,13 @@ var ViewAssignments = React.createClass({
         api.getAssignments(function(success, res) {
 
             var assignmentData = res.assignments.map(function(assignment) {
-                return { title: assignment.title, subject: assignment.subject, dueDate: assignment.dueDate, expDate: assignment.expDate };
+
+                var dueDateStrings = assignment.dueDate.split("-");
+                var formatedDueDate = dueDateStrings[0]+"-"+dueDateStrings[1]+"-"+dueDateStrings[2].split("T")[0]; // year-month-day
+                var expDateStrings = assignment.expDate.split("-");
+                var formatedExpDate = expDateStrings[0]+"-"+expDateStrings[1]+"-"+expDateStrings[2].split("T")[0]; // year-month-day
+
+                return { title: assignment.title, subject: assignment.subject, dueDate: formatedDueDate, expDate: formatedExpDate };
             });
             this.setState({data: assignmentData});
             return;

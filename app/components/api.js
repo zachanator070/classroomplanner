@@ -151,7 +151,7 @@ var api = {
   },
 
   // add an assignment for a subject, call the callback when complete
-  addAssignment: function(subject, title, dueDate, expirationDate, cb) {
+  addAssignment: function(subject, title, dueDate, expDate, cb) {
     var url = "/api/assignments";
     $.ajax({
       url: url,
@@ -161,7 +161,7 @@ var api = {
           'subject':subject,
           'title': title,
           'dueDate':dueDate,
-          'expirationDate': expirationDate,
+          'expDate': expDate,
           'instructor': localStorage.name
         }
       }),
@@ -193,7 +193,7 @@ var api = {
           title: assignment.title,
           subject: assignment.subject,
           dueDate: assignment.dueDate,
-          expirationDate: assignment.expirationDate
+          expDate: assignment.expDate
         }
       }),
       type: 'PUT',

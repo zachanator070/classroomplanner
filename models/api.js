@@ -212,7 +212,7 @@ app.post('/api/assignments', function (req,res) {
       Assignment.create({subject:req.body.assignment.subject,
                           title:req.body.assignment.title,
                           dueDate:req.body.assignment.dueDate,
-                          expirationDate:req.body.assignment.expirationDate,
+                          expDate:req.body.assignment.expDate,
                           instructor: req.body.assignment.instructor},
                            function(err,assignment) {
                             	if (err) {
@@ -229,7 +229,7 @@ app.post('/api/assignments', function (req,res) {
                                         title: assignment.title,
                                         subject: assignment.subject,
                                         dueDate: assignment.dueDate,
-                                        expDate: assignment.expirationDate,
+                                        expDate: assignment.expDate,
                                         completed: 'false', dateSubmitted: '',
                                         student: users[i].name,
                                         instructor: assignment.instructor}, function(err, studentAssignment) {
@@ -261,7 +261,7 @@ app.put('/api/assignments/:assignment_id', function (req,res) {
         assignment.title = req.body.assignment.title;
         assignment.subject = req.body.assignment.subject;
         assignment.dueDate = req.body.assignment.dueDate;
-        assignment.expirationDate = req.body.assignment.expirationDate;
+        assignment.expDate = req.body.assignment.expDate;
 
         assignment.save(function(err) {
       	  if (err) {
