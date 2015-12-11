@@ -70,6 +70,23 @@ app.post('/api/users/login', function (req, res) {
   });
 });
 
+// updateStudent
+app.post('/api/users/:student_name',function(req,res){
+
+  User.update({name: req.params.student_name}, {$set: {subjects: req.body.student.subjects}}, function(err, user) {
+      if(user) {
+        if (err) {
+          res.sendStatus(403);
+          return;
+        }
+        // return value is the list of users as JSON
+        res.json({user: user});
+    } else {
+      res.sendStatus(403);
+    }
+  });
+});
+
 // addStudent
 app.put('/api/users/:userName',function(req,res){
 
@@ -92,6 +109,27 @@ app.put('/api/users/:userName',function(req,res){
     } else {
       // return an error if the username is taken
       res.sendStatus("403");
+    }
+  });
+});
+
+// getStudent
+app.get('/api/users/:student_name', function (req, res) {
+  // validate the supplied token
+  user = User.verifyToken(req.headers.authorization, function(user) {
+    if (user) {
+      // if the token is valid, then find the requested item
+      User.find({name: req.params.student_name}, function(err, user) {
+
+        if (err) {
+          res.sendStatus(403);
+          return;
+        }
+        // return value is the list of users as JSON
+        res.json({user: user});
+        });
+    } else {
+      res.sendStatus(403);
     }
   });
 });

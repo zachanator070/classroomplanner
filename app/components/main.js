@@ -14,6 +14,7 @@ var Register = require("./register.js");
 
 var ViewStudents = require('./view-students.js');
 var AddStudent = require('./add-student.js');
+var SubjectSelector = require('./subject-selector.js');
 
 var ViewSubjects = require('./view-subjects.js');
 var AddSubject = require('./add-subject.js');
@@ -42,6 +43,7 @@ var routes = (
       // Our code below
       <Route path="/studentmanager/viewall" component={ViewStudents} />
       <Route path="/studentmanager/add" component={AddStudent} />
+      <Route path="/studentmanager/subjectselector" component={SubjectSelector} />
 
       <Route path="/subjectmanager/viewall" component={ViewSubjects} />
       <Route path="/subjectmanager/add" component={AddSubject} />

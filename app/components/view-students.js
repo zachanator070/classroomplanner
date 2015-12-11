@@ -40,7 +40,8 @@ var ViewStudents = React.createClass({
 		var tabs = {
 			tabData: [
 				{tabName: "View Students", tabLink: "#/studentmanager/viewall", active: true},
-				{tabName: "Add Students", tabLink: "#/studentmanager/add", active: false}
+				{tabName: "Add Students", tabLink: "#/studentmanager/add", active: false},
+				{tabName: "Subject Selector", tabLink: "#/studentmanager/subjectselector", active: false}
 			],
 		};
 

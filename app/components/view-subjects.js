@@ -17,11 +17,9 @@ var ViewSubjects = React.createClass({
 	},
 	reloadSubjects: function() {
 		api.getSubjects(localStorage.name, function(success, res) {
-			console.log('succes in reloadSubjects? ' + success);
 			var subjectData = res.subjects.map(function(subject) {
 				return { subject: subject.name };
 			});
-			console.log("SubjectData: " + subjectData); //TEMP
 			this.setState({data: subjectData});
 			return;
 		}.bind(this));

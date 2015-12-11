@@ -121,10 +121,6 @@
 padding-bottom: 15px;
 }
 
-input[type="radio"], input[type="checkbox"] {
-    display: none;
-}
-
 .form-control {
     height: 24px !important;
     padding: 3px 6px !important;
