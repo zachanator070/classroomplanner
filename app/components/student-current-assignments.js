@@ -16,7 +16,7 @@ var StudentCurrentAssignments = React.createClass({
 				return {displayedData:[]};
 	},
 	reloadAssignments: function() {
-		api.getStudentAssignments(localStorage.name, function(success, res) {
+		api.getStudentAssignments( function(success, res) {
 			var assignmentData = res.assignments.map(function(assignment) {
 
 				var strings = assignment.dueDate.split("-");
