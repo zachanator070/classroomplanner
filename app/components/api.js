@@ -319,8 +319,8 @@ var api = {
       data: JSON.stringify({
         assignment: {
           assignmentName: assignment.assignmentName,
-          completed: assignment.completed,
-          timeSubmitted: assignment.timeSubmitted,
+          completed: true,
+          timeSubmitted: "2015-12-11T00:00:00.000Z",
           student: assignment.student
         }
       }),

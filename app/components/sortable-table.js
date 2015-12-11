@@ -140,7 +140,7 @@ var SortableTable = React.createClass({
         return (
             <table className="table table-striped table-bordered filledTable table-hover" style={this.props.style}>
                 <SortableTableHeader columns={this.props.columns} sortings={this.state.sortings} onStateChange={this.onStateChange} iconStyle={this.props.iconStyle} />
-                <SortableTableBody columns={this.props.columns} data={sortedData} sortings={this.state.sortings} removeRow={this.props.removeRow}  />
+                <SortableTableBody columns={this.props.columns} data={sortedData} sortings={this.state.sortings} removeRow={this.props.removeRow}  checkBox={this.props.checkBox}/>
             </table>
         );
     }

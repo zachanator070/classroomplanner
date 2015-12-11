@@ -225,7 +225,9 @@ app.post('/api/assignments', function (req,res) {
                               console.log(assignment.subject);
                                 User.find({instructor: assignment.instructor, subjects: assignment.subject}, function(err, users) {
                                     for(var i = 0; i < users.length ; i++ ){
-                                      StudentAssignment.findOrCreate({title: assignment.title,
+                                      StudentAssignment.findOrCreate({
+                                        title: assignment.title,
+                                        subject: assignment.subject,
                                         dueDate: assignment.dueDate,
                                         expDate: assignment.expirationDate,
                                         completed: 'false', dateSubmitted: '',
@@ -321,7 +323,7 @@ app.get('/api/studentAssignments', function (req,res) {
         console.log("assignments:"+toType(assignments));
 
         // return value is the list of assignments as JSON
-        res.json({assignment: assignments});
+        res.json({assignments: assignments});
       });
     }
     else {
