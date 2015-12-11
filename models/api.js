@@ -220,6 +220,20 @@ app.post('/api/assignments', function (req,res) {
                             	  res.sendStatus(403);
                             	  return;
                             	}
+                              console.log('User.find params');
+                              console.log(assignment.instructor);
+                              console.log(assignment.subject);
+                                User.find({instructor: assignment.instructor, subjects: assignment.subject}, function(err, users) {
+                                    for(var i = 0; i < users.length ; i++ ){
+                                      StudentAssignment.findOrCreate({title: assignment.title, 
+                                        dueDate: assignment.dueDate, 
+                                        expDate: assignment.expirationDate, 
+                                        completed: 'false', dateSubmitted: '', 
+                                        student: users[i].name}, function(err, studentAssignment) {
+                                            return;
+                                        });
+                                    }
+                                });
                             	res.json({assignment:assignment});
                             });
     } else {

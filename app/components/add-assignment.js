@@ -54,6 +54,16 @@ var AddAssignment = React.createClass({
 					return;
 				});
 				console.log("Assignment \"" + this.state.title + "\" was created"); //TEMP
+
+				// api.getStudents( function(success, res) {
+
+				// 	var studData = res.users.map(function(student) {
+				// 		return { name: student.name, password: student.password };
+				// 	});
+				// 	this.setState({data: studData});
+				// 	return;
+				// }.bind(this));
+
 				this.setState({title: '', subject: '--Choose Subject--', dueDate: '', expDate: ''});
 			}
 		}

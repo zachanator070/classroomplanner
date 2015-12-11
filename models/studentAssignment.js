@@ -6,9 +6,12 @@ var findOrCreate = require('mongoose-findorcreate')
 
 // Assignment schema
 var assignmentSchema = new Schema({
-  assignmentName: String,
+subject: String,
+  title: String,
+  dueDate: {type: Date, default: Date.now},
+  expDate: {type: Date, default: Date.now},
   completed: Boolean,
-  timeSubmitted: {type: Date, default: Date.now},
+  dateSubmitted: {type: Date, default: Date.now},
   student: String,
 });
 
