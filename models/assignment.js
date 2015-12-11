@@ -10,7 +10,6 @@ var assignmentSchema = new Schema({
   title: String,
   dueDate: {type: Date, default: Date.now},
   expDate: {type: Date, default: Date.now},
-  instructor: String
 });
 
 // ensure schemas use virtual IDs

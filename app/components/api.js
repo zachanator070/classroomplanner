@@ -136,7 +136,7 @@ var api = {
       url: url,
       dataType: 'json',
       type: 'GET',
-      headers: {'Authorization': localStorage.token},
+      headers: {'Authorization': localStorage.token, 'Subject':subject},
       success: function(res) {
         if (cb)
           cb(true, res);

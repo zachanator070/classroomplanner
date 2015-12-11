@@ -186,7 +186,7 @@ app.get('/api/assignments', function (req,res) {
   user = User.verifyToken(req.headers.authorization, function(user) {
     if (user) {
       // if the token is valid, then find the requested item
-      Assignment.find({instructor:user.name}, function(err, assignments) {
+      Assignment.find({subject:req.headers.subject}, function(err, assignments) {
         if (err) {
           res.sendStatus(403);
           return;
@@ -212,8 +212,7 @@ app.post('/api/assignments', function (req,res) {
       Assignment.create({subject:req.body.assignment.subject,
                           title:req.body.assignment.title,
                           dueDate:req.body.assignment.dueDate,
-                          expirationDate:req.body.assignment.expirationDate,
-                          instructor:user.name},
+                          expirationDate:req.body.assignment.expirationDate},
                            function(err,assignment) {
                             	if (err) {
                                   console.log('error here!!!'); //TEMP
@@ -443,7 +442,7 @@ app.delete('/api/subjects/:subject_name', function (req,res) {
   user = User.verifyToken(req.headers.authorization, function(user) {
     if (user) {
       // if the token is valid, then find the requested subject and remove it
-      Subject.find({ name: req.params.subject_name }).remove( function(err,subject) {
+      Subject.find({ name: req.params.subject_name }).remove( function(err,subject) {  
       	if (err) {
       	  res.sendStatus(403);
       	  return;

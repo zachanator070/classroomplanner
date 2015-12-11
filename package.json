@@ -10,16 +10,13 @@
     "express": "~4.12.4",
     "history": "^1.13.1",
     "jquery": "^2.1.4",
-    "jquery-ui": "^1.10",
     "jsonwebtoken": "~5.0.1",
     "mongoose": "~4.0.3",
     "mongoose-findorcreate": "~0.1.2",
     "react": "^0.14.2",
     "react-dom": "^0.14.2",
     "react-router": "^1.0.0",
-    "url-loader": "~0.5.7",
-    "react-datepicker": "^0.15.2",
-    "moment":"^1.0"
+    "url-loader": "~0.5.7"
   },
   "devDependencies": {
     "babel-core": "^6.1.21",

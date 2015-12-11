@@ -1,14 +1,6 @@
 var React = require('react');
 var ReactRouter = require("react-router");
 
-var DatePicker = require("react-datepicker");
-var moment = require('moment');
-
-require('react-datepicker/dist/react-datepicker.css');
-
-var $ = require("jquery");
-var ui = require("jquery-ui")
-
 var api = require("./api.js");
 
 var TabBar = require('./tab-bar');
@@ -85,10 +77,10 @@ var AddAssignment = React.createClass({
 						<div className="form-group">
 							<label htmlFor="inputDueDate" className="col-sm-2 control-label">Due Date</label>
 							<div className="col-sm-10">
-							<DatePicker
-								dateFormat="YYYY/MM/DD"
-								selected={this.state.startDate}
-								onChange={this.handleChange} />
+								<input type="date" className="form-control"
+									id="inputDueDate"
+									value={this.state.dueDate}
+									onChange={this.handleDueDateChange} />
 							</div>
 						</div>
 						<div className="form-group">
