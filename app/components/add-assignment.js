@@ -4,17 +4,40 @@ var ReactRouter = require("react-router");
 var api = require("./api.js");
 
 var TabBar = require('./tab-bar');
+var Dropdown = require('./dropdown.js');
 
 var AddAssignment = React.createClass({
 
-	getInitialState: function() {
-		return {title: '', subject: '', dueDate: '', expDate: ''};
+	getInitialState: function () {
+
+		this.reloadSubjects();
+		return {
+			title: '',
+			subject: '--Choose Subject--',
+			dueDate: '',
+			expDate: '',
+		    	subjects: []
+		};
 	},
+	reloadSubjects: function() {
+
+		api.getSubjects(localStorage.name, function(success, res) {
+			var subjectData = [];
+			subjectData.push('--Choose Subject--');
+			res.subjects.map(function(subject) {
+				subjectData.push(subject.name);
+			});
+			this.setState({subjects: subjectData});
+			return;
+		}.bind(this));
+	},
+
 	handleTitleChange: function(event) {
 		this.setState({title: event.target.value});
 	},
-	handleSubjectChange: function(event) {
-		this.setState({subject: event.target.value});
+	handleSubjectChange: function(selected) {
+		console.log(selected);
+		this.setState({subject: selected});
 	},
 	handleDueDateChange: function(event) {
 		this.setState({dueDate: event.target.value});
@@ -24,15 +47,15 @@ var AddAssignment = React.createClass({
 	},
 	createAssignment: function() {
 		if(this.state.title && this.state.subject && this.state.dueDate && this.state.expDate) {
-
-			api.addAssignment(this.state.subject, this.state.title, this.state.dueDate, this.state.expDate, function() {
-				return;
-			});
-			console.log("Assignment \"" + this.state.title + "\" was created"); //TEMP
-			this.setState({title: ''});
-			this.setState({subject: ''});
-			this.setState({dueDate: ''});
-			this.setState({expDate: ''});
+			console.log('what is it??');
+			console.log(this.state.subject); //TEMP
+			if(this.state.subject !== '--Choose Subject--') {
+				api.addAssignment(this.state.subject, this.state.title, this.state.dueDate, this.state.expDate, function() {
+					return;
+				});
+				console.log("Assignment \"" + this.state.title + "\" was created"); //TEMP
+				this.setState({title: '', subject: '--Choose Subject--', dueDate: '', expDate: ''});
+			}
 		}
 	},
 	render: function() {
@@ -67,11 +90,9 @@ var AddAssignment = React.createClass({
 						<div className="form-group">
 							<label htmlFor="inputSubject" className="col-sm-2 control-label">Subject</label>
 							<div className="col-sm-10">
-								<input type="text" className="form-control"
-									id="inputSubject"
-									placeholder="Subject"
-									value={this.state.subject}
-									onChange={this.handleSubjectChange} />
+								<Dropdown title={this.state.subject}
+									items={this.state.subjects}
+									itemSelected={this.handleSubjectChange} />
 							</div>
 						</div>
 						<div className="form-group">
@@ -96,7 +117,7 @@ var AddAssignment = React.createClass({
 							<div className="col-sm-offset-2 col-sm-10">
 								<button className="btn btn-default"
 									type="submit"
-									disabled={!this.state.title || !this.state.subject || !this.state.dueDate || !this.state.expDate}
+									disabled={!this.state.title || !this.state.subject || !this.state.dueDate || !this.state.expDate || (this.state.subject == '--Choose Subject--')}
 									onClick={this.createAssignment} >
 									Create
 								</button>

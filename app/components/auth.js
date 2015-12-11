@@ -98,6 +98,7 @@ var auth = {
   logout: function(cb) {
     delete localStorage.token;
     delete localStorage.type;
+    delete localStorage.name;
     this.onChange(false,null);
     if (cb) cb();
   },

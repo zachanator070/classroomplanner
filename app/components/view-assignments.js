@@ -18,13 +18,6 @@ var ViewAssignments = React.createClass({
     },
     reloadAssignments: function() {
 
-        api.getAssignments(function(success, response) {
-
-            this.state.allAssignments.push(singleAssignment);
-            this.setState({data: this.state.allAssignments, allAssignments: []});
-        }.bind(this));
-
-
         api.getAssignments(function(success, res) {
 
             var assignmentData = res.assignments.map(function(assignment) {
