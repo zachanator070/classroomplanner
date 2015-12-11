@@ -16,41 +16,47 @@ var StudentLateAssignments = React.createClass({
 	},
 	reloadAssignments: function() {
 		api.getStudentAssignments(localStorage.name, function(success, res) {
-			var assignmentData = res.assignments.map(function(assignment) {
+			if(success){
+				var assignmentData = res.assignments.map(function(assignment) {
 
-				return {
-					title:assignment.title,
-					subject:assignment.subject,
-					dueDate:assignment.dueDate,
-					completed:assignment.completed };
-			});
+					var strings = assignment.dueDate.split("-");
 
-			assignmentData = assignmentData.filter(function(assignment){
-				if(assignment.completed){
-					return false;
-				}
-				else{
-					var today = new Date();
-					var dueDate = Date.parse(assignment.dueDate);
-					console.log("unformatted:");
-					console.log(dueDate);
-					if(dueDate < today.getUTCDate()){
-						console.log("today:");
-						console.log(today);
-						console.log("due:");
-						console.log(dueDate);
-						console.log("< compare");
-						console.log(dueDate<today);
-							return true;
+					var year = strings[0];
+					var month = strings[1];
+					var day = strings[2].split("T")[0];
+
+					var formatedDate = year+"-"+month+"-"+day;
+
+					return {
+						title:assignment.title,
+						subject:assignment.subject,
+						dueDate:formatedDate,
+						completed:assignment.completed };
+				});
+
+				assignmentData = assignmentData.filter(function(assignment){
+					if(assignment.completed){
+						return false;
 					}
-					return false;
-				}
-			});
-			this.setState({displayedData: assignmentData});
-			return;
+					else{
+
+						var today = new Date();
+						var dueDate = new Date(assignment.dueDate);
+
+						if(dueDate < today){
+								return true;
+						}
+
+						return false;
+					}
+				});
+				this.setState({displayedData: assignmentData});
+				return;
+			}
 		}.bind(this));
 	},
 	markCompleted:function(assignment){
+		console.log(assignment);
 		api.updateStudentAssignment(assignment, this.reloadAssignments);
 	},
 

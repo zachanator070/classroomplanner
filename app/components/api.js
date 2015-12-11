@@ -332,17 +332,16 @@ var api = {
 
   // update a student's assignment, call the callback when complete
   updateStudentAssignment: function(assignment, cb) {
-    var url = "/api/assignments/"+assignment._id;
+    var url = "/api/studentassignments";
+    var now = new Date();
     $.ajax({
       url: url,
       contentType: 'application/json',
       data: JSON.stringify({
-        assignment: {
-          assignmentName: assignment.assignmentName,
           completed: true,
-          timeSubmitted: "2015-12-11T00:00:00.000Z",
-          student: assignment.student
-        }
+          dateSubmitted: {now},
+          student: localStorage.name,
+          title: assignment.title,
       }),
       type: 'PUT',
       headers: {'Authorization': localStorage.token},

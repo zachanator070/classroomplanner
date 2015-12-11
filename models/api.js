@@ -410,21 +410,19 @@ app.post('/api/studentAssignments', function (req,res) {
 });
 
 // update an assignment
-app.put('/api/studentAssignments/:assignment_id', function (req,res) {
+app.put('/api/studentAssignments', function (req,res) {
   // validate the supplied token
   user = User.verifyToken(req.headers.authorization, function(user) {
     if (user) {
       // if the token is valid, then find the requested assignment
-      StudentAssignment.findById(req.params.assignment_id, function(err,assignment) {
+      StudentAssignment.findOne({title:req.body.title,student:req.body.student}, function(err,assignment) {
         if (err) {
           res.sendStatus(403);
           return;
         }
 
-        assignment.assignmentName = req.body.assignment.assignmentName;
-        assignment.completed = req.body.assignment.completed;
-        assignment.timeSubmitted = req.body.assignment.timeSubmitted;
-        assignment.student = req.body.assignment.student;
+        assignment.completed = req.body.completed;
+        assignment.timeSubmitted = req.body.timeSubmitted;
 
         assignment.save(function(err) {
       	  if (err) {

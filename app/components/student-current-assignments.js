@@ -19,10 +19,18 @@ var StudentCurrentAssignments = React.createClass({
 		api.getStudentAssignments(localStorage.name, function(success, res) {
 			var assignmentData = res.assignments.map(function(assignment) {
 
+				var strings = assignment.dueDate.split("-");
+
+				var year = strings[0];
+				var month = strings[1];
+				var day = strings[2].split("T")[0];
+
+				var formatedDate = year+"-"+month+"-"+day
+
 				return {
 					title:assignment.title,
 					subject:assignment.subject,
-					dueDate:assignment.dueDate,
+					dueDate:formatedDate,
 					completed:assignment.completed };
 			});
 
@@ -31,6 +39,13 @@ var StudentCurrentAssignments = React.createClass({
 					return false;
 				}
 				else{
+					var today = new Date();
+					var dueDate = new Date(assignment.dueDate);
+
+					if(dueDate < today){
+							return false;
+					}
+
 					return true;
 				}
 			});
@@ -40,6 +55,7 @@ var StudentCurrentAssignments = React.createClass({
 	},
 	markCompleted:function(assignment){
 		api.updateStudentAssignment(assignment, this.reloadAssignments);
+		console.log(assignment);
 	},
 
 	render: function() {
