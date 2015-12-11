@@ -91,8 +91,7 @@ var SubjectSelector = React.createClass({
 		        <form key={i}>
 				<label><input
 		            type="checkbox"
-		            defaultChecked="false"
-								checked={this.state.checkboxes.indexOf(subData.subject) != -1}
+				defaultChecked={this.state.checkboxes.indexOf(subData.subject) != -1}
 		            value={subData.subject}
 		            onChange={this.handleCheckboxChange}
 		            ref={subData.subject}/>{subData.subject}</label>< br/>
