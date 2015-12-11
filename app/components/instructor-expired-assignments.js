@@ -8,22 +8,56 @@ var TabBar = require('./tab-bar');
 var Dropdown = require('./dropdown.js');
 var SortableTable = require('./sortable-table.js');
 
-var InstructorExpiredAssignments = React.createClass({
+var InstructorCurrentAssignments = React.createClass({
 
 	getInitialState: function() {
-        // var assignments will be replaced with api call
-		var assignments =  [
-		      { title: "Read pg 12, ex 1-10", subject: "English 7" , student: "Billy Bob", dueDate: "11/12/15", expDate: "11/22/2015", submissions: '0', done: 'false'},
-		      { title: "Read pg 18, ex 91-100", subject: "Math 7" , student: "Billy Bob", dueDate: "11/13/15", expDate: "11/23/2015", submissions: '1', done: 'true'},
-		      { title: "Read pg 98, ex 4-8", subject: "Reading 7" , student: "Sally Sue", dueDate: "11/14/15", expDate: "11/24/2015", submissions: '0', done: 'false'},
-		      { title: "Read pg 33, ex 1-5", subject: "English 7" , student: "Sally Sue", dueDate: "11/15/15", expDate: "11/25/2015", submissions: '1', done: 'true'}
-		];
+
+		this.reloadAssignments();
+
 		return {
-		      data: assignments,
-		      displayedData: assignments,
+		      data: [],
+		      displayedData: [],
 		      studentSelected: '--Student--',
-		      subjectSelected: '--Subject--'
+		      subjectSelected: '--Subject--',
+		      students: [],
+		      subjects: []
 		};
+	},
+	reloadAssignments: function() {
+		api.getStudentAssignmentsForInstructor(function(success, res) {
+			var assignmentData = res.assignments.map(function(assignment) {
+
+				return {
+					title:assignment.title,
+					subject:assignment.subject,
+					student: assignment.student,
+					dueDate:assignment.dueDate,
+					expDate: assignment.expDate,
+					completed:assignment.completed };
+			});
+			console.log('before we setSTate');
+			console.log(assignmentData);
+			this.setState({data: assignmentData, displayedData: assignmentData});
+			return;
+		}.bind(this));
+
+		api.getSubjects(localStorage.name, function(success, res) {
+			var subjectData = [];
+			subjectData.push('--Subject--');
+			res.subjects.map(function(subject) {
+				subjectData.push(subject.name);
+			});
+			this.setState({subjects: subjectData});
+		}.bind(this));
+
+		api.getStudents( function(success, res) {
+			var studData = [];
+			studData.push('--Student--');
+			res.users.map(function(student) {
+				studData.push(student.name);
+			});
+			this.setState({students: studData});
+		}.bind(this));
 	},
 	filterData: function(studentSelected, subjectSelected) {
 		var filtered = this.state.data;
@@ -68,36 +102,16 @@ var InstructorExpiredAssignments = React.createClass({
 	            { header: "Student", key: "student"},
 	            { header: "Due Date", key: "dueDate"},
 	            { header: "Expiration Date", key: "expDate"},
-	            { header: "Submissions", key: "submissions"},
-	            { header: "Done", key: "done"},
+	            { header: "Completed", key: "completed"},
         	];
-
-	      var subjectDropdown = {
-	            title: '--Subject--', //What should show up on the button to open/close the dropdown
-	            items: [ // List of items to show in the dropdown
-	            		'--Subject--',
-	            		'Math 7',
-	            		'English 7',
-	            		'Reading 7'
-	            ]
-	      };
-
-	      var studentDropdown = {
-	            title: '--Student--', //What should show up on the button to open/close the dropdown
-	            items: [ // List of items to show in the dropdown
-	            		'--Student--',
-	            		'Billy Bob',
-	             	'Sally Sue'
-	            ]
-	      };
 
 		return <div>
 			<TabBar  data={tabs} />
 
 				<div className="tabContent">
 					<div className="col-md-2 filterBy">Filter by:</div>
-					<div className="col-md-2 "><Dropdown title={subjectDropdown.title} items={subjectDropdown.items} itemSelected={this.handleSubjectDropdown} /></div>
-					<div className="col-md-2 "><Dropdown title={studentDropdown.title} items={studentDropdown.items} itemSelected={this.handleStudentDropdown} /></div>
+					<div className="col-md-2 "><Dropdown title={this.state.subjectSelected} items={this.state.subjects} itemSelected={this.handleSubjectDropdown} /></div>
+					<div className="col-md-2 "><Dropdown title={this.state.studentSelected} items={this.state.students} itemSelected={this.handleStudentDropdown} /></div>
 					<SortableTable data={this.state.displayedData} columns={columns} />
 				</div>
 
@@ -105,4 +119,4 @@ var InstructorExpiredAssignments = React.createClass({
 	}
 });
 
-module.exports = InstructorExpiredAssignments;
+module.exports = InstructorCurrentAssignments;
