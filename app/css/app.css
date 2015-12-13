@@ -87,9 +87,7 @@ body {
 
 .filterBy{
   width: 100px;
-  padding-left: 12px;
-  padding-top: 18px;
-  padding-right: 0px;
+  padding: 10px;
 }
 
 .login-button {

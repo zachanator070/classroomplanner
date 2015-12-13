@@ -9,18 +9,17 @@ var Dropdown = require('./dropdown.js');
 var AddAssignment = React.createClass({
 
 	getInitialState: function () {
-
-		this.reloadSubjects();
+		console.log("==> called getInitialState");
 		return {
 			title: '',
 			subject: '--Choose Subject--',
 			dueDate: '',
 			expDate: '',
-		    	subjects: []
+			subjects: []
 		};
 	},
-	reloadSubjects: function() {
-
+	componentWillMount: function() {
+		console.log("==> called componentDidMount");
 		api.getSubjects(localStorage.name, function(success, res) {
 			var subjectData = [];
 			subjectData.push('--Choose Subject--');
@@ -28,31 +27,29 @@ var AddAssignment = React.createClass({
 				subjectData.push(subject.name);
 			});
 			this.setState({subjects: subjectData});
-			return;
 		}.bind(this));
 	},
-
 	handleTitleChange: function(event) {
+		console.log("==> called handleTitleChange");
 		this.setState({title: event.target.value});
 	},
-	handleSubjectChange: function(selected) {
-		console.log(selected);
-		this.setState({subject: selected});
+	handleSubjectChange: function(event) {
+		console.log("==> called handleSubjectChange");
+		console.log(event.target.value);
+		this.setState({subject: event.target.value});
 	},
 	handleDueDateChange: function(event) {
-				
+		console.log("==> called handleDueDateChange");
 		this.setState({dueDate: event.target.value});
 	},
 	handleExpDateChange: function(event) {
-
+		console.log("==> called handleExpDateChange");
 		this.setState({expDate: event.target.value});
 	},
 	createAssignment: function() {
+		console.log("==> called createAssignment");
 		if(this.state.title && this.state.subject && this.state.dueDate && this.state.expDate) {
-			console.log('what is it??');
-			console.log(this.state.subject); //TEMP
 			if(this.state.subject !== '--Choose Subject--') {
-				console.log('what is the exp date? ' + this.state.expDate);
 				api.addAssignment(this.state.subject, this.state.title, this.state.dueDate, this.state.expDate, function() {
 					return;
 				});
@@ -63,7 +60,7 @@ var AddAssignment = React.createClass({
 		}
 	},
 	render: function() {
-
+		console.log("==> called render");
 		var tabs = {
 			tabData: [
 				{tabName: "View Assignments", tabLink: "#/assignmentmanager/viewall", active: false},
@@ -94,9 +91,9 @@ var AddAssignment = React.createClass({
 						<div className="form-group">
 							<label htmlFor="inputSubject" className="col-sm-2 control-label">Subject</label>
 							<div className="col-sm-10">
-								<Dropdown title={this.state.subject}
-									items={this.state.subjects}
-									itemSelected={this.handleSubjectChange} />
+								<Dropdown items={this.state.subjects}
+								 	selected={this.state.subject}
+								 	handleChange={this.handleSubjectChange} />
 							</div>
 						</div>
 						<div className="form-group">

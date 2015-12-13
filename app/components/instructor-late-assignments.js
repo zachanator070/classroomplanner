@@ -2,7 +2,6 @@ var React = require('react');
 var ReactRouter = require("react-router");
 
 var api = require("./api.js");
-var auth = require("./auth.js");
 
 var TabBar = require('./tab-bar');
 var Dropdown = require('./dropdown.js');
@@ -11,8 +10,6 @@ var SortableTable = require('./sortable-table.js');
 var InstructorCurrentAssignments = React.createClass({
 
 	getInitialState: function() {
-
-		this.reloadAssignments();
 
 		return {
 		      data: [],
@@ -23,7 +20,7 @@ var InstructorCurrentAssignments = React.createClass({
 		      subjects: []
 		};
 	},
-	reloadAssignments: function() {
+	componentWillMount: function() {
 		api.getStudentAssignmentsForInstructor(function(success, res) {
 			var assignmentData = res.assignments.map(function(assignment) {
 
@@ -52,17 +49,17 @@ var InstructorCurrentAssignments = React.createClass({
 				var dueDate = new Date(assignment.dueDate);
 				var expDate = new Date(assignment.expDate);
 
-				console.log(assignment.title);
+				//console.log(assignment.title);
 				if(assignment.completed == 'yes'){ // finished?
-					console.log('already completed');
+					//console.log('already completed');
 					return false;
 				}
 				if(dueDate > today) { //due date hasn't passed yet?
-					console.log('not due yet');
+					//console.log('not due yet');
 					return false;
 				}
 				if(expDate < today) { //assignment already expired?
-					console.log('expired');
+					//console.log('expired');
 					return false;
 				}
 				return true;
@@ -107,13 +104,13 @@ var InstructorCurrentAssignments = React.createClass({
 			subjectSelected: subjectSelected
 		});
 	},
-	handleSubjectDropdown: function(selected) {
-		console.log(selected);
-		this.filterData(this.state.studentSelected, selected);
+	handleSubjectDropdown: function(event) {
+		console.log(event.target.value);
+		this.filterData(this.state.studentSelected, event.target.value);
 	},
-	handleStudentDropdown: function(selected) {
-		console.log(selected);
-		this.filterData(selected, this.state.subjectSelected);
+	handleStudentChange: function(event) {
+		console.log(event.target.value);
+		this.filterData(event.target.value, this.state.subjectSelected);
 	},
 
 	render: function() {
@@ -137,14 +134,20 @@ var InstructorCurrentAssignments = React.createClass({
 
 		return <div>
 			<TabBar  data={tabs} />
-
 				<div className="tabContent">
 					<div className="col-md-2 filterBy">Filter by:</div>
-					<div className="col-md-2 "><Dropdown title={this.state.subjectSelected} items={this.state.subjects} itemSelected={this.handleSubjectDropdown} /></div>
-					<div className="col-md-2 "><Dropdown title={this.state.studentSelected} items={this.state.students} itemSelected={this.handleStudentDropdown} /></div>
+					<div className="col-md-2 ">
+						<Dropdown items={this.state.subjects}
+							selected={this.state.subjectSelected}
+							handleChange={this.handleSubjectChange} />
+					</div>
+					<div className="col-md-2 ">
+						<Dropdown items={this.state.students}
+							selected={this.state.studentSelected}
+							handleChange={this.handleStudentChange} />
+					</div>
 					<SortableTable data={this.state.displayedData} columns={columns} />
 				</div>
-
 		</div>
 	}
 });
